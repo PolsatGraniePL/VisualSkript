@@ -1,0 +1,25 @@
+Variables:
+    name: "Variables"
+    type: Structure
+    pattern:
+        - "variables"
+    description: "Used for defining variables present within a script. This section is not required, but it ensures that a variable has a value if it doesn't exist when the script is loaded."
+Alphanumeric:
+    name: "Alphanumeric"
+    type: Condition
+    pattern:
+        - "%texts% (is|are) alphanumeric"
+        - "%texts% (isn't|is not|aren't|are not) alphanumeric"
+    description: "Checks if the given string is alphanumeric."
+Absorbed blocks:
+    name: "Absorbed blocks"
+    type: Expression
+    pattern:
+        - "[the] absorbed blocks"
+    description: "The blocks absorbed by a sponge block."
+Affected Entities:
+    name: "Affected Entities"
+    type: Expression
+    pattern:
+        - "[the] affected entities"
+    description: "The affected entities in the area cloud effect event."
