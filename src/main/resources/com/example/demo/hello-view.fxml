@@ -7,7 +7,7 @@
 <BorderPane prefHeight="650.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.HelloController">
    <center>
        <!--dividerPositions="0.05"-->
-      <SplitPane fx:id="splitPanel" dividerPositions="0.2" prefHeight="363.0" prefWidth="603.0" BorderPane.alignment="CENTER">
+      <SplitPane fx:id="splitPanel" dividerPositions="0.05" prefHeight="363.0" prefWidth="603.0" BorderPane.alignment="CENTER">
          <items>
             <TabPane prefHeight="176.0" prefWidth="149.0" side="LEFT" tabClosingPolicy="UNAVAILABLE">
               <tabs>
@@ -71,7 +71,7 @@
                            </Separator>
                            <ScrollPane prefHeight="616.0" prefWidth="208.0" VBox.vgrow="ALWAYS">
                               <content>
-                                 <VBox fx:id="container" prefHeight="588.0" prefWidth="211.0">
+                                 <VBox fx:id="container">
                                     <opaqueInsets>
                                        <Insets />
                                     </opaqueInsets></VBox>

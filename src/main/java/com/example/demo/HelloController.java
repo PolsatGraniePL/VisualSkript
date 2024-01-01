@@ -20,7 +20,6 @@ import java.util.Objects;
 public class HelloController {
 
     @FXML private VBox container;
-    @FXML private SplitPane splitPanel;
     @FXML private TextField textField;
 
     @FXML private CheckBox checkBoxEvents;
@@ -62,13 +61,19 @@ public class HelloController {
                     case "Event" -> BlockType.EVENT;
                     case "Condition" -> BlockType.CONDITION;
                     case "Section" -> BlockType.SECTION;
+                    case "Effect" -> BlockType.EFFECT;
                     case "Expression" -> BlockType.EXPRESSION;
                     case "Type" -> BlockType.TYPE;
                     case "Structure" -> BlockType.STRUCTURE;
                     default -> BlockType.ERROR;
                 };
 
-                Block tmpBlock = new Block(tmpBlockType, "["+tmpBlockType.getName()+"] " + module_name.get("name").toString(), module_name.get("pattern").toString(), module_name.get("description").toString());
+                StringBuilder tmpPatternString = new StringBuilder();
+                for (String x: (ArrayList<String>) module_name.get("pattern")) {
+                    tmpPatternString.append(x).append("\n");
+                }
+
+                Block tmpBlock = new Block(tmpBlockType, "["+tmpBlockType.getName()+"] " + module_name.get("name").toString(), tmpPatternString.toString(), module_name.get("description").toString());
                 blocksList.add(tmpBlock);
             }
         }catch (Exception e){
@@ -93,9 +98,8 @@ public class HelloController {
 
     private void putBlocksInContainer(List<Block> listType){
         for (int i = 0; i < listType.size(); i++) {
-            Button tmpBtn = new Button();
-            tmpBtn.setText(listType.get(i).getName());
-            tmpBtn.setStyle("-fx-border-color: #000000; -fx-border-radius: 2px ; -fx-background-color: #"+ listType.get(i).getType().getHexColor() +"; -fx-font-color: #000000; -fx-font-weight: bold; -fx-font-size: 15px;");
+            Button tmpBtn = new Button(listType.get(i).getName());
+            tmpBtn.setStyle("-fx-border-color: #000000; -fx-border-radius: 2px ; -fx-background-color: #"+ listType.get(i).getType().getHexColor() +"; -fx-font-color: #000000; -fx-font-weight: bold; -fx-font-size: 15px; ");
             tmpBtn.setTooltip(new Tooltip(listType.get(i).getDescription()+"\n\n"+listType.get(i).getPattern()));
             VBox.setMargin(tmpBtn, new Insets(10, 10, 10, 10));
             container.getChildren().add(tmpBtn);
