@@ -7,7 +7,7 @@
 <BorderPane prefHeight="650.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.HelloController">
    <center>
        <!--dividerPositions="0.05"-->
-      <SplitPane fx:id="splitPanel" dividerPositions="0.05" prefHeight="363.0" prefWidth="603.0" BorderPane.alignment="CENTER">
+      <SplitPane dividerPositions="0.05" BorderPane.alignment="CENTER">
          <items>
             <TabPane prefHeight="176.0" prefWidth="149.0" side="LEFT" tabClosingPolicy="UNAVAILABLE">
               <tabs>
@@ -24,7 +24,7 @@
                                  <Insets left="10.0" />
                               </VBox.margin>
                            </Label>
-                           <TextField fx:id="textField" onKeyReleased="#sortblocksList" prefHeight="25.0" prefWidth="156.0" VBox.vgrow="NEVER">
+                           <TextField fx:id="textField" onKeyReleased="#sortblocksList" prefHeight="25.0" prefWidth="0.0" VBox.vgrow="NEVER">
                               <VBox.margin>
                                  <Insets bottom="10.0" left="10.0" right="10.0" />
                               </VBox.margin>
@@ -82,7 +82,7 @@
                 <Tab text="Untitled Tab 2" />
               </tabs>
             </TabPane>
-            <AnchorPane prefHeight="442.0" prefWidth="454.0" />
+            <TabPane fx:id="buildTab" prefHeight="200.0" prefWidth="200.0" tabDragPolicy="REORDER"/>
          </items>
       </SplitPane>
    </center>
@@ -91,7 +91,10 @@
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
+              <MenuItem mnemonicParsing="false" onAction="#menuItemControllerCreateFile" text="Create file" />
+              <MenuItem mnemonicParsing="false" onAction="#menuItemControllerOpenFile" text="Open file" />
+              <MenuItem mnemonicParsing="false" onAction="#menuItemControllerEditFileName" text="Edit file name" />
+              <MenuItem mnemonicParsing="false" onAction="#menuItemControllerDeleteFile" text="Delete file" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Edit">

@@ -50,7 +50,7 @@ for i in text:
     description_start = i.find('<div class="item-description">') + len('<div class="item-description">')
     description_end = i.find('</div>', description_start)
     description = i[description_start:description_end].strip()
-    description = h.handle(description.replace('\\', '\\\\').replace('\'', '`').replace('"', '\''))
+    description = h.handle(description.replace("-", "‐").replace('\\', '\\\\').replace('\'', '`').replace('"', '\''))
 
     yaml_output = id+":\n"
     yaml_output += f"    name: \"{name}\"\n"
