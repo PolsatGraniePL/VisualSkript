@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane prefHeight="650.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.HelloController">
+<BorderPane prefHeight="650.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.polsat.visualskript.gui.AppMainController">
    <center>
        <!--dividerPositions="0.05"-->
       <SplitPane dividerPositions="0.05" BorderPane.alignment="CENTER">
@@ -82,7 +82,7 @@
                 <Tab text="Untitled Tab 2" />
               </tabs>
             </TabPane>
-            <TabPane fx:id="buildTab" prefHeight="200.0" prefWidth="200.0" tabDragPolicy="REORDER"/>
+            <TabPane fx:id="buildTab" prefHeight="200.0" prefWidth="200.0" tabDragPolicy="REORDER" />
          </items>
       </SplitPane>
    </center>
@@ -91,10 +91,10 @@
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
-              <MenuItem mnemonicParsing="false" onAction="#menuItemControllerCreateFile" text="Create file" />
-              <MenuItem mnemonicParsing="false" onAction="#menuItemControllerOpenFile" text="Open file" />
-              <MenuItem mnemonicParsing="false" onAction="#menuItemControllerEditFileName" text="Edit file name" />
-              <MenuItem mnemonicParsing="false" onAction="#menuItemControllerDeleteFile" text="Delete file" />
+              <MenuItem mnemonicParsing="false" onAction="#menuCreateScript" text="Create file" />
+              <MenuItem mnemonicParsing="false" onAction="#menuOpenScript" text="Open file" />
+              <MenuItem mnemonicParsing="false" onAction="#menuEditScriptName" text="Edit file name" />
+              <MenuItem mnemonicParsing="false" onAction="#menuDeleteScript" text="Delete file" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Edit">

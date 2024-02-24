@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.polsat.visualskript.gui;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -7,10 +7,10 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class HelloApplication extends Application {
+public class AppMain extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/polsat/visualskript/AppView.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Visual Skript");
         stage.setScene(scene);
@@ -20,7 +20,7 @@ public class HelloApplication extends Application {
         stage.show();
     }
 
-    public static void main(String[] args) {
+    public static void loadApp() {
         launch();
     }
 }

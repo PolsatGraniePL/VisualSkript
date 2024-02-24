@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.polsat.visualskript.gui.block;
 
 
 public class Block {
@@ -8,7 +8,7 @@ public class Block {
     private String pattern;
     private String description;
 
-    Block(BlockType type, String name, String pattern, String description){
+    public Block(BlockType type, String name, String pattern, String description){
         this.type = type;
         this.name = name;
         this.pattern = pattern;

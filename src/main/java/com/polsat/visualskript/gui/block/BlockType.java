@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.polsat.visualskript.gui.block;
 
 public enum BlockType {
 
