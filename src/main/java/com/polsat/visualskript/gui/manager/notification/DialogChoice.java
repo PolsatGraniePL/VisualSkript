@@ -5,7 +5,6 @@ import javafx.scene.control.ChoiceDialog;
 import java.util.ArrayList;
 
 public class DialogChoice {
-
     public static String Choice(String title, String content, ArrayList<String> list){
         ChoiceDialog<Object> choiceDialog = new ChoiceDialog<>();
         choiceDialog.setTitle(title);
@@ -16,5 +15,4 @@ public class DialogChoice {
         choiceDialog.showAndWait();
         return (String) choiceDialog.getSelectedItem();
     }
-
 }

@@ -1,15 +1,11 @@
 package com.polsat.visualskript.gui;
 
 import com.polsat.visualskript.gui.block.Block;
-import com.polsat.visualskript.gui.block.BlockType;
-import com.polsat.visualskript.gui.manager.FileManager;
 import com.polsat.visualskript.gui.manager.MenuManager;
-import com.polsat.visualskript.gui.manager.ScriptsManager;
 import com.polsat.visualskript.gui.manager.TabManager;
+import com.polsat.visualskript.gui.manager.block.BlockManager;
 import com.polsat.visualskript.gui.manager.notification.DialogAlert;
-import com.polsat.visualskript.gui.manager.notification.DialogChoice;
-import com.polsat.visualskript.gui.manager.notification.DialogInput;
-import javafx.beans.NamedArg;
+import com.polsat.visualskript.system.DocsDownloader;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
@@ -18,23 +14,21 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.VBox;
 
-import org.yaml.snakeyaml.Yaml;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
 
-import java.io.File;
-import java.io.InputStream;
-import java.util.*;
 
 //TODO
-// - YML na JSON zamienić [SkriptParserYaml -> SkriptParserJson] 58:53 (https://github.com/SkriptLang/skript-docs/blob/main/docs/docs.json)
-// - Zamiana 'src/main/resources/' na getClass().getResource(path) etc.
 // - W każdym pliku .vsk sekcja "opened":"true/false" w formie JSON aby LoadLatestTab działał poprawnie
-// - Ogarnąć anty debilizm dla każdego menuItemController[]
-// - Przy dodawaniu Tab na TabPage każdy tab musi mieć VBox
+// - Przy dodawaniu Tab na TabPage każdy tab musi mieć VBox (System wizualnego języka)
+// - zamiana button na pane
 
-public class AppMainController {
+public class Controller {
 
     @FXML private TabPane buildTab;
-    @FXML private VBox container;
+    @FXML private VBox blockContainer;
     @FXML private TextField textField;
 
     @FXML private CheckBox checkBoxEvents;
@@ -44,72 +38,45 @@ public class AppMainController {
     @FXML private CheckBox checkBoxExpressions;
     @FXML private CheckBox checkBoxTypes;
     @FXML private CheckBox checkBoxStructures;
+    @FXML private CheckBox checkBoxFunctions;
 
     private final List<CheckBox> checkBoxes = new ArrayList<>();
-
     public List<Block> blocksList = new ArrayList<>();
 
     public void initialize() {
         System.out.println("initialize");
 
+        checkBoxes.addAll(Arrays.asList(
+            checkBoxEvents,
+            checkBoxConditions,
+            checkBoxSections,
+            checkBoxEffects,
+            checkBoxExpressions,
+            checkBoxTypes,
+            checkBoxStructures,
+            checkBoxFunctions
+        ));
+
         TabManager.loadLatestTab(buildTab);
         loadDefaultBlockList();
         putBlocksInContainer(blocksList);
+        sortBlocksList();
     }
 
     private void loadDefaultBlockList() {
 
-        checkBoxes.add(checkBoxEvents);
-        checkBoxes.add(checkBoxConditions);
-        checkBoxes.add(checkBoxSections);
-        checkBoxes.add(checkBoxEffects);
-        checkBoxes.add(checkBoxExpressions);
-        checkBoxes.add(checkBoxTypes);
-        checkBoxes.add(checkBoxStructures);
-
-        try{
-            InputStream yamlInput = getClass().getResourceAsStream("/SkriptParserYaml.yml");
-            Yaml yaml = new Yaml();
-            Map<String , Object> yamlMaps = yaml.load(yamlInput);
-
-            for (Map.Entry<String, Object> data : yamlMaps.entrySet()) {
-                final Map<String, Object> module_name = (Map<String, Object>) yamlMaps.get(data.getKey());
-                BlockType tmpBlockType = switch (module_name.get("type").toString()) {
-                    case "Event" -> BlockType.EVENT;
-                    case "Condition" -> BlockType.CONDITION;
-                    case "Section" -> BlockType.SECTION;
-                    case "Effect" -> BlockType.EFFECT;
-                    case "Expression" -> BlockType.EXPRESSION;
-                    case "Type" -> BlockType.TYPE;
-                    case "Structure" -> BlockType.STRUCTURE;
-                    default -> BlockType.ERROR;
-                };
-
-                StringBuilder tmpPatternString = new StringBuilder();
-                for (String x: (ArrayList<String>) module_name.get("pattern")) {
-                    tmpPatternString.append(x).append("\n");
-                }
-
-                Block tmpBlock = new Block(tmpBlockType, "["+tmpBlockType.getName()+"] " + module_name.get("name").toString(), tmpPatternString.toString(), module_name.get("description").toString());
-                blocksList.add(tmpBlock);
-            }
-        }catch (Exception e){
-            throw new RuntimeException(e);
+        boolean status = DocsDownloader.start();
+        if (!status){
+            DialogAlert.alertError("Failed to download the latest documentation.");
         }
+
+        List<Block> blocks = BlockManager.getBlocksList();
+        blocksList.addAll(blocks);
     }
 
-    public void sortblocksList(){
-        container.getChildren().clear();
-        List<Block> visibleBlocksList = new ArrayList<>();
-        for (Block block : blocksList) {
-            if (block.getName().toLowerCase().contains(textField.getText().toLowerCase())) {
-                for (CheckBox checkBoxTemp : checkBoxes) {
-                    if (checkBoxTemp.isSelected() && Objects.equals(block.getType().getName(), checkBoxTemp.getText())) {
-                        visibleBlocksList.add(block);
-                    }
-                }
-            }
-        }
+    public void sortBlocksList() {
+        blockContainer.getChildren().clear();
+        List<Block> visibleBlocksList = BlockManager.sortBlocksList(blocksList, textField.getText().toLowerCase(), checkBoxes);
         putBlocksInContainer(visibleBlocksList);
     }
 
@@ -151,7 +118,7 @@ public class AppMainController {
             });
 
             VBox.setMargin(tmpBtn, new Insets(10, 10, 10, 10));
-            container.getChildren().add(tmpBtn);
+            blockContainer.getChildren().add(tmpBtn);
         }
     }
 

@@ -9,6 +9,7 @@ public enum BlockType {
     EXPRESSION("Expressions", "ff9800"),
     TYPE("Types", "0064ff"),
     STRUCTURE("Structures", "00dbff"),
+    FUNCTION("Functions", "8000ff"),
     ERROR("ERROR", "000000");
 
 

@@ -23,7 +23,6 @@ public class MenuManager {
         } else {
             DialogAlert.alertError("Script nane cannot be empty.");
         }
-
     }
 
     public static void menuOpenScript(){

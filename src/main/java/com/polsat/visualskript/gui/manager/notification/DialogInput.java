@@ -3,7 +3,6 @@ package com.polsat.visualskript.gui.manager.notification;
 import javafx.scene.control.TextInputDialog;
 
 public class DialogInput {
-
     public static String Input(String title, String content){
         TextInputDialog textInputDialog = new TextInputDialog();
         textInputDialog.setTitle(title);
@@ -14,5 +13,4 @@ public class DialogInput {
         textInputDialog.showAndWait();
         return textInputDialog.getResult();
     }
-
 }

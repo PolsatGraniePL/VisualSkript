@@ -1,18 +1,27 @@
 package com.polsat.visualskript.gui.block;
 
 
+import java.util.ArrayList;
+import java.util.stream.Stream;
+
 public class Block {
 
+    private String id;
     private BlockType type;
     private String name;
     private String pattern;
+    private String since;
     private String description;
+    private String example;
 
-    public Block(BlockType type, String name, String pattern, String description){
+    public Block(String id, BlockType type, String name, String pattern, String since, String description, String example){
+        this.id = id;
         this.type = type;
         this.name = name;
         this.pattern = pattern;
+        this.since = since;
         this.description = description;
+        this.example = example;
     }
 
     //GET
@@ -30,23 +39,6 @@ public class Block {
 
     public String getDescription() {
         return description;
-    }
-
-    //SET
-    public void setType(BlockType type) {
-        this.type = type;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setPattern(String pattern) {
-        this.pattern = pattern;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
 }

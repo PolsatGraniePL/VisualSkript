@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane prefHeight="650.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.polsat.visualskript.gui.AppMainController">
+<BorderPane prefHeight="650.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.polsat.visualskript.gui.Controller">
    <center>
        <!--dividerPositions="0.05"-->
       <SplitPane dividerPositions="0.05" BorderPane.alignment="CENTER">
@@ -24,44 +24,49 @@
                                  <Insets left="10.0" />
                               </VBox.margin>
                            </Label>
-                           <TextField fx:id="textField" onKeyReleased="#sortblocksList" prefHeight="25.0" prefWidth="0.0" VBox.vgrow="NEVER">
+                           <TextField fx:id="textField" onKeyReleased="#sortBlocksList" prefHeight="25.0" prefWidth="0.0" VBox.vgrow="NEVER">
                               <VBox.margin>
                                  <Insets bottom="10.0" left="10.0" right="10.0" />
                               </VBox.margin>
                            </TextField>
-                           <CheckBox fx:id="checkBoxEvents" mnemonicParsing="false" onAction="#sortblocksList" selected="true" text="Events">
+                           <CheckBox fx:id="checkBoxEvents" mnemonicParsing="false" onAction="#sortBlocksList" selected="true" text="Events">
                               <VBox.margin>
                                  <Insets left="10.0" top="5.0" />
                               </VBox.margin>
                            </CheckBox>
-                           <CheckBox fx:id="checkBoxConditions" mnemonicParsing="false" onAction="#sortblocksList" selected="true" text="Conditions">
+                           <CheckBox fx:id="checkBoxConditions" mnemonicParsing="false" onAction="#sortBlocksList" selected="true" text="Conditions">
                               <VBox.margin>
                                  <Insets left="10.0" top="5.0" />
                               </VBox.margin>
                            </CheckBox>
-                           <CheckBox fx:id="checkBoxSections" mnemonicParsing="false" onAction="#sortblocksList" selected="true" text="Sections">
+                           <CheckBox fx:id="checkBoxSections" mnemonicParsing="false" onAction="#sortBlocksList" selected="true" text="Sections ❌">
                               <VBox.margin>
                                  <Insets left="10.0" top="5.0" />
                               </VBox.margin>
                            </CheckBox>
-                           <CheckBox fx:id="checkBoxEffects" mnemonicParsing="false" onAction="#sortblocksList" selected="true" text="Effects">
+                           <CheckBox fx:id="checkBoxEffects" mnemonicParsing="false" onAction="#sortBlocksList" selected="true" text="Effects">
                               <VBox.margin>
                                  <Insets left="10.0" top="5.0" />
                               </VBox.margin>
                            </CheckBox>
-                           <CheckBox fx:id="checkBoxExpressions" mnemonicParsing="false" onAction="#sortblocksList" selected="true" text="Expressions">
+                           <CheckBox fx:id="checkBoxExpressions" mnemonicParsing="false" onAction="#sortBlocksList" selected="true" text="Expressions">
                               <VBox.margin>
                                  <Insets left="10.0" top="5.0" />
                               </VBox.margin>
                            </CheckBox>
-                           <CheckBox fx:id="checkBoxTypes" mnemonicParsing="false" onAction="#sortblocksList" selected="true" text="Types">
+                           <CheckBox fx:id="checkBoxTypes" mnemonicParsing="false" onAction="#sortBlocksList" selected="true" text="Types">
                               <VBox.margin>
                                  <Insets left="10.0" top="5.0" />
                               </VBox.margin>
                            </CheckBox>
-                           <CheckBox fx:id="checkBoxStructures" mnemonicParsing="false" onAction="#sortblocksList" selected="true" text="Structures">
+                           <CheckBox fx:id="checkBoxStructures" mnemonicParsing="false" onAction="#sortBlocksList" selected="true" text="Structures ❌">
                               <VBox.margin>
-                                 <Insets bottom="10.0" left="10.0" top="5.0" />
+                                  <Insets left="10.0" top="5.0" />
+                              </VBox.margin>
+                           </CheckBox>
+                           <CheckBox fx:id="checkBoxFunctions" mnemonicParsing="false" onAction="#sortBlocksList" selected="true" text="Functions">
+                              <VBox.margin>
+                                  <Insets bottom="10.0" left="10.0" top="5.0" />
                               </VBox.margin>
                            </CheckBox>
                            <Separator prefWidth="200.0">
@@ -71,7 +76,7 @@
                            </Separator>
                            <ScrollPane prefHeight="616.0" prefWidth="208.0" VBox.vgrow="ALWAYS">
                               <content>
-                                 <VBox fx:id="container">
+                                 <VBox fx:id="blockContainer">
                                     <opaqueInsets>
                                        <Insets />
                                     </opaqueInsets></VBox>
