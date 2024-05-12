@@ -2,9 +2,11 @@ package com.polsat.visualskript.gui.manager.block;
 
 import com.polsat.visualskript.gui.block.Block;
 import com.polsat.visualskript.gui.block.BlockType;
-import javafx.fxml.FXML;
 import javafx.geometry.Insets;
-import javafx.scene.control.*;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TabPane;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
@@ -16,7 +18,10 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import java.io.FileReader;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Objects;
 
 public class BlockManager {
 
@@ -29,7 +34,7 @@ public class BlockManager {
         try {
 
             JSONParser parser = new JSONParser();
-            JSONArray jsonFile = (JSONArray) parser.parse(new FileReader(BlockManager.class.getResource("/SkriptDocs.json").getFile()));
+            JSONArray jsonFile = (JSONArray) parser.parse(new FileReader(Objects.requireNonNull(BlockManager.class.getResource("/SkriptDocs.json")).getFile()));
 
             for (Object jsonTypes : jsonFile){
                 for (Object currentType : ((JSONObject) jsonTypes).keySet()) {
@@ -61,6 +66,7 @@ public class BlockManager {
                             }
 
                             // BLOCK TYPE
+                            assert currentType != null;
                             BlockType tmpBlockType = switch ((String) currentType) {
                                 case "events" -> BlockType.EVENT;
                                 case "conditions" -> BlockType.CONDITION;
@@ -115,17 +121,17 @@ public class BlockManager {
 
     //Wstawia listę bloków do VBox
     public static void putBlocksInContainer(List<Block> listType){
-        for (int i = 0; i < listType.size(); i++) {
+        for (Block block : listType) {
 
             //Create objects
             Pane tmpPane = new Pane();
-            Label tmpLabel = new Label(listType.get(i).getName());
+            Label tmpLabel = new Label(block.getName());
 
             //Style objects
             tmpPane.getChildren().add(tmpLabel);
-            tmpPane.setStyle("-fx-border-color:  #020202; -fx-border-radius: 5px ; -fx-background-color: #"+ listType.get(i).getType().getHexColor() +"; -fx-background-radius: 5px; -fx-border-width: 1px");
+            tmpPane.setStyle("-fx-border-color:  #020202; -fx-border-radius: 5px ; -fx-background-color: #" + block.getType().getHexColor() + "; -fx-background-radius: 5px; -fx-border-width: 1px");
             tmpLabel.setStyle("-fx-font-color: #000000; -fx-font-weight: bold; -fx-font-size: 14px;");
-            tmpLabel.setTooltip(new Tooltip(listType.get(i).getDescription()+"\n\n"+listType.get(i).getPattern()));
+            tmpLabel.setTooltip(new Tooltip(block.getDescription() + "\n\n" + block.getPattern()));
 
             VBox.setMargin(tmpPane, new Insets(10, 10, 10, 10));
             tmpLabel.setPadding(new Insets(5, 5, 5, 5));

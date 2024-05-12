@@ -1,7 +1,6 @@
 package com.polsat.visualskript.gui;
 
 import com.polsat.visualskript.gui.block.Block;
-import com.polsat.visualskript.gui.block.BlockType;
 import com.polsat.visualskript.gui.block.DefaultBlocks;
 import com.polsat.visualskript.gui.manager.MenuManager;
 import com.polsat.visualskript.gui.manager.TabManager;
@@ -9,23 +8,19 @@ import com.polsat.visualskript.gui.manager.block.BlockManager;
 import com.polsat.visualskript.gui.manager.notification.DialogAlert;
 import com.polsat.visualskript.system.DocsDownloader;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
-import javafx.scene.control.*;
-import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.Dragboard;
-import javafx.scene.input.TransferMode;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.TabPane;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 
 //TODO
 // - W każdym pliku .vsk sekcja "opened":"true/false" w formie JSON aby LoadLatestTab działał poprawnie
 // - Przy dodawaniu Tab na TabPage każdy tab musi mieć VBox (System wizualnego języka)
-// - zamiana button na pane
 
 public class Controller {
 

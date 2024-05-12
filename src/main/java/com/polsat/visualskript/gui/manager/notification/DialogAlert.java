@@ -6,7 +6,8 @@ public class DialogAlert {
     public static void alertError(String content){
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
-        alert.setHeaderText(content);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
         alert.show();
     }
 }
