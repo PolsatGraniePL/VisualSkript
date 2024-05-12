@@ -3,7 +3,7 @@ package com.polsat.visualskript.gui.block;
 public enum BlockType {
 
     EVENT("Events", "1cb598"),
-    CONDITION("Conditions", "b51c1c"),
+    CONDITION("Conditions", "ff3031"),
     SECTION("Sections", "b51c79"),
     EFFECT("Effects", "8bff00"),
     EXPRESSION("Expressions", "ff9800"),
