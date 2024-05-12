@@ -1,6 +1,8 @@
 package com.polsat.visualskript.gui;
 
 import com.polsat.visualskript.gui.block.Block;
+import com.polsat.visualskript.gui.block.BlockType;
+import com.polsat.visualskript.gui.block.DefaultBlocks;
 import com.polsat.visualskript.gui.manager.MenuManager;
 import com.polsat.visualskript.gui.manager.TabManager;
 import com.polsat.visualskript.gui.manager.block.BlockManager;
@@ -60,7 +62,6 @@ public class Controller {
         TabManager.loadLatestTab(buildTab);
         loadDefaultBlockList();
         BlockManager.setupTabPane(buildTab, blockContainer);
-        BlockManager.putBlocksInContainer(blocksList);
         sortBlocksList();
     }
 
@@ -72,6 +73,7 @@ public class Controller {
         }
 
         List<Block> blocks = BlockManager.getBlocksList();
+        blocks.addAll(DefaultBlocks.getDefaultBlocks());
         blocksList.addAll(blocks);
     }
 

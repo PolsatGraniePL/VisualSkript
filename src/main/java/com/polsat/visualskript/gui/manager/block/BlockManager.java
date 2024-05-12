@@ -64,11 +64,11 @@ public class BlockManager {
                             BlockType tmpBlockType = switch ((String) currentType) {
                                 case "events" -> BlockType.EVENT;
                                 case "conditions" -> BlockType.CONDITION;
-                                //TODO: case "Section" -> BlockType.SECTION;
+                                case "Section" -> BlockType.SECTION;
                                 case "effects" -> BlockType.EFFECT;
                                 case "expressions" -> BlockType.EXPRESSION;
                                 case "classes" -> BlockType.TYPE;
-                                //TODO: case "Structure" -> BlockType.STRUCTURE;
+                                case "Structure" -> BlockType.STRUCTURE;
                                 case "functions" -> BlockType.FUNCTION;
                                 default -> BlockType.ERROR;
                             };

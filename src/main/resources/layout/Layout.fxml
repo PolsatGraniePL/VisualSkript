@@ -39,7 +39,7 @@
                                  <Insets left="10.0" top="5.0" />
                               </VBox.margin>
                            </CheckBox>
-                           <CheckBox fx:id="checkBoxSections" mnemonicParsing="false" onAction="#sortBlocksList" selected="true" text="Sections ❌">
+                           <CheckBox fx:id="checkBoxSections" mnemonicParsing="false" onAction="#sortBlocksList" selected="true" text="Sections">
                               <VBox.margin>
                                  <Insets left="10.0" top="5.0" />
                               </VBox.margin>
@@ -59,7 +59,7 @@
                                  <Insets left="10.0" top="5.0" />
                               </VBox.margin>
                            </CheckBox>
-                           <CheckBox fx:id="checkBoxStructures" mnemonicParsing="false" onAction="#sortBlocksList" selected="true" text="Structures ❌">
+                           <CheckBox fx:id="checkBoxStructures" mnemonicParsing="false" onAction="#sortBlocksList" selected="true" text="Structures">
                               <VBox.margin>
                                   <Insets left="10.0" top="5.0" />
                               </VBox.margin>
