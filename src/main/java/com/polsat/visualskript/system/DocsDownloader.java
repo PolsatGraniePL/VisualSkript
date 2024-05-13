@@ -1,6 +1,5 @@
 package com.polsat.visualskript.system;
 
-import com.polsat.visualskript.gui.manager.notification.DialogAlert;
 import org.jsoup.Jsoup;
 
 import java.io.File;
@@ -14,12 +13,12 @@ public class DocsDownloader {
     public static boolean start(){
         if (checkUpdate()){
             try {
-                // Pobieranie najnowszej wersji dokumentacji
+                // Downloading the latest version of documentation
                 URL url = new URL("https://raw.githubusercontent.com/SkriptLang/skript-docs/main/docs/docs.json");
                 Scanner scanner = new Scanner(url.openStream());
                 PrintWriter writer = new PrintWriter(DocsDownloader.class.getResource("/SkriptDocs.json").getFile());
 
-                // Przygotowywanie pobranej dokumentacji do odczytu oraz zapis do pliku SkriptDocs.json
+                // Preparing downloaded documentation for reading and writing to the SkriptDocs.json file
                 boolean isInDesc = false;
                 writer.println("[");
                 while (scanner.hasNext()){
@@ -63,7 +62,7 @@ public class DocsDownloader {
 
     private static boolean checkUpdate(){
         try {
-            //Pobranie najnowszej wersji dokumentacji oraz aktualnej dokumentacji użytkownika
+            //Downloading the latest version of documentation and current user documentation
             Scanner scannerURL = new Scanner(new URL("https://raw.githubusercontent.com/SkriptLang/skript-docs/main/docs/docs.json").openStream());
             Scanner scannerFile = new Scanner(new File(DocsDownloader.class.getResource("/SkriptDocs.json").getFile()));
 
@@ -74,10 +73,8 @@ public class DocsDownloader {
             scannerURL.nextLine();
             String URLVersion = scannerURL.nextLine().replace(" ", "");
 
-            // Porównywanie linijek z wersją
-            if (Objects.equals(fileVersion, URLVersion))
-                return false;
-            return true;
+            // Comparing lines with version
+            return !Objects.equals(fileVersion, URLVersion);
         }
         catch (Exception e){
             return true;

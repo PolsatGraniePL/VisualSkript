@@ -29,10 +29,10 @@ public class MenuManager {
     }
 
     public static void menuOpenScript(){
-        String result = DialogChoice.Choice("Open script", "Script name:", ScriptsManager.getScriptsList());
+        String result = DialogChoice.Choice("Open script", "Script name:", ScriptsManager.getScriptsListWithOpenedStatus(false));
         if(!Objects.isNull(result)){
             if (!result.isEmpty()){
-                if(!ScriptsManager.getScriptsList().contains(result)){
+                if(!ScriptsManager.getScriptsListWithOpenedStatus(true).contains(result)){
                     ScriptsManager.openScript(result);
                 } else {
                     DialogAlert.alertError("Script is already opened.");
@@ -50,7 +50,11 @@ public class MenuManager {
         if (!Objects.isNull(result)){
             if(!result.isEmpty()){
                 if(!Objects.isNull(selected)){
-                    ScriptsManager.editScriptName(selected, result);
+                    if(!ScriptsManager.getScriptsList().contains(result+".vsk")){
+                        ScriptsManager.editScriptName(selected, result);
+                    } else {
+                        DialogAlert.alertError("Script with this name is already exists.");
+                    }
                 } else {
                     DialogAlert.alertError("You do not have any scripts open.");
                 }

@@ -28,7 +28,7 @@ public class BlockManager {
     private static TabPane buildTab;
     private static VBox blockContainer;
 
-    //Zwraca listę bloków z pliku SkriptDocs.json
+    //Returns a list of blocks from the SkriptDocs.json file
     public static List<Block> getBlocksList(){
         List<Block> list = new ArrayList<>();
         try {
@@ -86,6 +86,7 @@ public class BlockManager {
                                     tmpPatternString.append((String)x).append("\n");
                             }
 
+                            // Block builder
                             Block tempBlock = new Block(id, tmpBlockType, "[" + tmpBlockType.getName() + "] " + name, tmpPatternString.toString(), since, description.toString(), examples);
                             list.add(tempBlock);
                         }
@@ -98,7 +99,7 @@ public class BlockManager {
         return list;
     }
 
-    //Zwraca listę bloków, zgodnie z tekstem lub typem bloku.
+    //Returns a list of blocks, according to text or block type.
     public static List<Block> sortBlocksList(List<Block> blocksList, String text, List<CheckBox> checkBoxes) {
         List<Block> visibleBlocksList = new ArrayList<>();
         blocksList.sort(Comparator.comparing(Block::getType));
@@ -164,9 +165,11 @@ public class BlockManager {
                 Dragboard db = event.getDragboard();
                 boolean success = false;
                 if (db.hasString()) {
-                    System.out.println(db.getString());
-                    System.out.println(buildTab.getSelectionModel().getSelectedItem().getText());
-                    success = true;
+                    if (!Objects.isNull(buildTab.getSelectionModel().getSelectedItem())){
+                        System.out.println(db.getString());
+                        System.out.println(buildTab.getSelectionModel().getSelectedItem().getText());
+                        success = true;
+                    }
                 }
                 event.setDropCompleted(success);
                 event.consume();

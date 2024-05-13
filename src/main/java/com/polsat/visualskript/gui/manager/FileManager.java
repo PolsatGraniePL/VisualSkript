@@ -1,8 +1,10 @@
 package com.polsat.visualskript.gui.manager;
 
 import com.polsat.visualskript.Main;
+import com.polsat.visualskript.system.script.ScriptParser;
 
 import java.io.File;
+import java.util.Objects;
 
 public class FileManager {
 
@@ -30,5 +32,14 @@ public class FileManager {
         } catch (Exception e){
             throw new RuntimeException(e);
         }
+    }
+
+    public static File getFileByName(String name){
+        for (File file : getFileList("/scripts")){
+            if (Objects.equals(file.getName(), name)){
+                return file;
+            }
+        }
+        return null;
     }
 }

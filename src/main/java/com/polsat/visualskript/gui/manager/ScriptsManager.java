@@ -1,9 +1,12 @@
 package com.polsat.visualskript.gui.manager;
 
 import com.polsat.visualskript.Main;
+import com.polsat.visualskript.system.script.ScriptJsonManager;
+import com.polsat.visualskript.system.script.ScriptParser;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class ScriptsManager {
 
@@ -11,6 +14,7 @@ public class ScriptsManager {
         boolean success = FileManager.createFile(getScriptPathFolder()+name+".vsk");
         if (success){
             TabManager.addTab(name+".vsk");
+            ScriptParser.makeVSkript(FileManager.getFileByName(name+".vsk"));
             return true;
         }else{
             return false;
@@ -22,12 +26,14 @@ public class ScriptsManager {
     }
     public static void openScript(String name){
         TabManager.addTab(name);
+        ScriptJsonManager.setOpened(FileManager.getFileByName(name), true);
+        ScriptParser.parse(FileManager.getFileByName(name));
     }
     public static void closeScript(String name){
         TabManager.removeTab(name);
     }
     public static void editScriptName(String name, String newName){
-        System.out.println(FileManager.renameFile(ScriptsManager.getScriptPathFolder()+name, newName));
+        FileManager.renameFile(ScriptsManager.getScriptPathFolder()+name, newName);
         TabManager.removeTab(name);
         TabManager.addTab(newName+".vsk");
     }
@@ -45,6 +51,16 @@ public class ScriptsManager {
             throw new RuntimeException(e);
         }
 
+        return list;
+    }
+
+    public static ArrayList<String> getScriptsListWithOpenedStatus(boolean status) {
+        ArrayList<String> list = new ArrayList<>();
+        for (String text : ScriptsManager.getScriptsList()){
+            if (Objects.equals(ScriptJsonManager.getOpened(FileManager.getFileByName(text)), status)) {
+                list.add(text);
+            }
+        }
         return list;
     }
 

@@ -19,7 +19,6 @@ import java.util.List;
 
 
 //TODO
-// - W każdym pliku .vsk sekcja "opened":"true/false" w formie JSON aby LoadLatestTab działał poprawnie
 // - Przy dodawaniu Tab na TabPage każdy tab musi mieć VBox (System wizualnego języka)
 
 public class Controller {
