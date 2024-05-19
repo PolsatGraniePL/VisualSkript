@@ -176,7 +176,7 @@ public class BlockManager {
                         //Drop system
                         Block block1 = listType.get(Integer.parseInt(db.getString()));
                         switch (block1.getType()){
-                            case EVENT, STRUCTURE -> TabsManager.addTab(block1.getName(), ((TabPane) buildTab.getSelectionModel().getSelectedItem().getContent()));
+                            case EVENT, STRUCTURE -> TabsManager.addTab(block1.getName(), (TabPane) buildTab.getSelectionModel().getSelectedItem().getContent());
                         }
                         success = true;
                     }
