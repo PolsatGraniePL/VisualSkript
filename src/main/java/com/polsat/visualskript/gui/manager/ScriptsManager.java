@@ -1,6 +1,7 @@
 package com.polsat.visualskript.gui.manager;
 
 import com.polsat.visualskript.Main;
+import com.polsat.visualskript.gui.manager.tabs.MainTabManager;
 import com.polsat.visualskript.system.script.ScriptJsonManager;
 import com.polsat.visualskript.system.script.ScriptParser;
 
@@ -13,7 +14,7 @@ public class ScriptsManager {
     public static boolean createScript(String name){
         boolean success = FileManager.createFile(getScriptPathFolder()+name+".vsk");
         if (success){
-            TabManager.addTab(name+".vsk");
+            MainTabManager.addTab(name+".vsk");
             ScriptParser.makeVSkript(FileManager.getFileByName(name+".vsk"));
             return true;
         }else{
@@ -21,21 +22,21 @@ public class ScriptsManager {
         }
     }
     public static void deleteScript(String name){
-        TabManager.removeTab(name);
+        MainTabManager.removeTab(name);
         FileManager.deleteFile(getScriptPathFolder()+name);
     }
     public static void openScript(String name){
-        TabManager.addTab(name);
+        MainTabManager.addTab(name);
         ScriptJsonManager.setOpened(FileManager.getFileByName(name), true);
         ScriptParser.parse(FileManager.getFileByName(name));
     }
     public static void closeScript(String name){
-        TabManager.removeTab(name);
+        MainTabManager.removeTab(name);
     }
     public static void editScriptName(String name, String newName){
         FileManager.renameFile(ScriptsManager.getScriptPathFolder()+name, newName);
-        TabManager.removeTab(name);
-        TabManager.addTab(newName+".vsk");
+        MainTabManager.removeTab(name);
+        MainTabManager.addTab(newName+".vsk");
     }
 
     public static ArrayList<String> getScriptsList() {

@@ -3,9 +3,9 @@ package com.polsat.visualskript.gui;
 import com.polsat.visualskript.gui.block.Block;
 import com.polsat.visualskript.gui.block.DefaultBlocks;
 import com.polsat.visualskript.gui.manager.MenuManager;
-import com.polsat.visualskript.gui.manager.TabManager;
 import com.polsat.visualskript.gui.manager.block.BlockManager;
 import com.polsat.visualskript.gui.manager.notification.DialogAlert;
+import com.polsat.visualskript.gui.manager.tabs.MainTabManager;
 import com.polsat.visualskript.system.DocsDownloader;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
@@ -53,7 +53,7 @@ public class Controller {
             checkBoxFunctions
         ));
 
-        TabManager.loadLatestTab(buildTab);
+        MainTabManager.loadLatestTab(buildTab);
         loadDefaultBlockList();
         BlockManager.setupTabPane(buildTab, blockContainer);
         sortBlocksList();

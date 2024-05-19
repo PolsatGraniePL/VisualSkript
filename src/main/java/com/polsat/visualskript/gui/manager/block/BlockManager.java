@@ -2,12 +2,15 @@ package com.polsat.visualskript.gui.manager.block;
 
 import com.polsat.visualskript.gui.block.Block;
 import com.polsat.visualskript.gui.block.BlockType;
+import com.polsat.visualskript.gui.manager.tabs.TabsManager;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.DataFormat;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Pane;
@@ -122,7 +125,9 @@ public class BlockManager {
 
     //Wstawia listę bloków do VBox
     public static void putBlocksInContainer(List<Block> listType){
+        int index = -1;
         for (Block block : listType) {
+            index++;
 
             //Create objects
             Pane tmpPane = new Pane();
@@ -142,11 +147,13 @@ public class BlockManager {
             tmpPane.setMaxWidth(Region.USE_PREF_SIZE);
 
             //Object system
+            int finalIndex = index;
             tmpPane.setOnDragDetected(event -> {
                 Dragboard dragboard = tmpPane.startDragAndDrop(TransferMode.ANY);
 
                 ClipboardContent content = new ClipboardContent();
-                content.putString(tmpLabel.getText());
+
+                content.putString(String.valueOf(finalIndex));
                 dragboard.setContent(content);
 
                 dragboard.setDragView(tmpPane.snapshot(null, null));
@@ -166,8 +173,11 @@ public class BlockManager {
                 boolean success = false;
                 if (db.hasString()) {
                     if (!Objects.isNull(buildTab.getSelectionModel().getSelectedItem())){
-                        System.out.println(db.getString());
-                        System.out.println(buildTab.getSelectionModel().getSelectedItem().getText());
+                        //Drop system
+                        Block block1 = listType.get(Integer.parseInt(db.getString()));
+                        switch (block1.getType()){
+                            case EVENT, STRUCTURE -> TabsManager.addTab(block1.getName(), ((TabPane) buildTab.getSelectionModel().getSelectedItem().getContent()));
+                        }
                         success = true;
                     }
                 }

@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane prefHeight="650.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.polsat.visualskript.gui.Controller">
+   <center>
+       <ScrollPane fitToHeight="true" fitToWidth="true">
+           <VBox fillWidth="false">
+               <children>
+                   <Pane prefHeight="45.0" style="-fx-background-color: #1cb598;">
+                       <VBox.margin>
+                           <Insets left="10.0" top="10.0" />
+                       </VBox.margin>
+                       <children>
+                           <HBox alignment="CENTER_LEFT" prefHeight="45.0" VBox.vgrow="ALWAYS">
+                               <children>
+                                   <Label text="[Event] On Join">
+                                       <font>
+                                           <Font size="24.0" />
+                                       </font>
+                                       <padding>
+                                           <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </padding>
+                                   </Label>
+                                   <Region HBox.hgrow="ALWAYS" />
+                                   <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: rgba(0,0,0,0);">
+                                       <graphic>
+                                           <ImageView fitHeight="20.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true" smooth="false">
+                                               <image>
+                                                   <Image url="@../images/lines.png" />
+                                               </image>
+                                           </ImageView>
+                                       </graphic></Button>
+                               </children>
+                           </HBox>
+                       </children>
+                   </Pane>
+
+
+
+                   <Pane style="-fx-background-color: #8bff00;">
+                       <VBox.margin>
+                           <Insets left="10.0" />
+                       </VBox.margin>
+                       <children>
+                           <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
+                               <children>
+                                   <Label text="[Effect] send subtitle">
+                                       <font>
+                                           <Font size="24.0" />
+                                       </font>
+                                       <padding>
+                                           <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </padding>
+                                   </Label>
+                                   <Pane style="-fx-background-radius: 25px; -fx-background-color: #ffff00;">
+                                       <children>
+                                           <Label text="\%text%">
+                                               <font>
+                                                   <Font size="24.0" />
+                                               </font>
+                                               <padding>
+                                                   <Insets left="5.0" right="5.0" />
+                                               </padding></Label>
+                                       </children>
+                                       <HBox.margin>
+                                           <Insets bottom="5.0" top="5.0" />
+                                       </HBox.margin>
+                                   </Pane>
+                                   <Label text="for">
+                                       <font>
+                                           <Font size="24.0" />
+                                       </font>
+                                       <padding>
+                                           <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </padding>
+                                   </Label>
+                                   <Pane style="-fx-background-radius: 25px; -fx-background-color: #0064ff;">
+                                       <children>
+                                           <HBox alignment="CENTER">
+                                               <children>
+                                                   <Label text="[Timespan]">
+                                                       <font>
+                                                           <Font size="24.0" />
+                                                       </font>
+                                                       <padding>
+                                                           <Insets left="5.0" right="5.0" />
+                                                       </padding>
+                                                   </Label>
+                                                   <Label text="'">
+                                                       <font>
+                                                           <Font size="24.0" />
+                                                       </font>
+                                                   </Label>
+                                                   <TextField alignment="CENTER" prefHeight="35.0" prefWidth="112.0" promptText="X" style="-fx-background-color: rgba(0,0,0,0);" text="XX">
+                                                       <padding>
+                                                           <Insets left="5.0" right="5.0" />
+                                                       </padding>
+                                                       <font>
+                                                           <Font size="24.0" />
+                                                       </font>
+                                                   </TextField>
+                                                   <Label text="'">
+                                                       <font>
+                                                           <Font size="24.0" />
+                                                       </font>
+                                                   </Label>
+                                               </children>
+                                           </HBox>
+                                       </children>
+                                       <HBox.margin>
+                                           <Insets bottom="5.0" top="5.0" />
+                                       </HBox.margin>
+                                   </Pane>
+                                   <Region HBox.hgrow="ALWAYS" />
+                                   <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: rgba(0,0,0,0);">
+                                       <graphic>
+                                           <ImageView fitHeight="20.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true" smooth="false">
+                                               <image>
+                                                   <Image url="@../images/lines.png" />
+                                               </image>
+                                           </ImageView>
+                                       </graphic></Button>
+                               </children>
+                           </HBox>
+                       </children>
+                   </Pane>
+                   <Pane style="-fx-background-color: #b51c79;">
+                       <VBox.margin>
+                           <Insets left="10.0" />
+                       </VBox.margin>
+                       <children>
+                           <HBox alignment="CENTER_LEFT" prefHeight="45.0" VBox.vgrow="ALWAYS">
+                               <children>
+                                   <Label text="[Section] if %condition%">
+                                       <font>
+                                           <Font size="24.0" />
+                                       </font>
+                                       <padding>
+                                           <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </padding>
+                                   </Label>
+                                   <Region HBox.hgrow="ALWAYS" />
+                                   <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: rgba(0,0,0,0);">
+                                       <graphic>
+                                           <ImageView fitHeight="20.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true" smooth="false">
+                                               <image>
+                                                   <Image url="@../images/lines.png" />
+                                               </image>
+                                           </ImageView>
+                                       </graphic></Button>
+                               </children>
+                           </HBox>
+                       </children>
+                   </Pane>
+                   <Pane style="-fx-background-color: #8bff00;">
+                       <VBox.margin>
+                           <Insets left="30.0" />
+                       </VBox.margin>
+                       <children>
+                           <HBox alignment="CENTER_LEFT" prefHeight="45.0" VBox.vgrow="ALWAYS">
+                               <children>
+                                   <Label text="[Effect] send %text%">
+                                       <font>
+                                           <Font size="24.0" />
+                                       </font>
+                                       <padding>
+                                           <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </padding>
+                                   </Label>
+                                   <Region HBox.hgrow="ALWAYS" />
+                                   <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: rgba(0,0,0,0);">
+                                       <graphic>
+                                           <ImageView fitHeight="20.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true" smooth="false">
+                                               <image>
+                                                   <Image url="@../images/lines.png" />
+                                               </image>
+                                           </ImageView>
+                                       </graphic></Button>
+                               </children>
+                           </HBox>
+                       </children>
+                   </Pane>
+                   <Pane style="-fx-background-color: #b51c79;">
+                       <VBox.margin>
+                           <Insets left="10.0" />
+                       </VBox.margin>
+                       <children>
+                           <HBox alignment="CENTER_LEFT" prefHeight="45.0" VBox.vgrow="ALWAYS">
+                               <children>
+                                   <Label text="[Section] else if %condition%">
+                                       <font>
+                                           <Font size="24.0" />
+                                       </font>
+                                       <padding>
+                                           <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </padding>
+                                   </Label>
+                                   <Region HBox.hgrow="ALWAYS" />
+                                   <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: rgba(0,0,0,0);">
+                                       <graphic>
+                                           <ImageView fitHeight="20.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true" smooth="false">
+                                               <image>
+                                                   <Image url="@../images/lines.png" />
+                                               </image>
+                                           </ImageView>
+                                       </graphic></Button>
+                               </children>
+                           </HBox>
+                       </children>
+                   </Pane>
+                   <Pane style="-fx-background-color: #8bff00;">
+                       <VBox.margin>
+                           <Insets left="30.0" />
+                       </VBox.margin>
+                       <children>
+                           <HBox alignment="CENTER_LEFT" prefHeight="45.0" VBox.vgrow="ALWAYS">
+                               <children>
+                                   <Label text="[Effect] kick %entity% due to %text%">
+                                       <font>
+                                           <Font size="24.0" />
+                                       </font>
+                                       <padding>
+                                           <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </padding>
+                                   </Label>
+                                   <Region HBox.hgrow="ALWAYS" />
+                                   <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: rgba(0,0,0,0);">
+                                       <graphic>
+                                           <ImageView fitHeight="20.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true" smooth="false">
+                                               <image>
+                                                   <Image url="@../images/lines.png" />
+                                               </image>
+                                           </ImageView>
+                                       </graphic></Button>
+                               </children>
+                           </HBox>
+                       </children>
+                   </Pane>
+                   <Pane style="-fx-background-color: #b51c79;">
+                       <VBox.margin>
+                           <Insets left="10.0" />
+                       </VBox.margin>
+                       <children>
+                           <HBox alignment="CENTER_LEFT" prefHeight="45.0" VBox.vgrow="ALWAYS">
+                               <children>
+                                   <Label text="[Section] else">
+                                       <font>
+                                           <Font size="24.0" />
+                                       </font>
+                                       <padding>
+                                           <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </padding>
+                                   </Label>
+                                   <Region HBox.hgrow="ALWAYS" />
+                                   <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: rgba(0,0,0,0);">
+                                       <graphic>
+                                           <ImageView fitHeight="20.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true" smooth="false">
+                                               <image>
+                                                   <Image url="@../images/lines.png" />
+                                               </image>
+                                           </ImageView>
+                                       </graphic></Button>
+                               </children>
+                           </HBox>
+                       </children>
+                   </Pane>
+                   <Pane style="-fx-background-color: #8bff00;">
+                       <VBox.margin>
+                           <Insets left="30.0" />
+                       </VBox.margin>
+                       <children>
+                           <HBox alignment="CENTER_LEFT" prefHeight="45.0" VBox.vgrow="ALWAYS">
+                               <children>
+                                   <Label text="[Effect] teleport %entity% to %location%">
+                                       <font>
+                                           <Font size="24.0" />
+                                       </font>
+                                       <padding>
+                                           <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </padding>
+                                   </Label>
+                                   <Region HBox.hgrow="ALWAYS" />
+                                   <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: rgba(0,0,0,0);">
+                                       <graphic>
+                                           <ImageView fitHeight="20.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true" smooth="false">
+                                               <image>
+                                                   <Image url="@../images/lines.png" />
+                                               </image>
+                                           </ImageView>
+                                       </graphic></Button>
+                               </children>
+                           </HBox>
+                       </children>
+                   </Pane>
+               </children></VBox>
+       </ScrollPane>
+   </center>
+   <top>
+   </top>
+</BorderPane>

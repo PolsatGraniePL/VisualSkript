@@ -1,9 +1,6 @@
 package com.polsat.visualskript.gui.block;
 
 
-import java.util.ArrayList;
-import java.util.stream.Stream;
-
 public class Block {
 
     private String id;

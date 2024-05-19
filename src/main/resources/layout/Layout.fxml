@@ -2,7 +2,9 @@
 
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <BorderPane prefHeight="650.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.polsat.visualskript.gui.Controller">
    <center>
@@ -87,7 +89,33 @@
                 <Tab text="Untitled Tab 2" />
               </tabs>
             </TabPane>
-            <TabPane fx:id="buildTab" prefHeight="200.0" prefWidth="200.0" tabDragPolicy="REORDER" />
+             <TabPane fx:id="buildTab" prefHeight="200.0" prefWidth="200.0" tabDragPolicy="REORDER">
+                 <tabs>
+                     <Tab text="test.vsk">
+                         <TabPane>
+                             <tabs>
+                                 <Tab text="OnJoin">
+                                    <ScrollPane fitToHeight="true" fitToWidth="true">
+                                        <VBox fillWidth="false">
+                                    </VBox>
+                                    </ScrollPane>
+                                 </Tab>
+                                 <Tab text="OnBreak">
+                                    <ScrollPane fitToHeight="true" fitToWidth="true">
+                                        <VBox />
+                                    </ScrollPane>
+                                 </Tab>
+                                 <Tab text="Command /test">
+                                    <ScrollPane fitToHeight="true" fitToWidth="true">
+                                        <VBox />
+                                    </ScrollPane>
+                                 </Tab>
+                             </tabs>
+                         </TabPane>
+                     </Tab>
+                     <Tab text="chat.vsk" />
+                 </tabs>
+             </TabPane>
          </items>
       </SplitPane>
    </center>
