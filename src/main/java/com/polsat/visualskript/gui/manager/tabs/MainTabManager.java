@@ -37,6 +37,7 @@ public class MainTabManager {
         TabPane tabPane = new TabPane();
         buildTabGlobal.getTabs().add(tab);
         buildTabGlobal.getSelectionModel().selectLast();
+        tab.setStyle("-fx-background-radius: 0px; -fx-background-insets: 0 1 0 0, 1 2 1 1, 2 3 1 2");
         tab.setContent(tabPane);
         tab.setOnClosed(event -> ScriptJsonManager.setOpened(FileManager.getFileByName(name), false));
     }

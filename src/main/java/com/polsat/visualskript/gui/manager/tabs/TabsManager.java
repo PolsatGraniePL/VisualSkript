@@ -14,8 +14,10 @@ public class TabsManager {
 
         pane.getTabs().add(tab);
         pane.getSelectionModel().selectLast();
+        pane.setTabDragPolicy(TabPane.TabDragPolicy.REORDER);
 
         tab.setContent(scrollPane);
+        tab.setStyle("-fx-background-radius: 0px");
         //tab.onclose(set opened to false)
 
         scrollPane.setContent(vBox);

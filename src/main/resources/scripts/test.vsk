@@ -1,0 +1,58 @@
+{
+    "opened": true,
+    "blocks": [
+        {
+            "Event": {
+                opened: true,
+                text: "On Join",
+            }
+            "Effect": {
+                "=": "send subtitle",
+                "Text": "&cWitam",
+                "=": "for"
+                "Timespan": "10 second"
+            }
+            "Section": {
+                "=": "if",
+                "Conditionals": {
+                    "Offline Player": "player",
+                    "Condition": "is an operator"
+                },
+                "Effect": {
+                    "=": "send",
+                    "Text": "&4Dzień dobry!"
+                }
+            }
+            "Section": {
+                "=": "else if",
+                "Conditionals": {
+                    "Expression": {
+                        "=": "size of",
+                        "Expression": {
+                            "=": "all players"
+                        }
+                    },
+                    "Condition": {
+                        "=": "is higher than"
+                    }
+                    "Number": 20
+                },
+                "Effect": {
+                    "=": "kick",
+                    "Entity": "player",
+                    "=": "due to"
+                    "Options": "kick_info"
+                }
+            }
+            "Section": {
+                "=": "else",
+                "Effect": {
+                    "=": "teleport",
+                    "Entity": "player",
+                    "=": "to"
+                    "Variable": "spawn"
+                }
+            }
+        },
+    ]
+}
