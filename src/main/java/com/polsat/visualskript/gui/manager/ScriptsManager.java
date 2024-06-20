@@ -28,7 +28,8 @@ public class ScriptsManager {
     public static void openScript(String name){
         MainTabManager.addTab(name);
         ScriptJsonManager.setOpened(FileManager.getFileByName(name), true);
-        ScriptParser.parse(FileManager.getFileByName(name));
+        ScriptParser.build(FileManager.getFileByName(name));
+        //TODO: DELETE ^^, ZMIANA SYSTEMU
     }
     public static void closeScript(String name){
         MainTabManager.removeTab(name);
