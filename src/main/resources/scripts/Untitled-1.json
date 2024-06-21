@@ -47,11 +47,7 @@
                                 }
                             ]
                         },
-                        {
-                            "Condition": [
-                                {"=": "is higher than"}
-                            ]
-                        },
+                        {"=": "is higher than"},
                         {"Number": 20}
                     ]
                 },

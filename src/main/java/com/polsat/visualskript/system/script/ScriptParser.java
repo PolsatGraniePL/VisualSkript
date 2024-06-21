@@ -18,9 +18,10 @@ public class ScriptParser {
         try {
             StringBuilder jsonString = new StringBuilder();
             Scanner reader = new Scanner(file);
-            while (reader.hasNext()){
-                jsonString.append(reader.next());
+            while (reader.hasNextLine()){
+                jsonString.append(reader.nextLine());
             }
+            reader.close();
 
             JSONParser parser = new JSONParser();
             JSONObject mainObject = (JSONObject) parser.parse(jsonString.toString());
@@ -42,28 +43,27 @@ public class ScriptParser {
         }
     }
 
-    ArrayList<String> list = new ArrayList<>(Arrays.asList("Event", "Effect", "Section", "Conditionals", "Expression", ""));
+    static ArrayList<String> list = new ArrayList<>(Arrays.asList("Event", "Effect", "Section", "Conditionals", "Expression"));
 
     private static String separateStringAndJSONArray(JSONObject json){
         try {
             for (Object key : json.keySet()){
                 String keyStr = (String)key;
                 Object keyValue = json.get(keyStr);
-                JSONParser parser = new JSONParser();
-                JSONArray arraySection = (JSONArray) parser.parse(keyValue.toString());
-                for (Object key2 : arraySection){
+                for (Object key2 : (JSONArray) keyValue){
                     JSONObject object = (JSONObject)key2;
                     for (Object x : object.keySet()){
-                        if (x == "" || "" || ""){
-
+                        String key2Str = (String)x;
+                        Object key2Value = object.get(key2Str);
+                        if (list.contains(x)){
+                            return separateStringAndJSONArray(object);
                         } else {
-                            System.out.println("String: ");
+                            return key2Value.toString();
                         }
                     }
-                    System.out.println("[" + keyStr + "] " + object);
                 }
             }
-            return "%nl%";
+            return "none";
         }
         catch (Exception e){
             throw new RuntimeException(e);
