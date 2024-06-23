@@ -1,78 +1,166 @@
 {
     "opened": true,
-    "blocks": [
-        {
-            "Event": [
-                {"opened": true},
-                {"=": "On Join"}
-            ]
-        },
-        {
-            "Effect": [
-                {"=": "send subtitle"},
-                {"Text": "&cWitam"},
-                {"=": "for"},
-                {"Timespan": "10 second"}
-            ]
-        },
-        {
-            "Section": [
-                {"=": "if"},
-                {
-                    "Conditionals": [
-                        {"Offline Player": "player"},
-                        {"Condition": "is an operator"}
-                    ]
-                },
-                {
-                    "Effect": [
-                        {"=": "send"},
-                        {"Text": "&4Dzień dobry!"}
-                    ]
-                }
-            ]
-        },
-        {
-            "Section": [
-                {"=": "else if"},
-                {
-                    "Conditionals": [
-                        {
-                            "Expression": [
-                                {"=": "size of"},
-                                {
-                                    "Expression": [
-                                        {"=": "all players"}
-                                    ]
-                                }
-                            ]
-                        },
-                        {"=": "is higher than"},
-                        {"Number": 20}
-                    ]
-                },
-                {
-                    "Effect": [
-                        {"=": "kick"},
-                        {"Entity": "player"},
-                        {"=": "due to"},
-                        {"Options": "kick_info"}
-                    ]
-                }
-            ]
-        },
-        {
-            "Section": [
-                {"=": "else"},
-                {
-                    "Effect": [
-                        {"=": "teleport"},
-                        {"Entity": "player"},
-                        {"=": "to"},
-                        {"Variable": "spawn"}
-                    ]
-                }
-            ]
-        }
+    "structures": [
+        [
+            {
+                "Event": [
+                    {"opened": true},
+                    {"=": "On Join"}
+                ]
+            },
+            {
+                "Effect": [
+                    {"=": "send subtitle"},
+                    {"Text": "&cWitam"},
+                    {"=": "for"},
+                    {"Timespan": "10 second"}
+                ]
+            },
+            {
+                "Section": [
+                    {"=": "if"},
+                    {
+                        "Conditionals": [
+                            {"Offline Player": "player"},
+                            {"Condition": "is an operator"}
+                        ]
+                    },
+                    {
+                        "Effect": [
+                            {"=": "send"},
+                            {"Text": "&4Dzień dobry!"}
+                        ]
+                    }
+                ]
+            },
+            {
+                "Section": [
+                    {"=": "else if"},
+                    {
+                        "Conditionals": [
+                            {
+                                "Expression": [
+                                    {"=": "size of"},
+                                    {
+                                        "Expression": [
+                                            {"=": "all players"}
+                                        ]
+                                    }
+                                ]
+                            },
+                            {"=": "is higher than"},
+                            {"Number": 20}
+                        ]
+                    },
+                    {
+                        "Effect": [
+                            {"=": "kick"},
+                            {"Entity": "player"},
+                            {"=": "due to"},
+                            {"Options": "kick_info"}
+                        ]
+                    }
+                ]
+            },
+            {
+                "Section": [
+                    {"=": "else"},
+                    {
+                        "Effect": [
+                            {"=": "teleport"},
+                            {"Entity": "player"},
+                            {"=": "to"},
+                            {"Variable": "spawn"}
+                        ]
+                    }
+                ]
+            }
+        ],
+        [
+            {
+                "Event": [
+                    {"opened": true},
+                    {"=": "at"},
+                    {"Time": "12:10"}
+                ]
+            },
+            {
+                "Effect": [
+                    {"=": "send subtitle"},
+                    {"Text": "&cWitam"},
+                    {"=": "for"},
+                    {"Timespan": "10 second"}
+                ]
+            },
+            {
+                "Section": [
+                    {"=": "if"},
+                    {
+                        "Conditionals": [
+                            {"Offline Player": "player"},
+                            {"Condition": "is an operator"}
+                        ]
+                    },
+                    {
+                        "Effect": [
+                            {"=": "send"},
+                            {"Text": "&4Dzień dobry!"}
+                        ]
+                    }
+                ]
+            },
+            {
+                "Section": [
+                    {"=": "else if"},
+                    {
+                        "Conditionals": [
+                            {
+                                "Expression": [
+                                    {"=": "size of"},
+                                    {
+                                        "Expression": [
+                                            {"=": "all players"}
+                                        ]
+                                    }
+                                ]
+                            },
+                            {"=": "is higher than"},
+                            {"Number": 20}
+                        ]
+                    },
+                    {
+                        "Effect": [
+                            {"=": "kick"},
+                            {"Entity": "player"},
+                            {"=": "due to"},
+                            {"Options": "kick_info"}
+                        ]
+                    }
+                ]
+            },
+            {
+                "Section": [
+                    {"=": "else"},
+                    {
+                        "Effect": [
+                            {"=": "teleport"},
+                            {"Entity": "player"},
+                            {"=": "to"},
+                            {"Variable": "spawn"}
+                        ]
+                    }
+                ]
+            }
+        ],
+        [
+            {
+                "Structure": [
+                    {"opened": true},
+                    {"=": "command /123"},
+                    {"Time": "12:10"}
+                ]
+            }
+        ]
+
     ]
 }

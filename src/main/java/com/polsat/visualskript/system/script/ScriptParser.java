@@ -31,10 +31,14 @@ public class ScriptParser {
                 String keyStr = (String)key;
                 Object keyValue = mainObject.get(keyStr);
 
-                if (Objects.equals(keyStr, "blocks")){
-                    for (Object key2 : ((JSONArray) keyValue)){
-                        Object obj = key2;
-                        System.out.println(separateStringAndJSONArray((JSONObject) obj));
+                if (Objects.equals(keyStr, "structures")){
+                    for (Object structureList : ((JSONArray) keyValue)){
+                        //TUTAJ SKOŃCZYŁEM.
+                        System.out.println("Event: " + ((JSONObject)((JSONArray) structureList).get(0)).get("Event"));
+                        for (Object itemList : ((JSONArray) structureList)){
+                            Object obj = itemList;
+                            System.out.println(separateStringAndJSONArray((JSONObject) obj));
+                        }
                     }
                 }
             }
@@ -43,7 +47,7 @@ public class ScriptParser {
         }
     }
 
-    static ArrayList<String> list = new ArrayList<>(Arrays.asList("Event", "Effect", "Section", "Conditionals", "Expression"));
+    static ArrayList<String> list = new ArrayList<>(Arrays.asList("Event", "Effect", "Section", "Conditionals", "Expression", "Structure"));
 
     private static String separateStringAndJSONArray(JSONObject json){
         try {
