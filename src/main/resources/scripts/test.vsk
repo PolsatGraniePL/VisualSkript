@@ -3,8 +3,13 @@
     "structures": [
         [
             {
+                "Info":[
+                    {"Opened":  true},
+                    {"Name": "On Join"}
+                ]
+            },
+            {
                 "Event": [
-                    {"opened": true},
                     {"=": "On Join"}
                 ]
             },
@@ -78,9 +83,15 @@
         ],
         [
             {
+                "Info":[
+                    {"Opened":  true},
+                    {"Name": "at 12:10"}
+                ]
+            },
+            {
                 "Event": [
-                    {"opened": true},
-                    {"=": "On Join"}
+                    {"=": "at"},
+                    {"Time": "12:10"}
                 ]
             },
             {
@@ -148,6 +159,21 @@
                             {"Variable": "spawn"}
                         ]
                     }
+                ]
+            }
+        ],
+        [
+            {
+                "Info":[
+                    {"Opened":  true},
+                    {"Name": "command abcd"}
+                ]
+            },
+            {
+                "Structure": [
+                    {"=": "command abcd"},
+                    {"usage": "tekst"},
+                    {"description": "tekst"}
                 ]
             }
         ]
