@@ -11,6 +11,7 @@ public class PatternExtractor {
     public static String getFirstPattern(String input) {
         String[] pattern = input.split("\n");
         String firstPattern = pattern[0];
+
         return input;
     }
 
