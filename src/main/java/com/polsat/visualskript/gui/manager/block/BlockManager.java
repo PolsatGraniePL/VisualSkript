@@ -3,12 +3,10 @@ package com.polsat.visualskript.gui.manager.block;
 import com.polsat.visualskript.gui.block.Block;
 import com.polsat.visualskript.gui.block.BlockType;
 import com.polsat.visualskript.gui.manager.tabs.TabsManager;
+import com.polsat.visualskript.gui.manager.view.ViewBlock;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TabPane;
-import javafx.scene.control.Tooltip;
+import javafx.scene.control.*;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DataFormat;
 import javafx.scene.input.Dragboard;
@@ -146,7 +144,7 @@ public class BlockManager {
             tmpPane.setMinWidth(Region.USE_PREF_SIZE);
             tmpPane.setMaxWidth(Region.USE_PREF_SIZE);
 
-            //Object system
+            //Drag objects system
             int finalIndex = index;
             tmpPane.setOnDragDetected(event -> {
                 Dragboard dragboard = tmpPane.startDragAndDrop(TransferMode.ANY);
@@ -175,8 +173,16 @@ public class BlockManager {
                     if (!Objects.isNull(buildTab.getSelectionModel().getSelectedItem())){
                         //Drop system
                         Block block1 = listType.get(Integer.parseInt(db.getString()));
+                        TabPane tabPane = (TabPane) buildTab.getSelectionModel().getSelectedItem().getContent();
                         switch (block1.getType()){
-                            case EVENT, STRUCTURE -> TabsManager.addTab(block1.getName(), (TabPane) buildTab.getSelectionModel().getSelectedItem().getContent());
+                            case EVENT:
+                                TabsManager.addTab(block1.getName(), tabPane);
+                                VBox vBox = (VBox)((ScrollPane) tabPane.getSelectionModel().getSelectedItem().getContent()).getContent();
+                                ViewBlock.addEvent(vBox, block1.getPattern());
+                                break;
+                            case SECTION:
+                                TabsManager.addTab(block1.getName(), tabPane);
+                                break;
                         }
                         success = true;
                     }

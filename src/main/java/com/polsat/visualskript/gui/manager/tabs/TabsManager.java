@@ -1,5 +1,6 @@
 package com.polsat.visualskript.gui.manager.tabs;
 
+import javafx.geometry.Insets;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -23,6 +24,7 @@ public class TabsManager {
         scrollPane.setContent(vBox);
         scrollPane.setFitToHeight(true);
         scrollPane.setFitToWidth(true);
+        scrollPane.setPadding(new Insets(10, 10, 10, 10));
 
         vBox.setFillWidth(false);
     }

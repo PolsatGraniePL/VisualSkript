@@ -12,7 +12,7 @@ public class ScriptParser {
 
 
 
-    // JSON TO TEXT-skript
+    // JSON TO Skript
     public static void build(File file){
 
         try {

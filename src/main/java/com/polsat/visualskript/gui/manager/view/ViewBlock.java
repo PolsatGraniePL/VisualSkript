@@ -1,9 +1,31 @@
 package com.polsat.visualskript.gui.manager.view;
 
+import com.polsat.visualskript.gui.block.BlockType;
+import com.polsat.visualskript.system.pattern.PatternExtractor;
+import javafx.geometry.Insets;
+import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+
 public class ViewBlock {
 
-    public static void addEvent(){
+    public static void addEvent(VBox vbox, String pattern){
+        //build view box
+        Pane pane = new Pane();
+        HBox hbox = new HBox();
+        Label label = new Label(PatternExtractor.getFirstPattern(pattern));
+
+        pane.setStyle("-fx-background-color: #"+ BlockType.EVENT.getHexColor() +";");
+        label.setFont(new Font("System", 24));
+        label.setPadding(new Insets(5, 5, 5, 5));
+
+        hbox.getChildren().add(label);
+        pane.getChildren().add(hbox);
         //add pane to current VBox.
+        vbox.getChildren().add(pane);
+
     }
 
 }
