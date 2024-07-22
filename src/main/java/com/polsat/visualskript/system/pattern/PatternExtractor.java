@@ -1,10 +1,14 @@
 package com.polsat.visualskript.system.pattern;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
+import java.util.Objects;
 
 public class PatternExtractor {
 
@@ -15,16 +19,30 @@ public class PatternExtractor {
         return input;
     }
 
-    public static void main(String[] args) {
+    public static String[] downloadCombinations(String pattern){
         try {
-            String url = URLEncoder.encode("[on] [player['s]] (tool|item held|held item) chang(e|ing)", StandardCharsets.UTF_8);
-            Document doc = Jsoup.connect("https://docs.skunity.com/patterns-generator?syntax="+url).get();
-            String patterns = doc.getElementsByClass("s t wc hc").first().text();
-            System.out.println(patterns);
-            System.out.println("-=-=-");
-            System.out.println(getFirstPattern(patterns));
-        } catch (Exception e) {
+            String url = URLEncoder.encode(RepairChar.applyTempChar(pattern), StandardCharsets.UTF_8);
+            String data = Jsoup.connect("https://rcgc.pl/VisuakSkript/api/index.php?pattern="+url).ignoreContentType(true).execute().body();
+            JSONParser parser = new JSONParser();
+            JSONObject json = (JSONObject) parser.parse(data);
+            JSONArray array = (JSONArray) json.get("combinations");
+            for (Object obj : array){
+                String str = (String) obj;
+                System.out.println(str);
+            }
+        } catch (Exception e){
             e.printStackTrace();
+        }
+        return new String[0];
+        //"neither %objects% \u003E %objects%"
+    }
+
+    static class RepairChar{
+        public static String applyTempChar(String input){
+            return input.replace(">", "›").replace("<", "‹");
+        }
+        public static String repairTempChar(String input){
+            return input.replace("›", ">").replace("‹", "<");
         }
     }
 
