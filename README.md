@@ -1,6 +1,6 @@
 # This version of VisualSkript is under construction.
 
-Wydawało się łatwiejsze do napisania...
+Hard work pays off
 
 Expected action: (Built by figma)<br>
 <img src="https://github.com/PolsatGraniePL/VisualSkript/assets/88681446/50618e31-4d04-4a57-b80c-4697ec15f556" width="50%">
