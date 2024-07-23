@@ -7,43 +7,46 @@ import org.jsoup.Jsoup;
 
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class PatternExtractor {
 
-    public static String getFirstPattern(String input) {
-        String[] pattern = input.split("\n");
-        String firstPattern = pattern[0];
-
-        return input;
+    public static String getFirstPattern(String patterns) {
+        String[] pattern = patterns.split("\n");
+        return pattern[0];
     }
 
-    public static String[] downloadCombinations(String pattern){
+    public static String getFirstCombination(String pattern) {
+        ArrayList<String> combinations = getCombinations(pattern);
+        return combinations.get(0);
+    }
+
+    public static String getLatestCombination(String pattern) {
+        ArrayList<String> combinations = getCombinations(pattern);
+        return combinations.get(combinations.size() - 1);
+    }
+
+    public static ArrayList<String> getCombinations(String pattern) {
+        ArrayList<String> combinations = new ArrayList<>();
+        for (Object obj : downloadCombinations(pattern)){
+            combinations.add((String) obj);
+        }
+        return combinations;
+    }
+
+    public static JSONArray downloadCombinations(String pattern){
         try {
-            String url = URLEncoder.encode(RepairChar.applyTempChar(pattern), StandardCharsets.UTF_8);
+            String url = URLEncoder.encode(pattern, StandardCharsets.UTF_8);
             String data = Jsoup.connect("https://rcgc.pl/VisuakSkript/api/index.php?pattern="+url).ignoreContentType(true).execute().body();
-            JSONParser parser = new JSONParser();
-            JSONObject json = (JSONObject) parser.parse(data);
+            JSONObject json = (JSONObject) new JSONParser().parse(data);
             JSONArray array = (JSONArray) json.get("combinations");
-            for (Object obj : array){
-                String str = (String) obj;
-                System.out.println(str);
-            }
+            return array;
         } catch (Exception e){
             e.printStackTrace();
         }
-        return new String[0];
-        //"neither %objects% \u003E %objects%"
-    }
-
-    static class RepairChar{
-        public static String applyTempChar(String input){
-            return input.replace(">", "›").replace("<", "‹");
-        }
-        public static String repairTempChar(String input){
-            return input.replace("›", ">").replace("‹", "<");
-        }
+        return null;
     }
 
 }

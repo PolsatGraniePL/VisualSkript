@@ -11,6 +11,7 @@
        <ScrollPane fitToHeight="true" fitToWidth="true">
            <VBox fillWidth="false">
                <children>
+
                    <Pane prefHeight="45.0" style="-fx-background-color: #1cb598;">
                        <VBox.margin>
                            <Insets left="10.0" top="10.0" />
@@ -39,8 +40,6 @@
                            </HBox>
                        </children>
                    </Pane>
-
-
 
                    <Pane style="-fx-background-color: #8bff00;">
                        <VBox.margin>
@@ -204,9 +203,7 @@
                                    <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: rgba(0,0,0,0);">
                                        <graphic>
                                            <ImageView fitHeight="20.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true" smooth="false">
-                                               <image>
-                                                   <Image url="@../images/lines.png" />
-                                               </image>
+                                               <Image url="@../images/lines.png" />
                                            </ImageView>
                                        </graphic></Button>
                                </children>
@@ -297,6 +294,28 @@
                            </HBox>
                        </children>
                    </Pane>
+               <Pane style="-fx-background-color: #212121;">
+                  <children>
+                     <VBox>
+                        <children>
+                           <HBox>
+                              <children>
+                                 <Label alignment="CENTER" contentDisplay="BOTTOM" prefHeight="30.0" prefWidth="59.0" text="Search: " textAlignment="CENTER" textFill="WHITE">
+                                    <font>
+                                       <Font size="17.0" />
+                                    </font>
+                                    <HBox.margin>
+                                       <Insets left="5.0" />
+                                    </HBox.margin>
+                                 </Label>
+                                 <TextField prefHeight="30.0" prefWidth="475.0" />
+                              </children>
+                           </HBox>
+                           <ListView editable="true" prefHeight="188.0" prefWidth="534.0" />
+                        </children>
+                     </VBox>
+                  </children>
+               </Pane>
                </children></VBox>
        </ScrollPane>
    </center>
