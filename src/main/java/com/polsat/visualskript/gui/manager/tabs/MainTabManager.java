@@ -20,10 +20,8 @@ public class MainTabManager {
         File[] filesList = folder.listFiles();
         try {
             for (File file : filesList) {
-                if (file.getName().endsWith(".vsk")) {
-                    if (ScriptJsonManager.getOpened(file)){
-                        MainTabManager.addTab(file.getName());
-                    }
+                if (file.getName().endsWith(".vsk") && ScriptJsonManager.getOpened(file)) {
+                    MainTabManager.addTab(file.getName());
                 }
             }
         } catch (Exception e){

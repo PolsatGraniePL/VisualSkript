@@ -169,23 +169,21 @@ public class BlockManager {
             buildTab.setOnDragDropped(event -> {
                 Dragboard db = event.getDragboard();
                 boolean success = false;
-                if (db.hasString()) {
-                    if (!Objects.isNull(buildTab.getSelectionModel().getSelectedItem())){
-                        //Drop system
-                        Block block1 = listType.get(Integer.parseInt(db.getString()));
-                        TabPane tabPane = (TabPane) buildTab.getSelectionModel().getSelectedItem().getContent();
-                        switch (block1.getType()){
-                            case EVENT:
-                                TabsManager.addTab(block1.getName(), tabPane);
-                                VBox vBox = (VBox)((ScrollPane) tabPane.getSelectionModel().getSelectedItem().getContent()).getContent();
-                                ViewBlock.addEvent(vBox, block1.getPattern());
-                                break;
-                            case SECTION:
-                                TabsManager.addTab(block1.getName(), tabPane);
-                                break;
-                        }
-                        success = true;
+                if (db.hasString() && !Objects.isNull(buildTab.getSelectionModel().getSelectedItem())) {
+                    //Drop system
+                    Block block1 = listType.get(Integer.parseInt(db.getString()));
+                    TabPane tabPane = (TabPane) buildTab.getSelectionModel().getSelectedItem().getContent();
+                    switch (block1.getType()){
+                        case EVENT:
+                            TabsManager.addTab(block1.getName(), tabPane);
+                            VBox vBox = (VBox)((ScrollPane) tabPane.getSelectionModel().getSelectedItem().getContent()).getContent();
+                            ViewBlock.addEvent(vBox, block1.getPattern());
+                            break;
+                        case SECTION:
+                            TabsManager.addTab(block1.getName(), tabPane);
+                            break;
                     }
+                    success = true;
                 }
                 event.setDropCompleted(success);
                 event.consume();
