@@ -294,24 +294,24 @@
                            </HBox>
                        </children>
                    </Pane>
-               <Pane style="-fx-background-color: #212121;">
+               <Pane prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: #212121;">
                   <children>
-                     <VBox>
+                     <VBox prefHeight="200.0" prefWidth="500.0">
                         <children>
                            <HBox>
                               <children>
-                                 <Label alignment="CENTER" contentDisplay="BOTTOM" prefHeight="30.0" prefWidth="59.0" text="Search: " textAlignment="CENTER" textFill="WHITE">
+                                 <Label alignment="CENTER" contentDisplay="BOTTOM" text="Search: " textAlignment="CENTER" textFill="WHITE">
                                     <font>
-                                       <Font size="17.0" />
+                                       <Font size="18.0" />
                                     </font>
                                     <HBox.margin>
                                        <Insets left="5.0" />
                                     </HBox.margin>
                                  </Label>
-                                 <TextField prefHeight="30.0" prefWidth="475.0" />
+                                 <TextField maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" HBox.hgrow="ALWAYS" />
                               </children>
                            </HBox>
-                           <ListView editable="true" prefHeight="188.0" prefWidth="534.0" />
+                           <ListView editable="true" />
                         </children>
                      </VBox>
                   </children>

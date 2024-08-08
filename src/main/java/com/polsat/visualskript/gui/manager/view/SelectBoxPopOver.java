@@ -1,8 +1,6 @@
 package com.polsat.visualskript.gui.manager.view;
 
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -10,8 +8,12 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
 import org.controlsfx.control.PopOver;
 
 import java.util.ArrayList;
@@ -22,9 +24,11 @@ public class SelectBoxPopOver {
 
     private final double WIDTH = 500;
     private final double HEIGHT = 200;
+    private boolean alreadyShow = false;
 
     public void Show(List<String> list, Node obj, Consumer<String> callback) {
         PopOver pop = new PopOver();
+        System.out.println("new PopOver");
         pop.setContentNode(getPane(list, callback, pop));
 
         pop.setPrefWidth(WIDTH);
@@ -36,6 +40,7 @@ public class SelectBoxPopOver {
             pop.show(obj);
             pop.requestFocus();
         });
+
     }
 
     private Pane getPane(List<String> list, Consumer<String> callback, PopOver pop){
@@ -49,8 +54,17 @@ public class SelectBoxPopOver {
         pane.setPrefSize(WIDTH, HEIGHT);
         pane.setStyle("-fx-background-color: #0d1117");
 
-        label.setFont(new Font("Arial", 16));
+        vbox.setPrefSize(WIDTH, HEIGHT);
+        vbox.setFillWidth(true);
+
+        hbox.setFillHeight(true);
+        HBox.setHgrow(textField, Priority.ALWAYS);
+
+        label.setFont(new Font("System", 20));
+        label.setTextFill(Color.WHITE);
         label.setPadding(new Insets(0, 0, 0, 5));
+        label.setText("Search:");
+
 
         textField.setFont(new Font("Arial", 16));
         textField.setOnKeyTyped((keyEvent)->{
