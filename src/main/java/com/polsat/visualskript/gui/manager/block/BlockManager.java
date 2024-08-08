@@ -4,11 +4,10 @@ import com.polsat.visualskript.gui.block.Block;
 import com.polsat.visualskript.gui.block.BlockType;
 import com.polsat.visualskript.gui.manager.tabs.TabsManager;
 import com.polsat.visualskript.gui.manager.view.ViewBlock;
+import com.polsat.visualskript.util.ErrorHandler;
 import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.DataFormat;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Pane;
@@ -95,7 +94,7 @@ public class BlockManager {
                 }
             }
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            new ErrorHandler(e.toString());
         }
         return list;
     }
@@ -121,7 +120,7 @@ public class BlockManager {
         BlockManager.blockContainer = blockContainer;
     }
 
-    //Wstawia listę bloków do VBox
+    //Inserts a list of blocks into VBox
     public static void putBlocksInContainer(List<Block> listType){
         int index = -1;
         for (Block block : listType) {

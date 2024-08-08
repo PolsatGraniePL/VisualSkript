@@ -4,6 +4,7 @@ import com.polsat.visualskript.Main;
 import com.polsat.visualskript.gui.manager.tabs.MainTabManager;
 import com.polsat.visualskript.system.script.ScriptJsonManager;
 import com.polsat.visualskript.system.script.ScriptParser;
+import com.polsat.visualskript.util.ErrorHandler;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -50,7 +51,7 @@ public class ScriptsManager {
                 }
             }
         } catch (Exception e){
-            throw new RuntimeException(e);
+            new ErrorHandler(e.toString());
         }
 
         return list;

@@ -1,5 +1,6 @@
 package com.polsat.visualskript.system.script;
 
+import com.polsat.visualskript.util.ErrorHandler;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
@@ -20,7 +21,7 @@ public class ScriptJsonManager {
             writer.write(jsonObject.toJSONString());
             writer.close();
         } catch (Exception e){
-            throw new RuntimeException(e);
+            new ErrorHandler(e.toString());
         }
     }
 
@@ -36,7 +37,8 @@ public class ScriptJsonManager {
             }
             return (boolean) jsonObject.get("opened");
         } catch (Exception e){
-            throw new RuntimeException(e);
+            new ErrorHandler(e.toString());
+            return false;
         }
     }
 

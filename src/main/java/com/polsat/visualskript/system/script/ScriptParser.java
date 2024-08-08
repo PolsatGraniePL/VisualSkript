@@ -1,5 +1,6 @@
 package com.polsat.visualskript.system.script;
 
+import com.polsat.visualskript.util.ErrorHandler;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -35,15 +36,14 @@ public class ScriptParser {
                     for (Object structureList : ((JSONArray) keyValue)){
                         System.out.println("XXX: " + ((JSONObject)((JSONArray) structureList).get(0)).get("Info"));
                         for (Object itemList : ((JSONArray) structureList)){
-                            Object obj = itemList;
-                            if (Objects.isNull(((JSONObject) obj).get("Info")))
-                                System.out.println(separateStringAndJSONArray((JSONObject) obj));
+                            if (Objects.isNull(((JSONObject) itemList).get("Info")))
+                                System.out.println(separateStringAndJSONArray((JSONObject) itemList));
                         }
                     }
                 }
             }
         } catch (Exception e){
-            throw new RuntimeException(e);
+            new ErrorHandler(e.toString());
         }
     }
 
@@ -71,7 +71,8 @@ public class ScriptParser {
             return "none";
         }
         catch (Exception e){
-            throw new RuntimeException(e);
+            new ErrorHandler(e.toString());
+            return "";
         }
     }
 
@@ -90,7 +91,7 @@ public class ScriptParser {
             writer.write(jsonObject.toJSONString());
             writer.close();
         } catch (Exception e){
-            throw new RuntimeException(e);
+            new ErrorHandler(e.toString());
         }
     }
 

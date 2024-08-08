@@ -1,7 +1,7 @@
 package com.polsat.visualskript.gui.manager;
 
 import com.polsat.visualskript.Main;
-import com.polsat.visualskript.system.script.ScriptParser;
+import com.polsat.visualskript.util.ErrorHandler;
 
 import java.io.File;
 import java.util.Objects;
@@ -13,7 +13,8 @@ public class FileManager {
         try {
             return newFile.createNewFile();
         }catch (Exception e){
-            throw new RuntimeException(e);
+            new ErrorHandler(e.toString());
+            return false;
         }
     }
     public static boolean deleteFile(String path){
@@ -30,7 +31,8 @@ public class FileManager {
         try {
             return new File(Main.class.getResource(folderName).toURI()).listFiles();
         } catch (Exception e){
-            throw new RuntimeException(e);
+            new ErrorHandler(e.toString());
+            return new File[0];
         }
     }
 
