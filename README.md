@@ -1,3 +1,4 @@
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/eee26700f6724cf282ac4f9d553bc238)](https://app.codacy.com/gh/PolsatGraniePL/VisualSkript/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 # This version of VisualSkript is under construction.
 
 Hard work pays off
