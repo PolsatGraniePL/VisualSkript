@@ -28,9 +28,9 @@
                                        </padding>
                                    </Label>
                                    <Region prefWidth="0.0" HBox.hgrow="ALWAYS" />
-                                   <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: rgba(0,0,0,0);">
+                                   <Button alignment="CENTER" contentDisplay="TOP" graphicTextGap="0.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: rgba(0,0,0,0);">
                                        <graphic>
-                                           <ImageView fitHeight="20.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true" smooth="false">
+                                           <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                                                <image>
                                                    <Image url="@../images/lines.png" />
                                                </image>

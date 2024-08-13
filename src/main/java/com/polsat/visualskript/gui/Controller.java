@@ -18,9 +18,6 @@ import java.util.Arrays;
 import java.util.List;
 
 
-//TODO
-// - Przy dodawaniu Tab na TabPage każdy tab musi mieć VBox (System wizualnego języka)
-
 public class Controller {
 
     @FXML private TabPane buildTab;
