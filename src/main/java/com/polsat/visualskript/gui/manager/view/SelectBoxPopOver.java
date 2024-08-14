@@ -28,15 +28,14 @@ public class SelectBoxPopOver {
 
     public void Show(List<String> list, Node obj, Consumer<String> callback) {
         PopOver pop = new PopOver();
-        System.out.println("new PopOver");
         pop.setContentNode(getPane(list, callback, pop));
 
+        pop.setAnimated(false);
         pop.setPrefWidth(WIDTH);
         pop.setPrefHeight(HEIGHT);
         pop.setTitle("Select Box");
 
         Platform.runLater(() -> {
-            System.out.println("SHOW");
             pop.show(obj);
             pop.requestFocus();
         });
@@ -80,7 +79,6 @@ public class SelectBoxPopOver {
 
         listView.getItems().setAll(list);
         listView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            System.out.println("CLICKED: " + newValue);
             pop.hide();
             callback.accept(newValue);
         });

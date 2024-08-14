@@ -48,13 +48,13 @@ public class ViewBlock {
         button.setPrefSize(25, 25);
         button.setAlignment(Pos.CENTER);
         button.setContentDisplay(ContentDisplay.TOP);
+        button.setGraphic(imageView);
         imageView.setFitHeight(20);
         imageView.setFitWidth(20);
         imageView.setImage(new Image(String.valueOf(Main.class.getResource("/images/lines.png"))));
 
         hbox.getChildren().addAll(label, region, button);
         pane.getChildren().add(hbox);
-        button.setGraphic(imageView);
 
         //add pane to current VBox.
         vbox.getChildren().add(pane);
@@ -62,29 +62,36 @@ public class ViewBlock {
         //Wait 0.01 second and show SelectBoxPopOver with patterns to select.
         new Timeline(new KeyFrame(Duration.seconds(0.01),
             event -> {
-            List<String> patternList = Arrays.asList(patterns.split("\n"));
-            if (patternList.size() == 1){
-                //Show only popover with combinations
-                List<String> combinationsList = PatternExtractor.getCombinations(PatternExtractor.getFirstPattern(patterns));
+                setCombinations(patterns, pane, label);
+            })
+        ).playFromStart();
+
+        button.setOnMouseClicked((mouseEvent)->{
+            setCombinations(patterns, pane, label);
+        });
+
+    }
+
+    private static void setCombinations(String patterns, Pane pane, Label label) {
+        List<String> patternList = Arrays.asList(patterns.split("\n"));
+        if (patternList.size() == 1){
+            //Show only popover with combinations
+            List<String> combinationsList = PatternExtractor.getCombinations(PatternExtractor.getFirstPattern(patterns));
+            Collections.reverse(combinationsList);
+            Platform.runLater(()-> new SelectBoxPopOver().Show(combinationsList, pane, result2 ->{
+                Platform.runLater(() -> label.setText("[Event] " + result2));
+            }));
+        } else {
+            //Show popovers with patterns and combinations
+            new SelectBoxPopOver().Show(patternList, pane, result -> {
+                Platform.runLater(() -> label.setText("[Event] " + result));
+                List<String> combinationsList = PatternExtractor.getCombinations(result);
                 Collections.reverse(combinationsList);
                 Platform.runLater(()-> new SelectBoxPopOver().Show(combinationsList, pane, result2 ->{
                     Platform.runLater(() -> label.setText("[Event] " + result2));
                 }));
-            } else {
-                //Show popovers with patterns and combinations
-                new SelectBoxPopOver().Show(Arrays.asList(patterns.split("\n")), pane, result -> {
-                    Platform.runLater(() -> label.setText("[Event] " + result));
-                    List<String> combinationsList = PatternExtractor.getCombinations(result);
-                    Collections.reverse(combinationsList);
-                    Platform.runLater(()-> new SelectBoxPopOver().Show(combinationsList, pane, result2 ->{
-                        Platform.runLater(() -> label.setText("[Event] " + result2));
-                    }));
-                });
-            }})
-        ).playFromStart();
-
-
-
+            });
+        }
     }
 
 }
