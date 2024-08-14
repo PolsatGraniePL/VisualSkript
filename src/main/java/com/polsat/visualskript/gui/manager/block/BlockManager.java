@@ -3,7 +3,7 @@ package com.polsat.visualskript.gui.manager.block;
 import com.polsat.visualskript.gui.block.Block;
 import com.polsat.visualskript.gui.block.BlockType;
 import com.polsat.visualskript.gui.manager.tabs.TabsManager;
-import com.polsat.visualskript.gui.manager.view.ViewBlock;
+import com.polsat.visualskript.gui.manager.view.blocks.*;
 import com.polsat.visualskript.util.ErrorHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
@@ -18,10 +18,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class BlockManager {
 
@@ -158,12 +155,24 @@ public class BlockManager {
                 event.consume();
             });
 
-            buildTab.setOnDragOver(event -> {
-                if (event.getGestureSource() != buildTab && event.getDragboard().hasString()) {
-                    event.acceptTransferModes(TransferMode.ANY);
-                }
-                event.consume();
-            });
+            switch (block.getType()){
+                case EVENT, STRUCTURE:
+                    //Drop on buildTab
+                    buildTab.setOnDragOver(event -> {
+                        event.acceptTransferModes(TransferMode.ANY);
+                        event.consume();
+                    });
+                    break;
+                case CONDITION, EXPRESSION, TYPE:
+                    //Drop on %xyz%
+                    break;
+                case SECTION, EFFECT:
+                    //Drop on VBox
+                    break;
+                case FUNCTION:
+                    //Drop on %xyz% and VBox
+                    break;
+            }
 
             buildTab.setOnDragDropped(event -> {
                 Dragboard db = event.getDragboard();
@@ -172,14 +181,49 @@ public class BlockManager {
                     //Drop system
                     Block block1 = listType.get(Integer.parseInt(db.getString()));
                     TabPane tabPane = (TabPane) buildTab.getSelectionModel().getSelectedItem().getContent();
+
+                    VBox vBox = null;
+                    try {
+                        vBox = (VBox)((ScrollPane) tabPane.getSelectionModel().getSelectedItem().getContent()).getContent();
+                    } catch (Exception ignore) { }
                     switch (block1.getType()){
                         case EVENT:
+                            // new []
                             TabsManager.addTab(block1.getName(), tabPane);
-                            VBox vBox = (VBox)((ScrollPane) tabPane.getSelectionModel().getSelectedItem().getContent()).getContent();
-                            ViewBlock.addEvent(vBox, block1.getPattern());
+                            VBox newVBoxEvent = (VBox)((ScrollPane) tabPane.getSelectionModel().getSelectedItem().getContent()).getContent();
+                            new Event(newVBoxEvent, block1.getPattern(), block1.getType());
+                            break;
+                        case CONDITION:
+                            // ()
+                            new Conditions(vBox, block1.getPattern(), block1.getType());
                             break;
                         case SECTION:
+                            // []
+                            if (Objects.isNull(vBox)) {return;}
+                            new Section(vBox, block1.getPattern(), block1.getType());
+                            break;
+                        case EFFECT:
+                            // []
+                            if (Objects.isNull(vBox)) {return;}
+                            new Effect(vBox, block1.getPattern(), block1.getType());
+                            break;
+                        case EXPRESSION:
+                            // ()
+                            new Expression(vBox, block1.getPattern(), block1.getType());
+                            break;
+                        case TYPE:
+                            // ("")
+                            new Type(vBox, block1.getPattern(), block1.getType());
+                            break;
+                        case STRUCTURE:
+                            // new []
                             TabsManager.addTab(block1.getName(), tabPane);
+                            VBox newVBoxStructure = (VBox)((ScrollPane) tabPane.getSelectionModel().getSelectedItem().getContent()).getContent();
+                            new Structure(newVBoxStructure, block1.getPattern(), block1.getType());
+                            break;
+                        case FUNCTION:
+                            // ()/[]
+                            new Function(vBox, block1.getPattern(), block1.getType());
                             break;
                     }
                     success = true;

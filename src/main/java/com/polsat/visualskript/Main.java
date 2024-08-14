@@ -8,6 +8,15 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class Main extends Application {
+
+    //
+    //TODO:
+    // - Miejsce podczas Drop
+    // - Edycja miejsca drag and drop
+    // - <.+> & %xyz% -> ()
+    // - Components: wyświetlanie wszystkich eventów/struktur
+    //
+
     public static void main(String[] args) {
         launch();
     }

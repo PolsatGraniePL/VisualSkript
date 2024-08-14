@@ -316,6 +316,20 @@
                      </VBox>
                   </children>
                </Pane>
+               <Pane>
+                  <children>
+                     <HBox fillHeight="false">
+                        <children>
+                           <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="51.0" text="Delete">
+                              <opaqueInsets>
+                                 <Insets />
+                              </opaqueInsets>
+                           </Button>
+                           <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="51.0" text="Edit" />
+                        </children>
+                     </HBox>
+                  </children>
+               </Pane>
                </children></VBox>
        </ScrollPane>
    </center>
