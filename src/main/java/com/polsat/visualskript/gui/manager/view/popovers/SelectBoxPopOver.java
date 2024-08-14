@@ -1,4 +1,4 @@
-package com.polsat.visualskript.gui.manager.view;
+package com.polsat.visualskript.gui.manager.view.popovers;
 
 import javafx.application.Platform;
 import javafx.geometry.Insets;
@@ -11,9 +11,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
-import javafx.scene.text.TextAlignment;
 import org.controlsfx.control.PopOver;
 
 import java.util.ArrayList;
@@ -24,9 +22,8 @@ public class SelectBoxPopOver {
 
     private final double WIDTH = 500;
     private final double HEIGHT = 200;
-    private boolean alreadyShow = false;
 
-    public void Show(List<String> list, Node obj, Consumer<String> callback) {
+    public SelectBoxPopOver(List<String> list, Node obj, Consumer<String> callback) {
         PopOver pop = new PopOver();
         pop.setContentNode(getPane(list, callback, pop));
 
