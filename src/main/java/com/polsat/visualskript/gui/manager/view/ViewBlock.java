@@ -25,9 +25,12 @@ import java.util.List;
 
 public abstract class ViewBlock {
 
+    private final Pane pane = new Pane();
+    private final ContextMenu contextMenu = new ContextMenu();
+    private boolean contextMenuBuilt = false;
+
     protected ViewBlock(VBox vbox, String patterns, BlockType blockType){
         //build view box
-        Pane pane = new Pane();
         HBox hbox = new HBox();
         Label label = new Label();
         Region region = new Region();
@@ -62,24 +65,27 @@ public abstract class ViewBlock {
         ).playFromStart();
 
         pane.setOnContextMenuRequested((e)->{
-            ContextMenu contextMenu = new ContextMenu();
-            MenuItem edit = new MenuItem("Edit");
-            MenuItem delete = new MenuItem("Delete");
-            contextMenu.getItems().addAll(edit, delete);
-            edit.setOnAction(event -> {
-                ViewBlock.setCombinations(patterns, pane, label, blockType);
-            });
-            delete.setOnAction(event -> {
-                System.out.println("Delete");
-            });
+            if (!contextMenuBuilt) {
+                MenuItem edit = new MenuItem("Edit");
+                MenuItem delete = new MenuItem("Delete");
+                contextMenu.getItems().addAll(edit, delete);
+                edit.setOnAction(event -> {
+                    setCombinations(patterns, pane, label, blockType);
+                });
+                delete.setOnAction(event -> {
+                    System.out.println("Delete");
+                });
+            }
+            contextMenuBuilt = true;
             contextMenu.show(pane, e.getScreenX(), e.getScreenY());
         });
+
         button.setOnMouseClicked((mouseEvent)->{
             setCombinations(patterns, pane, label, blockType);
         });
     }
 
-    public static void setCombinations(String patterns, Pane pane, Label label, BlockType blockType) {
+    private void setCombinations(String patterns, Pane pane, Label label, BlockType blockType) {
         List<String> patternList = Arrays.asList(patterns.split("\n"));
         if (patternList.size() == 1){
             //Show only popover with combinations

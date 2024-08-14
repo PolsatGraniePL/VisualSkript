@@ -15,6 +15,9 @@ public class Main extends Application {
     // - Edycja miejsca drag and drop
     // - <.+> & %xyz% -> ()
     // - Components: wyświetlanie wszystkich eventów/struktur
+    // - Zapisywanie do .json
+    // - Wczytywanie z .json
+    // - Eksportowanie do .sk
     //
 
     public static void main(String[] args) {
