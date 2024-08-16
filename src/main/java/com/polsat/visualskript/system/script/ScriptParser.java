@@ -34,10 +34,10 @@ public class ScriptParser {
 
                 if (Objects.equals(keyStr, "structures")){
                     for (Object structureList : ((JSONArray) keyValue)){
-                        System.out.println("XXX: " + ((JSONObject)((JSONArray) structureList).get(0)).get("Info"));
+                        System.out.println("Info: " + ((JSONObject)((JSONArray) structureList).get(0)).get("Info"));
                         for (Object itemList : ((JSONArray) structureList)){
                             if (Objects.isNull(((JSONObject) itemList).get("Info")))
-                                System.out.println(separateStringAndJSONArray((JSONObject) itemList));
+                                System.out.println(separateStringAndJSONObject((JSONObject) itemList));
                         }
                     }
                 }
@@ -47,9 +47,12 @@ public class ScriptParser {
         }
     }
 
-    static ArrayList<String> list = new ArrayList<>(Arrays.asList("Event", "Effect", "Section", "Conditionals", "Expression", "Structure", "Info"));
+    static ArrayList<String> listAll = new ArrayList<>(Arrays.asList("Event", "Effect", "Section", "Conditionals", "Expression", "Structure", "Info"));
+    static ArrayList<String> listNewLine = new ArrayList<>(Arrays.asList("Effect", "Section", "Event", "Structure"));
 
-    private static String separateStringAndJSONArray(JSONObject json){
+    private static String separateStringAndJSONObject(JSONObject json){
+        StringBuilder stringBuilder = new StringBuilder();
+        StringBuilder tabAmount = new StringBuilder();
         try {
             for (Object key : json.keySet()){
                 String keyStr = (String)key;
@@ -59,20 +62,26 @@ public class ScriptParser {
                     for (Object x : object.keySet()){
                         String key2Str = (String)x;
                         Object key2Value = object.get(key2Str);
-                        if (list.contains(x)){
-                            return separateStringAndJSONArray(object);
+                        //TODO: ":\n\t" DLA EVENT I COMMAND
+
+                        if (listAll.contains(x)){
+                            if (listNewLine.contains(x)){
+                                tabAmount.append("\t");
+                                stringBuilder.append("["+key2Str+"]:\n").append(tabAmount).append(separateStringAndJSONObject(object));
+                            } else {
+                                stringBuilder.append(separateStringAndJSONObject(object));
+                            }
                         } else {
-                            //return "["+keyStr+"|"+key2+"|"+key2Str + "] " +  key2Value.toString();
-                            return key2Value.toString();
+                            stringBuilder.append(key2Value.toString()).append(" ");
                         }
                     }
                 }
             }
-            return "none";
+            return stringBuilder.toString();
         }
         catch (Exception e){
             new ErrorHandler(e.toString());
-            return "";
+            return "Error";
         }
     }
 

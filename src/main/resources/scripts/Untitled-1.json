@@ -145,6 +145,41 @@
                             {"=": "due to"},
                             {"Options": "kick_info"}
                         ]
+                    },
+                    {
+                        "Section": [
+                            {"=": "if"},
+                            {
+                                "Conditionals": [
+                                    {
+                                        "Expression": [
+                                            {"=": "size of"},
+                                            {
+                                                "Expression": [
+                                                    {"=": "all players"}
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {"=": "is higher than"},
+                                    {"Number": 30}
+                                ]
+                            },
+                            {
+                                "Effect": [
+                                    {"=": "kick"},
+                                    {"Entity": "player"},
+                                    {"=": "due to"},
+                                    {"Text": "Wincej niż 30"}
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "Effect": [
+                            {"=": "broadcast"},
+                            {"Text": "Chłop wbił!"}
+                        ]
                     }
                 ]
             },

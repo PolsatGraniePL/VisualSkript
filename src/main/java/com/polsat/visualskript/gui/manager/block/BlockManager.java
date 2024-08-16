@@ -163,13 +163,13 @@ public class BlockManager {
                         event.consume();
                     });
                     break;
-                case CONDITION, EXPRESSION, TYPE:
+                case EXPRESSION, TYPE:
                     //Drop on %xyz%
                     break;
                 case SECTION, EFFECT:
                     //Drop on VBox
                     break;
-                case FUNCTION:
+                case FUNCTION, CONDITION:
                     //Drop on %xyz% and VBox
                     break;
             }
@@ -194,7 +194,7 @@ public class BlockManager {
                             new Event(newVBoxEvent, block1.getPattern(), block1.getType());
                             break;
                         case CONDITION:
-                            // ()
+                            // ()/[]
                             new Conditions(vBox, block1.getPattern(), block1.getType());
                             break;
                         case SECTION:
