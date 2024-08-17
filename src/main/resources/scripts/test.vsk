@@ -10,72 +10,72 @@
             },
             {
                 "Event": [
-                    {"=": "On Join"}
-                ]
-            },
-            {
-                "Effect": [
-                    {"=": "send subtitle"},
-                    {"Text": "&cWitam"},
-                    {"=": "for"},
-                    {"Timespan": "10 second"}
-                ]
-            },
-            {
-                "Section": [
-                    {"=": "if"},
+                    {"=": "On Join"},
                     {
-                        "Conditionals": [
-                            {"Offline Player": "player"},
-                            {"Condition": "is an operator"}
+                        "Effect": [
+                            {"=": "send subtitle"},
+                            {"Text": "&cWitam"},
+                            {"=": "for"},
+                            {"Timespan": "10 second"}
                         ]
                     },
                     {
-                        "Effect": [
-                            {"=": "send"},
-                            {"Text": "&4Dzień dobry!"}
-                        ]
-                    }
-                ]
-            },
-            {
-                "Section": [
-                    {"=": "else if"},
-                    {
-                        "Conditionals": [
+                        "Section": [
+                            {"=": "if"},
                             {
-                                "Expression": [
-                                    {"=": "size of"},
-                                    {
-                                        "Expression": [
-                                            {"=": "all players"}
-                                        ]
-                                    }
+                                "Conditionals": [
+                                    {"Offline Player": "player"},
+                                    {"Condition": "is an operator"}
                                 ]
                             },
-                            {"=": "is higher than"},
-                            {"Number": 20}
+                            {
+                                "Effect": [
+                                    {"=": "send"},
+                                    {"Text": "&4Dzień dobry!"}
+                                ]
+                            }
                         ]
                     },
                     {
-                        "Effect": [
-                            {"=": "kick"},
-                            {"Entity": "player"},
-                            {"=": "due to"},
-                            {"Options": "kick_info"}
+                        "Section": [
+                            {"=": "else if"},
+                            {
+                                "Conditionals": [
+                                    {
+                                        "Expression": [
+                                            {"=": "size of"},
+                                            {
+                                                "Expression": [
+                                                    {"=": "all players"}
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {"=": "is higher than"},
+                                    {"Number": 20}
+                                ]
+                            },
+                            {
+                                "Effect": [
+                                    {"=": "kick"},
+                                    {"Entity": "player"},
+                                    {"=": "due to"},
+                                    {"Options": "kick_info"}
+                                ]
+                            }
                         ]
-                    }
-                ]
-            },
-            {
-                "Section": [
-                    {"=": "else"},
+                    },
                     {
-                        "Effect": [
-                            {"=": "teleport"},
-                            {"Entity": "player"},
-                            {"=": "to"},
-                            {"Variable": "spawn"}
+                        "Section": [
+                            {"=": "else"},
+                            {
+                                "Effect": [
+                                    {"=": "teleport"},
+                                    {"Entity": "player"},
+                                    {"=": "to"},
+                                    {"Variable": "spawn"}
+                                ]
+                            }
                         ]
                     }
                 ]
@@ -91,64 +91,41 @@
             {
                 "Event": [
                     {"=": "at"},
-                    {"Time": "12:10"}
-                ]
-            },
-            {
-                "Effect": [
-                    {"=": "send subtitle"},
-                    {"Text": "&cWitam"},
-                    {"=": "for"},
-                    {"Timespan": "10 second"}
-                ]
-            },
-            {
-                "Section": [
-                    {"=": "if"},
-                    {
-                        "Conditionals": [
-                            {"Offline Player": "player"},
-                            {"Condition": "is an operator"}
-                        ]
-                    },
+                    {"Time": "12:10"},
                     {
                         "Effect": [
-                            {"=": "send"},
-                            {"Text": "&4Dzień dobry!"}
-                        ]
-                    }
-                ]
-            },
-            {
-                "Section": [
-                    {"=": "else if"},
-                    {
-                        "Conditionals": [
-                            {
-                                "Expression": [
-                                    {"=": "size of"},
-                                    {
-                                        "Expression": [
-                                            {"=": "all players"}
-                                        ]
-                                    }
-                                ]
-                            },
-                            {"=": "is higher than"},
-                            {"Number": 20}
-                        ]
-                    },
-                    {
-                        "Effect": [
-                            {"=": "kick"},
-                            {"Entity": "player"},
-                            {"=": "due to"},
-                            {"Options": "kick_info"}
+                            {"=": "send subtitle"},
+                            {"Text": "&cWitam"},
+                            {"=": "for"},
+                            {"Timespan": "10 second"}
                         ]
                     },
                     {
                         "Section": [
                             {"=": "if"},
+                            {
+                                "Conditionals": [
+                                    {"Offline Player": "player"},
+                                    {"Condition": "is an operator"}
+                                ]
+                            },
+                            {
+                                "Effect": [
+                                    {"=": "send"},
+                                    {"Text": "&4Dzień dobry"}
+                                ]
+                            },
+                            {
+                                "Effect": [
+                                    {"=": "send"},
+                                    {"Text": "&4wszystkim!"}
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "Section": [
+                            {"=": "else if"},
                             {
                                 "Conditionals": [
                                     {
@@ -162,7 +139,7 @@
                                         ]
                                     },
                                     {"=": "is higher than"},
-                                    {"Number": 30}
+                                    {"Number": 20}
                                 ]
                             },
                             {
@@ -170,28 +147,218 @@
                                     {"=": "kick"},
                                     {"Entity": "player"},
                                     {"=": "due to"},
-                                    {"Text": "Wincej niż 30"}
+                                    {"Options": "kick_info1"}
+                                ]
+                            },
+                            {
+                                "Effect": [
+                                    {"=": "kick"},
+                                    {"Entity": "player"},
+                                    {"=": "due to"},
+                                    {"Options": "kick_info2"}
+                                ]
+                            },
+                            {
+                                "Effect": [
+                                    {"=": "kick"},
+                                    {"Entity": "player"},
+                                    {"=": "due to"},
+                                    {"Options": "kick_info3"}
+                                ]
+                            },
+                            {
+                                "Section": [
+                                    {"=": "if"},
+                                    {
+                                        "Conditionals": [
+                                            {
+                                                "Expression": [
+                                                    {"=": "size of"},
+                                                    {
+                                                        "Expression": [
+                                                            {"=": "all players"}
+                                                        ]
+                                                    }
+                                                ]
+                                            },
+                                            {"=": "is higher than"},
+                                            {"Number": 30}
+                                        ]
+                                    },
+                                    {
+                                        "Section": [
+                                            {"=": "if"},
+                                            {
+                                                "Conditionals": [
+                                                    {
+                                                        "Expression": [
+                                                            {"=": "size of"},
+                                                            {
+                                                                "Expression": [
+                                                                    {"=": "all players"}
+                                                                ]
+                                                            }
+                                                        ]
+                                                    },
+                                                    {"=": "is higher than"},
+                                                    {"Number": 30}
+                                                ]
+                                            },
+                                            {
+                                                "Effect": [
+                                                    {"=": "kick"},
+                                                    {"Entity": "player"},
+                                                    {"=": "due to"},
+                                                    {"Options": "kick_info3"}
+                                                ]
+                                            },
+                                            {
+                                                "Section": [
+                                                    {"=": "if"},
+                                                    {
+                                                        "Conditionals": [
+                                                            {
+                                                                "Expression": [
+                                                                    {"=": "size of"},
+                                                                    {
+                                                                        "Expression": [
+                                                                            {"=": "all players"}
+                                                                        ]
+                                                                    }
+                                                                ]
+                                                            },
+                                                            {"=": "is higher than"},
+                                                            {"Number": 30}
+                                                        ]
+                                                    },
+                                                    {
+                                                        "Effect": [
+                                                            {"=": "kick"},
+                                                            {"Entity": "player"},
+                                                            {"=": "due to"},
+                                                            {"Text": "Wincej niż 30"}
+                                                        ]
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "Section": [
+                                                    {"=": "if"},
+                                                    {
+                                                        "Conditionals": [
+                                                            {
+                                                                "Expression": [
+                                                                    {"=": "size of"},
+                                                                    {
+                                                                        "Expression": [
+                                                                            {"=": "all players"}
+                                                                        ]
+                                                                    }
+                                                                ]
+                                                            },
+                                                            {"=": "is higher than"},
+                                                            {"Number": 30}
+                                                        ]
+                                                    },
+                                                    {
+                                                        "Effect": [
+                                                            {"=": "kick"},
+                                                            {"Entity": "player"},
+                                                            {"=": "due to"},
+                                                            {"Text": "Wincej niż 30"}
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "Effect": [
+                                    {"=": "broadcast"},
+                                    {"Text": "Chłop wbił!"}
                                 ]
                             }
                         ]
                     },
                     {
-                        "Effect": [
-                            {"=": "broadcast"},
-                            {"Text": "Chłop wbił!"}
-                        ]
-                    }
-                ]
-            },
-            {
-                "Section": [
-                    {"=": "else"},
-                    {
-                        "Effect": [
-                            {"=": "teleport"},
-                            {"Entity": "player"},
-                            {"=": "to"},
-                            {"Variable": "spawn"}
+                        "Section": [
+                            {"=": "else"},
+                            {
+                                "Effect": [
+                                    {"=": "teleport"},
+                                    {"Entity": "player"},
+                                    {"=": "to"},
+                                    {"Variable": "spawn"}
+                                ]
+                            },
+                            {
+                                "Effect": [
+                                    {"=": "kick"},
+                                    {"Entity": "player"},
+                                    {"=": "due to"},
+                                    {"Options": "kick_info3"}
+                                ]
+                            },
+                            {
+                                "Section": [
+                                    {"=": "if"},
+                                    {
+                                        "Conditionals": [
+                                            {
+                                                "Expression": [
+                                                    {"=": "size of"},
+                                                    {
+                                                        "Expression": [
+                                                            {"=": "all players"}
+                                                        ]
+                                                    }
+                                                ]
+                                            },
+                                            {"=": "is higher than"},
+                                            {"Number": 30}
+                                        ]
+                                    },
+                                    {
+                                        "Effect": [
+                                            {"=": "kick"},
+                                            {"Entity": "player"},
+                                            {"=": "due to"},
+                                            {"Text": "Wincej niż 30"}
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "Section": [
+                                    {"=": "if"},
+                                    {
+                                        "Conditionals": [
+                                            {
+                                                "Expression": [
+                                                    {"=": "size of"},
+                                                    {
+                                                        "Expression": [
+                                                            {"=": "all players"}
+                                                        ]
+                                                    }
+                                                ]
+                                            },
+                                            {"=": "is higher than"},
+                                            {"Number": 30}
+                                        ]
+                                    },
+                                    {
+                                        "Effect": [
+                                            {"=": "kick"},
+                                            {"Entity": "player"},
+                                            {"=": "due to"},
+                                            {"Text": "Wincej niż 30"}
+                                        ]
+                                    }
+                                ]
+                            }
                         ]
                     }
                 ]

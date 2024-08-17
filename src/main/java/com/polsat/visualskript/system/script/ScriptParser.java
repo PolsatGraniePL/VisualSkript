@@ -35,9 +35,10 @@ public class ScriptParser {
                 if (Objects.equals(keyStr, "structures")){
                     for (Object structureList : ((JSONArray) keyValue)){
                         System.out.println("Info: " + ((JSONObject)((JSONArray) structureList).get(0)).get("Info"));
+                        latestDepth = 0;
                         for (Object itemList : ((JSONArray) structureList)){
                             if (Objects.isNull(((JSONObject) itemList).get("Info")))
-                                System.out.println(separateStringAndJSONObject((JSONObject) itemList));
+                                System.out.println(separateStringAndJSONObject((JSONObject) itemList, 1));
                         }
                     }
                 }
@@ -47,12 +48,13 @@ public class ScriptParser {
         }
     }
 
-    static ArrayList<String> listAll = new ArrayList<>(Arrays.asList("Event", "Effect", "Section", "Conditionals", "Expression", "Structure", "Info"));
-    static ArrayList<String> listNewLine = new ArrayList<>(Arrays.asList("Effect", "Section", "Event", "Structure"));
+    static ArrayList<String> listAll = new ArrayList<>(Arrays.asList("Event", "Effect", "Section", "Conditionals", "Expression", "Structure"));
+    static ArrayList<String> listNewLine = new ArrayList<>(Arrays.asList("Effect", "Section", "Structure", "Event"));
+    static int latestDepth = 0;
 
-    private static String separateStringAndJSONObject(JSONObject json){
+    private static String separateStringAndJSONObject(JSONObject json, int depth){
         StringBuilder stringBuilder = new StringBuilder();
-        StringBuilder tabAmount = new StringBuilder();
+        String tabs = "\t".repeat(Math.max(0, depth));
         try {
             for (Object key : json.keySet()){
                 String keyStr = (String)key;
@@ -62,22 +64,36 @@ public class ScriptParser {
                     for (Object x : object.keySet()){
                         String key2Str = (String)x;
                         Object key2Value = object.get(key2Str);
-                        //TODO: ":\n\t" DLA EVENT I COMMAND
-
-                        if (listAll.contains(x)){
-                            if (listNewLine.contains(x)){
-                                tabAmount.append("\t");
-                                stringBuilder.append("["+key2Str+"]:\n").append(tabAmount).append(separateStringAndJSONObject(object));
+                        if (listAll.contains(key2Str)){
+                            if (listNewLine.contains(key2Str)){
+                                if (latestDepth < depth){
+                                    stringBuilder.append(":\n").append(tabs).append(separateStringAndJSONObject(object, depth+1));
+                                } else {
+                                    stringBuilder.append("\n").append(tabs).append(separateStringAndJSONObject(object, depth+1));
+                                }
+                                latestDepth = depth;
                             } else {
-                                stringBuilder.append(separateStringAndJSONObject(object));
+                                stringBuilder.append(separateStringAndJSONObject(object, depth)).append(" ");
                             }
                         } else {
-                            stringBuilder.append(key2Value.toString()).append(" ");
+                            switch (key2Str){
+                                case "Text":
+                                    stringBuilder.append("\"").append(key2Value.toString()).append("\"").append(" ");
+                                    break;
+                                case "Variable":
+                                    stringBuilder.append("{").append(key2Value.toString()).append("}").append(" ");
+                                    break;
+                                case "Options":
+                                    stringBuilder.append("{@").append(key2Value.toString()).append("}").append(" ");
+                                    break;
+                                default:
+                                    stringBuilder.append(key2Value.toString()).append(" ");
+                            }
                         }
                     }
                 }
             }
-            return stringBuilder.toString();
+            return stringBuilder.toString().trim();
         }
         catch (Exception e){
             new ErrorHandler(e.toString());
