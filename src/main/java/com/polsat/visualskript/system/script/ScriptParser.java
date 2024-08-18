@@ -86,6 +86,9 @@ public class ScriptParser {
                                 case "Options":
                                     stringBuilder.append("{@").append(key2Value.toString()).append("}").append(" ");
                                     break;
+                                case "World":
+                                    stringBuilder.append("world \"").append(key2Value.toString()).append("\"").append(" ");
+                                    break;
                                 default:
                                     stringBuilder.append(key2Value.toString()).append(" ");
                             }

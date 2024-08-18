@@ -1,0 +1,11 @@
+switch (block.getType()){
+    case EVENT, STRUCTURE:
+        //Drop on buildTab
+        break;
+    case EXPRESSION, TYPE, FUNCTION, CONDITION:
+        //Drop on %xyz%
+        break;
+    case SECTION, EFFECT, FUNCTION, CONDITION:
+        //Drop on VBox
+        break;
+}

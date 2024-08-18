@@ -6,8 +6,8 @@ import javafx.scene.layout.VBox;
 
 public class Structure extends ViewBlock {
 
-    public Structure(VBox vbox, String patterns, BlockType blockType){
-        super(vbox, patterns, blockType);
+    public Structure(String patterns, BlockType blockType){
+        super(patterns, blockType);
     }
 
 }

@@ -9,6 +9,7 @@ import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -19,17 +20,17 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public abstract class ViewBlock {
+public abstract class ViewBlock extends Pane {
 
-    private final Pane pane = new Pane();
     private final ContextMenu contextMenu = new ContextMenu();
     private boolean contextMenuBuilt = false;
 
-    protected ViewBlock(VBox vbox, String patterns, BlockType blockType){
+    protected ViewBlock(String patterns, BlockType blockType){
         //build view box
         HBox hbox = new HBox();
         Label label = new Label();
@@ -37,7 +38,7 @@ public abstract class ViewBlock {
         Button button = new Button();
         ImageView imageView = new ImageView();
 
-        pane.setStyle("-fx-background-color: #"+ blockType.getHexColor()+";");
+        this.setStyle("-fx-background-color: #"+ blockType.getHexColor()+";");
         label.setText("["+blockType.getName()+"] " + PatternExtractor.getFirstPattern(patterns));
         label.setFont(new Font("System", 24));
         label.setPadding(new Insets(5, 5, 5, 5));
@@ -52,36 +53,33 @@ public abstract class ViewBlock {
         imageView.setImage(new Image(String.valueOf(Main.class.getResource("/images/lines.png"))));
 
         hbox.getChildren().addAll(label, region, button);
-        pane.getChildren().add(hbox);
-
-        //add pane to current VBox.
-        vbox.getChildren().add(pane);
+        this.getChildren().add(hbox);
 
         //Wait 0.01 second and show SelectBoxPopOver with patterns to select.
         new Timeline(new KeyFrame(Duration.seconds(0.01),
                 event -> {
-                    setCombinations(patterns, pane, label, blockType);
+                    setCombinations(patterns, this, label, blockType);
                 })
         ).playFromStart();
 
-        pane.setOnContextMenuRequested((e)->{
+        this.setOnContextMenuRequested((e)->{
             if (!contextMenuBuilt) {
                 MenuItem edit = new MenuItem("Edit");
                 MenuItem delete = new MenuItem("Delete");
                 contextMenu.getItems().addAll(edit, delete);
                 edit.setOnAction(event -> {
-                    setCombinations(patterns, pane, label, blockType);
+                    setCombinations(patterns, this, label, blockType);
                 });
                 delete.setOnAction(event -> {
                     System.out.println("Delete");
                 });
             }
             contextMenuBuilt = true;
-            contextMenu.show(pane, e.getScreenX(), e.getScreenY());
+            contextMenu.show(this, e.getScreenX(), e.getScreenY());
         });
 
         button.setOnMouseClicked((mouseEvent)->{
-            setCombinations(patterns, pane, label, blockType);
+            setCombinations(patterns, this, label, blockType);
         });
     }
 
@@ -92,7 +90,10 @@ public abstract class ViewBlock {
             List<String> combinationsList = PatternExtractor.getCombinations(PatternExtractor.getFirstPattern(patterns));
             Collections.reverse(combinationsList);
             Platform.runLater(()-> new SelectBoxPopOver(combinationsList, pane, result2 ->{
-                Platform.runLater(() -> label.setText("["+blockType.getName()+"] " + result2));
+                Platform.runLater(() -> {
+                    label.setText("["+blockType.getName()+"] " + result2);
+                    setupDropViews(pane);
+                });
             }));
         } else {
             //Show popovers with patterns and combinations
@@ -101,10 +102,32 @@ public abstract class ViewBlock {
                 List<String> combinationsList = PatternExtractor.getCombinations(result);
                 Collections.reverse(combinationsList);
                 Platform.runLater(()-> new SelectBoxPopOver(combinationsList, pane, result2 ->{
-                    Platform.runLater(() -> label.setText("["+blockType.getName()+"] " + result2));
+                    Platform.runLater(() -> {
+                        label.setText("["+blockType.getName()+"] " + result2);
+                        setupDropViews(pane);
+                    });
                 }));
             });
         }
+    }
+
+    private void setupDropViews(Pane pane){
+        HBox hBox = (HBox) pane.getChildren().get(0);
+        Label label = (Label) hBox.getChildren().get(0);
+        String[] list = label.getText().split("%");
+        hBox.getChildren().remove(label);
+        List<Node> nodes = new ArrayList<>();
+        for (int i = 0; i < list.length; i++){
+            if (i % 2 == 0){
+                Label tempLabel = new Label(list[i].trim());
+                tempLabel.setFont(new Font("System", 24));
+                tempLabel.setPadding(new Insets(5, 5, 5, 5));
+                nodes.add(tempLabel);
+            } else {
+                nodes.add(new DropViewExpr(list[i].trim()));
+            }
+        }
+        hBox.getChildren().addAll(0, nodes);
     }
 
 }

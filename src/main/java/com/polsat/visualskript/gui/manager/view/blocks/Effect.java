@@ -6,8 +6,8 @@ import javafx.scene.layout.VBox;
 
 public class Effect extends ViewBlock {
 
-    public Effect(VBox vbox, String patterns, BlockType blockType){
-        super(vbox, patterns, blockType);
+    public Effect(String patterns, BlockType blockType){
+        super(patterns, blockType);
     }
 
 }

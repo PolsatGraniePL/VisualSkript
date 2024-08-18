@@ -7,8 +7,8 @@ import javafx.scene.layout.VBox;
 
 public class Event extends ViewBlock {
 
-    public Event(VBox vbox, String patterns, BlockType blockType) {
-        super(vbox, patterns, blockType);
+    public Event(String patterns, BlockType blockType) {
+        super(patterns, blockType);
     }
 
 }

@@ -18,6 +18,9 @@ public class Main extends Application {
     // - Zapisywanie do .json
     // - Wczytywanie z .json
     // - Eksportowanie do .sk
+    // - NEXT: Naprawa VBOX aby był skalowalny, a nie zawierał 100% scrollpane.
+    // - TextBoxPopOver na każdy TYPES
+    // - NEXT: Wyśrodkowanie tekstu wertykalnie.
     //
 
     public static void main(String[] args) {

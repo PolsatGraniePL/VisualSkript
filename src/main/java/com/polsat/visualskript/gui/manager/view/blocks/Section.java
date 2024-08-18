@@ -6,8 +6,8 @@ import javafx.scene.layout.VBox;
 
 public class Section extends ViewBlock {
 
-    public Section(VBox vbox, String patterns, BlockType blockType){
-        super(vbox, patterns, blockType);
+    public Section(String patterns, BlockType blockType){
+        super(patterns, blockType);
     }
 
 }

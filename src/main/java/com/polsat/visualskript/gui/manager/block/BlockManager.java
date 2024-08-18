@@ -6,6 +6,7 @@ import com.polsat.visualskript.gui.manager.tabs.TabsManager;
 import com.polsat.visualskript.gui.manager.view.blocks.*;
 import com.polsat.visualskript.util.ErrorHandler;
 import javafx.geometry.Insets;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.control.*;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
@@ -13,6 +14,7 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -115,126 +117,38 @@ public class BlockManager {
     public static void setupTabPane(TabPane buildTab, VBox blockContainer){
         BlockManager.buildTab = buildTab;
         BlockManager.blockContainer = blockContainer;
+
+        buildTab.setOnDragOver(event -> {
+            Block placedBlock = ((SelectiveBlock) event.getGestureSource()).getBlock();
+            if ((placedBlock.getType() == BlockType.EVENT || placedBlock.getType() == BlockType.STRUCTURE) && !Objects.isNull(buildTab.getSelectionModel().getSelectedItem())) {
+                event.acceptTransferModes(TransferMode.ANY);
+                event.consume();
+            }
+        });
+
+        buildTab.setOnDragDropped(event -> {
+            Block placedBlock = ((SelectiveBlock) event.getGestureSource()).getBlock();
+            boolean success = false;
+            if ((placedBlock.getType() == BlockType.EVENT || placedBlock.getType() == BlockType.STRUCTURE) && !Objects.isNull(buildTab.getSelectionModel().getSelectedItem())) {
+                TabPane tabPane = (TabPane) buildTab.getSelectionModel().getSelectedItem().getContent();
+                TabsManager.addTab(placedBlock.getName(), tabPane);
+                VBox newVBoxEvent = (VBox)((ScrollPane) tabPane.getSelectionModel().getSelectedItem().getContent()).getContent();
+                switch (placedBlock.getType()){
+                    case EVENT -> newVBoxEvent.getChildren().add(new Event(placedBlock.getPattern(), placedBlock.getType()));
+                    case STRUCTURE -> newVBoxEvent.getChildren().add(new Structure(placedBlock.getPattern(), placedBlock.getType()));
+                }
+                success = true;
+            }
+            event.setDropCompleted(success);
+            event.consume();
+        });
     }
 
     //Inserts a list of blocks into VBox
     public static void putBlocksInContainer(List<Block> listType){
-        int index = -1;
         for (Block block : listType) {
-            index++;
-
-            //Create objects
-            Pane tmpPane = new Pane();
-            Label tmpLabel = new Label(block.getName());
-
-            //Style objects
-            tmpPane.getChildren().add(tmpLabel);
-            tmpPane.setStyle("-fx-border-color:  #020202; -fx-border-radius: 5px ; -fx-background-color: #" + block.getType().getHexColor() + "; -fx-background-radius: 5px; -fx-border-width: 1px");
-            tmpLabel.setStyle("-fx-font-color: #000000; -fx-font-weight: bold; -fx-font-size: 14px;");
-            tmpLabel.setTooltip(new Tooltip(block.getDescription() + "\n\n" + block.getPattern()));
-
-            VBox.setMargin(tmpPane, new Insets(10, 10, 10, 10));
-            tmpLabel.setPadding(new Insets(5, 5, 5, 5));
-
-            tmpPane.setPrefWidth(Region.USE_COMPUTED_SIZE);
-            tmpPane.setMinWidth(Region.USE_PREF_SIZE);
-            tmpPane.setMaxWidth(Region.USE_PREF_SIZE);
-
-            //Drag objects system
-            int finalIndex = index;
-            tmpPane.setOnDragDetected(event -> {
-                Dragboard dragboard = tmpPane.startDragAndDrop(TransferMode.ANY);
-
-                ClipboardContent content = new ClipboardContent();
-
-                content.putString(String.valueOf(finalIndex));
-                dragboard.setContent(content);
-
-                dragboard.setDragView(tmpPane.snapshot(null, null));
-
-                event.consume();
-            });
-
-            switch (block.getType()){
-                case EVENT, STRUCTURE:
-                    //Drop on buildTab
-                    buildTab.setOnDragOver(event -> {
-                        event.acceptTransferModes(TransferMode.ANY);
-                        event.consume();
-                    });
-                    break;
-                case EXPRESSION, TYPE:
-                    //Drop on %xyz%
-                    break;
-                case SECTION, EFFECT:
-                    //Drop on VBox
-                    break;
-                case FUNCTION, CONDITION:
-                    //Drop on %xyz% and VBox
-                    break;
-            }
-
-            buildTab.setOnDragDropped(event -> {
-                Dragboard db = event.getDragboard();
-                boolean success = false;
-                if (db.hasString() && !Objects.isNull(buildTab.getSelectionModel().getSelectedItem())) {
-                    //Drop system
-                    Block block1 = listType.get(Integer.parseInt(db.getString()));
-                    TabPane tabPane = (TabPane) buildTab.getSelectionModel().getSelectedItem().getContent();
-
-                    VBox vBox = null;
-                    try {
-                        vBox = (VBox)((ScrollPane) tabPane.getSelectionModel().getSelectedItem().getContent()).getContent();
-                    } catch (Exception ignore) { }
-                    switch (block1.getType()){
-                        case EVENT:
-                            // new []
-                            TabsManager.addTab(block1.getName(), tabPane);
-                            VBox newVBoxEvent = (VBox)((ScrollPane) tabPane.getSelectionModel().getSelectedItem().getContent()).getContent();
-                            new Event(newVBoxEvent, block1.getPattern(), block1.getType());
-                            break;
-                        case CONDITION:
-                            // ()/[]
-                            new Conditions(vBox, block1.getPattern(), block1.getType());
-                            break;
-                        case SECTION:
-                            // []
-                            if (Objects.isNull(vBox)) {return;}
-                            new Section(vBox, block1.getPattern(), block1.getType());
-                            break;
-                        case EFFECT:
-                            // []
-                            if (Objects.isNull(vBox)) {return;}
-                            new Effect(vBox, block1.getPattern(), block1.getType());
-                            break;
-                        case EXPRESSION:
-                            // ()
-                            new Expression(vBox, block1.getPattern(), block1.getType());
-                            break;
-                        case TYPE:
-                            // ("")
-                            new Type(vBox, block1.getPattern(), block1.getType());
-                            break;
-                        case STRUCTURE:
-                            // new []
-                            TabsManager.addTab(block1.getName(), tabPane);
-                            VBox newVBoxStructure = (VBox)((ScrollPane) tabPane.getSelectionModel().getSelectedItem().getContent()).getContent();
-                            new Structure(newVBoxStructure, block1.getPattern(), block1.getType());
-                            break;
-                        case FUNCTION:
-                            // ()/[]
-                            new Function(vBox, block1.getPattern(), block1.getType());
-                            break;
-                    }
-                    success = true;
-                }
-                event.setDropCompleted(success);
-                event.consume();
-            });
-
-            //Add object to block container
-            blockContainer.getChildren().add(tmpPane);
+            SelectiveBlock selectiveBlock = new SelectiveBlock(block);
+            blockContainer.getChildren().add(selectiveBlock);
         }
     }
-
 }
