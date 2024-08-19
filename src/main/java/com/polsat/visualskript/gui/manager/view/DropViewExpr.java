@@ -23,7 +23,7 @@ public class DropViewExpr extends Pane {
         hbox.getChildren().add(label);
         this.getChildren().add(hbox);
 
-        this.setStyle("-fx-background-radius: 25px; -fx-background-color: #ffff00");
+        this.setStyle("-fx-background-radius: 25px; -fx-background-color: #ffc0cb; -fx-border-color: #000000; -fx-border-radius: 25px;");
         HBox.setMargin(this, new Insets(5, 5, 5, 5));
         label.setText(text);
         label.setFont(new Font("System", 24));

@@ -9,6 +9,7 @@ import com.polsat.visualskript.gui.manager.tabs.MainTabManager;
 import com.polsat.visualskript.system.DocsDownloader;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
@@ -20,6 +21,7 @@ import java.util.List;
 
 public class Controller {
 
+    @FXML public SplitPane splitPane;
     @FXML private TabPane buildTab;
     @FXML private VBox blockContainer;
     @FXML private TextField textField;
@@ -52,7 +54,7 @@ public class Controller {
 
         MainTabManager.loadLatestTab(buildTab);
         loadDefaultBlockList();
-        BlockManager.setupTabPane(buildTab, blockContainer);
+        BlockManager.setupTabPane(buildTab, blockContainer, splitPane);
         sortBlocksList();
     }
 

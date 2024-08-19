@@ -14,10 +14,7 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
 
@@ -43,7 +40,7 @@ public abstract class ViewBlock extends Pane {
         Button button = new Button();
         ImageView imageView = new ImageView();
 
-        this.setStyle("-fx-background-color: #"+ block.getType().getHexColor()+";");
+        this.setStyle("-fx-background-color: #"+ block.getType().getHexColor()+"; -fx-border-color: #000000; ");
         hbox.setAlignment(Pos.CENTER);
         hbox.setFillHeight(false);
         label.setText("["+block.getType().getName()+"] " + PatternExtractor.getFirstPattern(block.getPattern()));
@@ -58,6 +55,7 @@ public abstract class ViewBlock extends Pane {
         imageView.setFitHeight(20);
         imageView.setFitWidth(20);
         imageView.setImage(new Image(String.valueOf(Main.class.getResource("/images/lines.png"))));
+        HBox.setHgrow(region, Priority.ALWAYS); // Attempting to create a gap between the text and the button.
 
         hbox.getChildren().addAll(label, region, button);
         this.getChildren().add(hbox);

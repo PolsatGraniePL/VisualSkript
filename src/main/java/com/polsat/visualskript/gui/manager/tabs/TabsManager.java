@@ -35,8 +35,8 @@ public class TabsManager {
         scrollPane.setFitToHeight(false);
         scrollPane.setFitToWidth(false);
         scrollPane.setPadding(new Insets(10, 10, 10, 10));
-        scrollPane.setStyle("-fx-border-color: #FF0000");
-        vBox.setStyle("-fx-border-color: #0022ff");
+//        scrollPane.setStyle("-fx-border-color: #FF0000");
+//        vBox.setStyle("-fx-border-color: #0022ff");
         expandPane.setPrefHeight(300);
 
         vBox.setFillWidth(true);

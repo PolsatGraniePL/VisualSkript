@@ -10,7 +10,7 @@ public class Type extends ViewBlock {
 
     public Type(Block block){
         super(block);
-        this.setStyle(this.getStyle()+"-fx-background-radius: 25px;");
+        this.setStyle(this.getStyle()+"-fx-background-radius: 25px; -fx-border-radius: 25px;");
         HBox.setMargin(this, new Insets(5, 5, 5, 5));
     }
 

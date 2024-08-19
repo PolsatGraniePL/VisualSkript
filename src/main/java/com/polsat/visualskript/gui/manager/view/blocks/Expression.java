@@ -10,7 +10,7 @@ public class Expression extends ViewBlock {
 
     public Expression(Block block){
         super(block);
-        this.setStyle(this.getStyle()+"-fx-background-radius: 25px;");
+        this.setStyle(this.getStyle()+"-fx-background-radius: 25px; -fx-border-radius: 25px;");
         HBox.setMargin(this, new Insets(5, 5, 5, 5));
     }
 
