@@ -18,10 +18,7 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public abstract class ViewBlock extends Pane {
 
@@ -29,6 +26,10 @@ public abstract class ViewBlock extends Pane {
     private boolean contextMenuBuilt = false;
 
     private final Block block;
+
+    protected ViewBlock(Block block, String type){
+        this.block = block;
+    }
 
     protected ViewBlock(Block block){
         this.block = block;
@@ -60,14 +61,16 @@ public abstract class ViewBlock extends Pane {
         hbox.getChildren().addAll(label, region, button);
         this.getChildren().add(hbox);
 
-        //Wait 0.01 second and show SelectBoxPopOver with patterns to select.
-        new Timeline(new KeyFrame(Duration.seconds(0.01),
-                event -> {
-                    setCombinations(block.getPattern(), this, label, block.getType());
-                })
-        ).playFromStart();
+        if (!Objects.equals(block.getType(), BlockType.TYPE)) {
+            //Wait 0.01 second and show SelectBoxPopOver with patterns to select.
+            new Timeline(new KeyFrame(Duration.seconds(0.01),
+                    event -> {
+                        setCombinations(block.getPattern(), this, label, block.getType());
+                    })
+            ).playFromStart();
+        }
 
-        this.setOnContextMenuRequested((e)->{
+        this.setOnContextMenuRequested((e) -> {
             if (!contextMenuBuilt) {
                 MenuItem edit = new MenuItem("Edit");
                 MenuItem delete = new MenuItem("Delete");
@@ -83,7 +86,7 @@ public abstract class ViewBlock extends Pane {
             contextMenu.show(this, e.getScreenX(), e.getScreenY());
         });
 
-        button.setOnMouseClicked((mouseEvent)->{
+        button.setOnMouseClicked((mouseEvent) -> {
             setCombinations(block.getPattern(), this, label, block.getType());
         });
     }

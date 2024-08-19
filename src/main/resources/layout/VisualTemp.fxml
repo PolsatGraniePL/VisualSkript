@@ -94,7 +94,7 @@
                                                            <Font size="24.0" />
                                                        </font>
                                                    </Label>
-                                                   <TextField alignment="CENTER" prefHeight="35.0" prefWidth="112.0" promptText="X" style="-fx-background-color: rgba(0,0,0,0);" text="XX">
+                                                   <TextField alignment="CENTER" prefColumnCount="2" promptText="X" style="-fx-background-color: rgba(0,0,0,0);" text="XX" translateX="-10.0">
                                                        <padding>
                                                            <Insets left="5.0" right="5.0" />
                                                        </padding>
