@@ -1,6 +1,8 @@
 package com.polsat.visualskript.gui.manager.block;
 
 import com.polsat.visualskript.gui.manager.view.ViewBlock;
+import com.polsat.visualskript.gui.manager.view.blocks.Conditions;
+import com.polsat.visualskript.gui.manager.view.blocks.Function;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -9,7 +11,7 @@ import java.util.Objects;
 
 public class BlockPlacer {
 
-    public static void placeBlock(ViewBlock viewBlock, Node node, Boolean isVbox) {
+    public static void placeBlock(ViewBlock viewBlock, Node node) {
         switch (viewBlock.getBlock().getType()){
             //Drop on buildTab
             case EVENT, STRUCTURE:
@@ -28,8 +30,8 @@ public class BlockPlacer {
                 vBox1.getChildren().add(vBox1.getChildren().size()-1, viewBlock);
                 break;
             //Drop on VBox and %xyz%
-            case FUNCTION, CONDITION:
-                if (isVbox){
+            case CONDITION:
+                if (((Conditions)viewBlock).getInVBox()){
                     VBox vBox2 = (VBox) node;
                     vBox2.getChildren().add(vBox2.getChildren().size()-1, viewBlock);
                 } else {
@@ -38,6 +40,17 @@ public class BlockPlacer {
                     pane1.getChildren().set(index1, viewBlock);
                 }
                 break;
+            case FUNCTION:
+                if (((Function)viewBlock).getInVBox()){
+                    VBox vBox2 = (VBox) node;
+                    vBox2.getChildren().add(vBox2.getChildren().size()-1, viewBlock);
+                } else {
+                    Pane pane1 = (Pane) node.getParent();
+                    int index1 = pane1.getChildren().indexOf(node);
+                    pane1.getChildren().set(index1, viewBlock);
+                }
+                break;
+
         }
     }
 }

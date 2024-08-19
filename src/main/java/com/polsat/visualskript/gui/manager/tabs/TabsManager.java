@@ -44,7 +44,10 @@ public class TabsManager {
 
         vBox.setOnDragOver(event -> {
             Block placedBlock = ((SelectiveBlock) event.getGestureSource()).getBlock();
-            if (placedBlock.getType() == BlockType.SECTION || placedBlock.getType() == BlockType.EFFECT)
+            if (placedBlock.getType() == BlockType.SECTION ||
+                    placedBlock.getType() == BlockType.EFFECT ||
+                    placedBlock.getType() == BlockType.FUNCTION ||
+                    placedBlock.getType() == BlockType.CONDITION )
             {
                 event.acceptTransferModes(TransferMode.ANY);
                 event.consume();
@@ -59,10 +62,10 @@ public class TabsManager {
                 placedBlock.getType() == BlockType.CONDITION )
             {
                 switch (placedBlock.getType()){
-                    case SECTION -> BlockPlacer.placeBlock(new Section(placedBlock), vBox, null);
-                    case EFFECT -> BlockPlacer.placeBlock(new Effect(placedBlock), vBox, null);
-                    case FUNCTION -> BlockPlacer.placeBlock(new Function(placedBlock), vBox, true);
-                    case CONDITION -> BlockPlacer.placeBlock(new Conditions(placedBlock), vBox, true);
+                    case SECTION -> BlockPlacer.placeBlock(new Section(placedBlock), vBox);
+                    case EFFECT -> BlockPlacer.placeBlock(new Effect(placedBlock), vBox);
+                    case FUNCTION -> BlockPlacer.placeBlock(new Function(placedBlock, true), vBox);
+                    case CONDITION -> BlockPlacer.placeBlock(new Conditions(placedBlock, true), vBox);
                 }
                 success = true;
             }

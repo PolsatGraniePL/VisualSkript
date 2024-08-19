@@ -8,10 +8,19 @@ import javafx.scene.layout.HBox;
 
 public class Function extends ViewBlock {
 
-    public Function(Block block){
+    private boolean inVBox;
+
+    public Function(Block block, boolean inVBox){
         super(block);
-        this.setStyle(this.getStyle()+"-fx-background-radius: 25px;");
-        HBox.setMargin(this, new Insets(5, 5, 5, 5));
+        this.inVBox = inVBox;
+        if (!inVBox) {
+            this.setStyle(this.getStyle()+"-fx-background-radius: 25px;");
+            HBox.setMargin(this, new Insets(5, 5, 5, 5));
+        }
+    }
+
+    public boolean getInVBox() {
+        return inVBox;
     }
 
 }
