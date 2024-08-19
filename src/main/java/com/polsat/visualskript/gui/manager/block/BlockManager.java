@@ -5,16 +5,9 @@ import com.polsat.visualskript.gui.block.BlockType;
 import com.polsat.visualskript.gui.manager.tabs.TabsManager;
 import com.polsat.visualskript.gui.manager.view.blocks.*;
 import com.polsat.visualskript.util.ErrorHandler;
-import javafx.geometry.Insets;
-import javafx.scene.SnapshotParameters;
 import javafx.scene.control.*;
-import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -134,8 +127,8 @@ public class BlockManager {
                 TabsManager.addTab(placedBlock.getName(), tabPane);
                 VBox newVBoxEvent = (VBox)((ScrollPane) tabPane.getSelectionModel().getSelectedItem().getContent()).getContent();
                 switch (placedBlock.getType()){
-                    case EVENT -> newVBoxEvent.getChildren().add(new Event(placedBlock.getPattern(), placedBlock.getType()));
-                    case STRUCTURE -> newVBoxEvent.getChildren().add(new Structure(placedBlock.getPattern(), placedBlock.getType()));
+                    case EVENT -> BlockPlacer.placeBlock(new Event(placedBlock), newVBoxEvent);
+                    case STRUCTURE -> BlockPlacer.placeBlock(new Structure(placedBlock), newVBoxEvent);
                 }
                 success = true;
             }

@@ -1,6 +1,7 @@
 package com.polsat.visualskript.gui.manager.view;
 
 import com.polsat.visualskript.Main;
+import com.polsat.visualskript.gui.block.Block;
 import com.polsat.visualskript.gui.block.BlockType;
 import com.polsat.visualskript.gui.manager.view.popovers.SelectBoxPopOver;
 import com.polsat.visualskript.system.pattern.PatternExtractor;
@@ -30,7 +31,11 @@ public abstract class ViewBlock extends Pane {
     private final ContextMenu contextMenu = new ContextMenu();
     private boolean contextMenuBuilt = false;
 
-    protected ViewBlock(String patterns, BlockType blockType){
+    private final Block block;
+
+    protected ViewBlock(Block block){
+        this.block = block;
+
         //build view box
         HBox hbox = new HBox();
         Label label = new Label();
@@ -38,8 +43,9 @@ public abstract class ViewBlock extends Pane {
         Button button = new Button();
         ImageView imageView = new ImageView();
 
-        this.setStyle("-fx-background-color: #"+ blockType.getHexColor()+";");
-        label.setText("["+blockType.getName()+"] " + PatternExtractor.getFirstPattern(patterns));
+        this.setStyle("-fx-background-color: #"+ block.getType().getHexColor()+";");
+        hbox.setAlignment(Pos.CENTER);
+        label.setText("["+block.getType().getName()+"] " + PatternExtractor.getFirstPattern(block.getPattern()));
         label.setFont(new Font("System", 24));
         label.setPadding(new Insets(5, 5, 5, 5));
         button.setGraphic(imageView);
@@ -58,7 +64,7 @@ public abstract class ViewBlock extends Pane {
         //Wait 0.01 second and show SelectBoxPopOver with patterns to select.
         new Timeline(new KeyFrame(Duration.seconds(0.01),
                 event -> {
-                    setCombinations(patterns, this, label, blockType);
+                    setCombinations(block.getPattern(), this, label, block.getType());
                 })
         ).playFromStart();
 
@@ -68,7 +74,7 @@ public abstract class ViewBlock extends Pane {
                 MenuItem delete = new MenuItem("Delete");
                 contextMenu.getItems().addAll(edit, delete);
                 edit.setOnAction(event -> {
-                    setCombinations(patterns, this, label, blockType);
+                    setCombinations(block.getPattern(), this, label, block.getType());
                 });
                 delete.setOnAction(event -> {
                     System.out.println("Delete");
@@ -79,7 +85,7 @@ public abstract class ViewBlock extends Pane {
         });
 
         button.setOnMouseClicked((mouseEvent)->{
-            setCombinations(patterns, this, label, blockType);
+            setCombinations(block.getPattern(), this, label, block.getType());
         });
     }
 
@@ -130,4 +136,7 @@ public abstract class ViewBlock extends Pane {
         hBox.getChildren().addAll(0, nodes);
     }
 
+    public Block getBlock() {
+        return block;
+    }
 }
