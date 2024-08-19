@@ -127,8 +127,8 @@ public class BlockManager {
                 TabsManager.addTab(placedBlock.getName(), tabPane);
                 VBox newVBoxEvent = (VBox)((ScrollPane) tabPane.getSelectionModel().getSelectedItem().getContent()).getContent();
                 switch (placedBlock.getType()){
-                    case EVENT -> BlockPlacer.placeBlock(new Event(placedBlock), newVBoxEvent);
-                    case STRUCTURE -> BlockPlacer.placeBlock(new Structure(placedBlock), newVBoxEvent);
+                    case EVENT -> BlockPlacer.placeBlock(new Event(placedBlock), newVBoxEvent, null);
+                    case STRUCTURE -> BlockPlacer.placeBlock(new Structure(placedBlock), newVBoxEvent, null);
                 }
                 success = true;
             }

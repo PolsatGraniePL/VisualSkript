@@ -120,7 +120,10 @@ public abstract class ViewBlock extends Pane {
     private void setupDropViews(Pane pane){
         HBox hBox = (HBox) pane.getChildren().get(0);
         Label label = (Label) hBox.getChildren().get(0);
-        String[] list = label.getText().split("%");
+        String[] list = label.getText()
+                .replace("<.+>", "%object%")
+                .replace("<.*>", "%object%")
+                .split("%");
         hBox.getChildren().remove(label);
         List<Node> nodes = new ArrayList<>();
         for (int i = 0; i < list.length; i++){

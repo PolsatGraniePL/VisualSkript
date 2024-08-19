@@ -9,7 +9,7 @@ import java.util.Objects;
 
 public class BlockPlacer {
 
-    public static void placeBlock(ViewBlock viewBlock, Node node) {
+    public static void placeBlock(ViewBlock viewBlock, Node node, Boolean isVbox) {
         switch (viewBlock.getBlock().getType()){
             //Drop on buildTab
             case EVENT, STRUCTURE:
@@ -29,7 +29,14 @@ public class BlockPlacer {
                 break;
             //Drop on VBox and %xyz%
             case FUNCTION, CONDITION:
-                //if dropped is () or []
+                if (isVbox){
+                    VBox vBox2 = (VBox) node;
+                    vBox2.getChildren().add(vBox2.getChildren().size()-1, viewBlock);
+                } else {
+                    Pane pane1 = (Pane) node.getParent();
+                    int index1 = pane1.getChildren().indexOf(node);
+                    pane1.getChildren().set(index1, viewBlock);
+                }
                 break;
         }
     }

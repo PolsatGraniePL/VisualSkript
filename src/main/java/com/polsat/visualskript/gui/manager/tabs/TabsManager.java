@@ -56,8 +56,10 @@ public class TabsManager {
             if (placedBlock.getType() == BlockType.SECTION || placedBlock.getType() == BlockType.EFFECT)
             {
                 switch (placedBlock.getType()){
-                    case SECTION -> BlockPlacer.placeBlock(new Section(placedBlock), vBox);
-                    case EFFECT -> BlockPlacer.placeBlock(new Effect(placedBlock), vBox);
+                    case SECTION -> BlockPlacer.placeBlock(new Section(placedBlock), vBox, null);
+                    case EFFECT -> BlockPlacer.placeBlock(new Effect(placedBlock), vBox, null);
+                    case FUNCTION -> BlockPlacer.placeBlock(new Function(placedBlock), vBox, true);
+                    case CONDITION -> BlockPlacer.placeBlock(new Conditions(placedBlock), vBox, true);
                 }
                 success = true;
             }
