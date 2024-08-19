@@ -37,9 +37,6 @@ public abstract class ViewBlock extends Pane {
         //build view box
         HBox hbox = new HBox();
         Label label = new Label();
-        Region region = new Region();
-        Button button = new Button();
-        ImageView imageView = new ImageView();
 
         this.setStyle("-fx-background-color: #"+ block.getType().getHexColor()+"; -fx-border-color: #000000; ");
         hbox.setAlignment(Pos.CENTER);
@@ -47,18 +44,8 @@ public abstract class ViewBlock extends Pane {
         label.setText("["+block.getType().getName()+"] " + PatternExtractor.getFirstPattern(block.getPattern()));
         label.setFont(new Font("System", 24));
         label.setPadding(new Insets(5, 5, 5, 5));
-        button.setGraphic(imageView);
-        button.setStyle("-fx-background-color: rgba(0,0,0,0)");
-        button.setPrefSize(25, 25);
-        button.setAlignment(Pos.CENTER);
-        button.setContentDisplay(ContentDisplay.TOP);
-        button.setGraphic(imageView);
-        imageView.setFitHeight(20);
-        imageView.setFitWidth(20);
-        imageView.setImage(new Image(String.valueOf(Main.class.getResource("/images/lines.png"))));
-        HBox.setHgrow(region, Priority.ALWAYS); // Attempting to create a gap between the text and the button.
 
-        hbox.getChildren().addAll(label, region, button);
+        hbox.getChildren().add(label);
         this.getChildren().add(hbox);
 
         if (!Objects.equals(block.getType(), BlockType.TYPE)) {
@@ -84,10 +71,6 @@ public abstract class ViewBlock extends Pane {
             }
             contextMenuBuilt = true;
             contextMenu.show(this, e.getScreenX(), e.getScreenY());
-        });
-
-        button.setOnMouseClicked((mouseEvent) -> {
-            setCombinations(block.getPattern(), this, label, block.getType());
         });
     }
 
