@@ -44,8 +44,7 @@ public class DropViewExpr extends Pane {
         setOnDragDropped(event -> {
             Block placedBlock = ((SelectiveBlock) event.getGestureSource()).getBlock();
             boolean success = false;
-            if (
-                placedBlock.getType() == BlockType.EXPRESSION ||
+            if (placedBlock.getType() == BlockType.EXPRESSION ||
                 placedBlock.getType() == BlockType.TYPE ||
                 placedBlock.getType() == BlockType.FUNCTION ||
                 placedBlock.getType() == BlockType.CONDITION)

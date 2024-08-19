@@ -53,7 +53,10 @@ public class TabsManager {
         vBox.setOnDragDropped(event -> {
             Block placedBlock = ((SelectiveBlock) event.getGestureSource()).getBlock();
             boolean success = false;
-            if (placedBlock.getType() == BlockType.SECTION || placedBlock.getType() == BlockType.EFFECT)
+            if (placedBlock.getType() == BlockType.SECTION ||
+                placedBlock.getType() == BlockType.EFFECT ||
+                placedBlock.getType() == BlockType.FUNCTION ||
+                placedBlock.getType() == BlockType.CONDITION )
             {
                 switch (placedBlock.getType()){
                     case SECTION -> BlockPlacer.placeBlock(new Section(placedBlock), vBox, null);
