@@ -46,7 +46,7 @@
                            <Insets left="10.0" />
                        </VBox.margin>
                        <children>
-                           <HBox alignment="CENTER" prefHeight="117.0" prefWidth="643.0" VBox.vgrow="ALWAYS">
+                           <HBox alignment="CENTER" fillHeight="false" prefHeight="128.0" prefWidth="647.0" VBox.vgrow="ALWAYS">
                                <children>
                                    <Label alignment="CENTER" text="[Effect] send subtitle">
                                        <font>
@@ -56,25 +56,19 @@
                                            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                        </padding>
                                    </Label>
-                                   <Pane prefHeight="0.0" prefWidth="90.0" style="-fx-background-radius: 25px; -fx-background-color: #ffff00;" HBox.hgrow="ALWAYS">
-                                       <children>
-                                 <HBox alignment="CENTER">
+                           <Pane>
+                              <children>
+                                 <HBox alignment="CENTER" fillHeight="false">
                                     <children>
-                                                 <Label alignment="CENTER" contentDisplay="CENTER" prefWidth="90.0" text="\%text%" textAlignment="CENTER" HBox.hgrow="ALWAYS">
-                                                     <font>
-                                                         <Font size="24.0" />
-                                                     </font>
-                                                     <padding>
-                                                         <Insets left="5.0" right="5.0" />
-                                                     </padding>
+                                       <Label alignment="CENTER" text="Label">
+                                          <font>
+                                             <Font size="24.0" />
+                                          </font>
                                        </Label>
                                     </children>
                                  </HBox>
-                                       </children>
-                                       <HBox.margin>
-                                           <Insets bottom="5.0" top="5.0" />
-                                       </HBox.margin>
-                                   </Pane>
+                              </children>
+                           </Pane>
                                    <Label text="for">
                                        <font>
                                            <Font size="24.0" />

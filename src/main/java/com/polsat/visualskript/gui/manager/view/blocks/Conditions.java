@@ -8,7 +8,7 @@ import javafx.scene.layout.HBox;
 
 public class Conditions extends ViewBlock {
 
-    private boolean inVBox;
+    private final boolean inVBox;
 
     public Conditions(Block block, boolean inVBox){
         super(block);

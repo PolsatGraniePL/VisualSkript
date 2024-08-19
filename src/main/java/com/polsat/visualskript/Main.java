@@ -12,15 +12,12 @@ public class Main extends Application {
     //
     //TODO:
     // - Miejsce podczas Drop
-    // - Edycja miejsca drag and drop
-    // - <.+> & %xyz% -> ()
+    // - Edycja miejsca drag and drop (Delete component)
     // - Components: wyświetlanie wszystkich eventów/struktur
     // - Zapisywanie do .json
     // - Wczytywanie z .json
     // - Eksportowanie do .sk
-    // - NEXT: Naprawa VBOX aby był skalowalny, a nie zawierał 100% scrollpane.
     // - TextBoxPopOver na każdy TYPES
-    // - NEXT: Wyśrodkowanie tekstu wertykalnie.
     //
 
     public static void main(String[] args) {

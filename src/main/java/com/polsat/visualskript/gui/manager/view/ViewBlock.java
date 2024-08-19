@@ -45,6 +45,7 @@ public abstract class ViewBlock extends Pane {
 
         this.setStyle("-fx-background-color: #"+ block.getType().getHexColor()+";");
         hbox.setAlignment(Pos.CENTER);
+        hbox.setFillHeight(false);
         label.setText("["+block.getType().getName()+"] " + PatternExtractor.getFirstPattern(block.getPattern()));
         label.setFont(new Font("System", 24));
         label.setPadding(new Insets(5, 5, 5, 5));
