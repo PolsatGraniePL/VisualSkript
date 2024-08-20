@@ -19,6 +19,7 @@ public class Main extends Application {
     // - Eksportowanie do .sk
     // - Sections -> dodawanie bloków do środka.
     // - [Stricture] również do () jako Text
+    // - Tab = new line.
     //
 
     public static void main(String[] args) {
