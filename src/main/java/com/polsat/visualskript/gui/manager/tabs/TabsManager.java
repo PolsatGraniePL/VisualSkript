@@ -69,8 +69,8 @@ public class TabsManager {
                     case SECTION -> BlockPlacer.placeBlock(new Section(placedBlock), vBox);
                     case EFFECT -> BlockPlacer.placeBlock(new Effect(placedBlock), vBox);
                     case COMMENT -> BlockPlacer.placeBlock(new Comment(placedBlock), vBox);
-                    case FUNCTION -> BlockPlacer.placeBlock(new Function(placedBlock, true), vBox);
-                    case CONDITION -> BlockPlacer.placeBlock(new Conditions(placedBlock, true), vBox);
+                    case FUNCTION -> BlockPlacer.placeBlock(new Function(placedBlock, null, true), vBox);
+                    case CONDITION -> BlockPlacer.placeBlock(new Conditions(placedBlock, null, true), vBox);
                 }
                 success = true;
             }

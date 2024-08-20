@@ -28,8 +28,8 @@ public class BlockPlacer {
             //Drop on VBox
             case SECTION, EFFECT, COMMENT:
                 VBox vBox1 = (VBox) node;
-                if (!Objects.isNull(DropSystem.getCurrentdropUnderNode())){
-                    int index1 = vBox1.getChildren().indexOf(DropSystem.getCurrentdropUnderNode());
+                if (!Objects.isNull(DropSystem.getCurrentDropUnderNode())){
+                    int index1 = vBox1.getChildren().indexOf(DropSystem.getCurrentDropUnderNode());
                     vBox1.getChildren().add(index1+1, viewBlock);
                     break;
                 }
@@ -39,8 +39,8 @@ public class BlockPlacer {
             case CONDITION:
                 if (((Conditions)viewBlock).getInVBox()){
                     VBox vBox2 = (VBox) node;
-                    if (!Objects.isNull(DropSystem.getCurrentdropUnderNode())){
-                        int index2 = vBox2.getChildren().indexOf(DropSystem.getCurrentdropUnderNode());
+                    if (!Objects.isNull(DropSystem.getCurrentDropUnderNode())){
+                        int index2 = vBox2.getChildren().indexOf(DropSystem.getCurrentDropUnderNode());
                         vBox2.getChildren().add(index2+1, viewBlock);
                         break;
                     }
@@ -54,8 +54,8 @@ public class BlockPlacer {
             case FUNCTION:
                 if (((Function)viewBlock).getInVBox()){
                     VBox vBox3 = (VBox) node;
-                    if (!Objects.isNull(DropSystem.getCurrentdropUnderNode())){
-                        int index3 = vBox3.getChildren().indexOf(DropSystem.getCurrentdropUnderNode());
+                    if (!Objects.isNull(DropSystem.getCurrentDropUnderNode())){
+                        int index3 = vBox3.getChildren().indexOf(DropSystem.getCurrentDropUnderNode());
                         vBox3.getChildren().add(index3+1, viewBlock);
                         break;
                     }

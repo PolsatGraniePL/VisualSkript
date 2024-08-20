@@ -4,13 +4,13 @@ import com.polsat.visualskript.gui.manager.view.ViewBlock;
 
 public class DropSystem {
 
-    private static ViewBlock currentdropUnderNode;
+    private static ViewBlock currentDropUnderNode;
 
-    public static ViewBlock getCurrentdropUnderNode() {
-        return currentdropUnderNode;
+    public static ViewBlock getCurrentDropUnderNode() {
+        return currentDropUnderNode;
     }
 
-    public static void setCurrentdropUnderNode(ViewBlock currentdropUnderNode) {
-        DropSystem.currentdropUnderNode = currentdropUnderNode;
+    public static void setCurrentDropUnderNode(ViewBlock currentDropUnderNode) {
+        DropSystem.currentDropUnderNode = currentDropUnderNode;
     }
 }

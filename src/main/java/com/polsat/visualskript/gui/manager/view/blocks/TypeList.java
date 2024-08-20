@@ -17,8 +17,8 @@ public class TypeList extends ViewBlock {
     private final ContextMenu contextMenu = new ContextMenu();
     private boolean contextMenuBuilt = false;
 
-    public TypeList(Block block) {
-        super(block, block.getName());
+    public TypeList(Block block, String oldText) {
+        super(block);
         //build view box
         VBox vBox = new VBox();
         HBox hbox = new HBox();
@@ -56,7 +56,7 @@ public class TypeList extends ViewBlock {
                     }
                 });
                 delete.setOnAction(event -> {
-                    System.out.println("Delete");
+                    ((HBox)this.getParent()).getChildren().set(((HBox)this.getParent()).getChildren().indexOf(this), new DropViewExpr(oldText));
                 });
             }
             contextMenuBuilt = true;

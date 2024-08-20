@@ -58,11 +58,11 @@ public class DropViewExpr extends Pane {
                 placedBlock.getType() == BlockType.CONDITION)
             {
                 switch (placedBlock.getType()){
-                    case EXPRESSION -> BlockPlacer.placeBlock(new Expression(placedBlock), this);
-                    case TYPE -> BlockPlacer.placeBlock(new Type(placedBlock), this);
-                    case TYPE_LIST -> BlockPlacer.placeBlock(new TypeList(placedBlock), this);
-                    case FUNCTION -> BlockPlacer.placeBlock(new Function(placedBlock, false), this);
-                    case CONDITION -> BlockPlacer.placeBlock(new Conditions(placedBlock, false), this);
+                    case EXPRESSION -> BlockPlacer.placeBlock(new Expression(placedBlock, text), this);
+                    case TYPE -> BlockPlacer.placeBlock(new Type(placedBlock, text), this);
+                    case TYPE_LIST -> BlockPlacer.placeBlock(new TypeList(placedBlock, text), this);
+                    case FUNCTION -> BlockPlacer.placeBlock(new Function(placedBlock, text, false), this);
+                    case CONDITION -> BlockPlacer.placeBlock(new Conditions(placedBlock, text, false), this);
                 }
                 success = true;
             }

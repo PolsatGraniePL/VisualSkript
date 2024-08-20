@@ -3,6 +3,9 @@ package com.polsat.visualskript.gui.manager.view;
 import com.polsat.visualskript.Main;
 import com.polsat.visualskript.gui.block.Block;
 import com.polsat.visualskript.gui.block.BlockType;
+import com.polsat.visualskript.gui.manager.tabs.MainTabManager;
+import com.polsat.visualskript.gui.manager.tabs.TabsManager;
+import com.polsat.visualskript.gui.manager.view.blocks.Effect;
 import com.polsat.visualskript.gui.manager.view.popovers.SelectBoxPopOver;
 import com.polsat.visualskript.system.pattern.PatternExtractor;
 import javafx.animation.KeyFrame;
@@ -27,11 +30,11 @@ public abstract class ViewBlock extends Pane {
 
     private final Block block;
 
-    protected ViewBlock(Block block, String type){
+    protected ViewBlock(Block block){
         this.block = block;
     }
 
-    protected ViewBlock(Block block){
+    protected ViewBlock(Block block, String oldText){
         this.block = block;
 
         //build view box
@@ -64,7 +67,15 @@ public abstract class ViewBlock extends Pane {
                     setCombinations(block.getPattern(), this, label, block.getType());
                 });
                 delete.setOnAction(event -> {
-                    System.out.println("Delete");
+                    if (this.getParent() instanceof VBox vbox) {
+                        if (Objects.equals(block.getType(), BlockType.EVENT) || Objects.equals(block.getType(), BlockType.STRUCTURE)){
+                            //TODO: DELETE CURRENT COMPONENT
+                        } else {
+                            vbox.getChildren().remove(this);
+                        }
+                    } else {
+                        ((HBox)this.getParent()).getChildren().set(((HBox)this.getParent()).getChildren().indexOf(this), new DropViewExpr(oldText));
+                    }
                 });
             }
             contextMenuBuilt = true;

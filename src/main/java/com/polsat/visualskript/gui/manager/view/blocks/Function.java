@@ -1,7 +1,6 @@
 package com.polsat.visualskript.gui.manager.view.blocks;
 
 import com.polsat.visualskript.gui.block.Block;
-import com.polsat.visualskript.gui.block.BlockType;
 import com.polsat.visualskript.gui.manager.drop.DropSystem;
 import com.polsat.visualskript.gui.manager.view.ViewBlock;
 import javafx.geometry.Insets;
@@ -13,8 +12,8 @@ public class Function extends ViewBlock {
 
     private final boolean inVBox;
 
-    public Function(Block block, boolean inVBox){
-        super(block);
+    public Function(Block block, String oldText, boolean inVBox){
+        super(block, oldText);
         this.inVBox = inVBox;
         if (!inVBox) {
             this.setStyle(this.getStyle()+"-fx-background-radius: 25px; -fx-border-radius: 25px;");
@@ -22,11 +21,11 @@ public class Function extends ViewBlock {
             VBox.setMargin(this, new Insets(5, 5, 5, 5));
         } else {
             this.setOnDragEntered(event -> {
-                DropSystem.setCurrentdropUnderNode(this);
+                DropSystem.setCurrentDropUnderNode(this);
                 setEffect(new Glow(0.3));
             });
             this.setOnDragExited(event -> {
-                DropSystem.setCurrentdropUnderNode(null);
+                DropSystem.setCurrentDropUnderNode(null);
                 setEffect(null);
             });
         }

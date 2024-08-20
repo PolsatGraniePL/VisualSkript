@@ -3,6 +3,7 @@ package com.polsat.visualskript.gui.manager.view.blocks;
 import com.polsat.visualskript.Main;
 import com.polsat.visualskript.gui.block.Block;
 import com.polsat.visualskript.gui.block.BlockType;
+import com.polsat.visualskript.gui.manager.view.DropViewExpr;
 import com.polsat.visualskript.gui.manager.view.ViewBlock;
 import com.polsat.visualskript.system.pattern.PatternExtractor;
 import javafx.animation.KeyFrame;
@@ -31,8 +32,8 @@ public class Type extends ViewBlock {
     private final ContextMenu contextMenu = new ContextMenu();
     private boolean contextMenuBuilt = false;
 
-    public Type(Block block){
-        super(block, block.getName());
+    public Type(Block block, String oldText){
+        super(block);
         //build view box
         HBox hbox = new HBox();
         Label label = new Label();
@@ -67,7 +68,7 @@ public class Type extends ViewBlock {
                 MenuItem delete = new MenuItem("Delete");
                 contextMenu.getItems().addAll(delete);
                 delete.setOnAction(event -> {
-                    System.out.println("Delete");
+                    ((HBox)this.getParent()).getChildren().set(((HBox)this.getParent()).getChildren().indexOf(this), new DropViewExpr(oldText));
                 });
             }
             contextMenuBuilt = true;

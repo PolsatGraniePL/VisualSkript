@@ -3,20 +3,15 @@ package com.polsat.visualskript.gui.manager.view.blocks;
 import com.polsat.visualskript.gui.block.Block;
 import com.polsat.visualskript.gui.manager.block.BlockPlacer;
 import com.polsat.visualskript.gui.manager.drop.DropSystem;
-import com.polsat.visualskript.gui.manager.view.DropViewExpr;
 import com.polsat.visualskript.gui.manager.view.ViewBlock;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.effect.Glow;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -28,7 +23,7 @@ public class Comment extends ViewBlock {
     private boolean contextMenuBuilt = false;
 
     public Comment(Block block) {
-        super(block, block.getName());
+        super(block);
         //build view box
         HBox hbox = new HBox();
         Label label = new Label();
@@ -36,11 +31,11 @@ public class Comment extends ViewBlock {
 
         this.setStyle("-fx-background-color: #"+ block.getType().getHexColor()+"; -fx-border-color: #000000; ");
         this.setOnDragEntered(event -> {
-            DropSystem.setCurrentdropUnderNode(this);
+            DropSystem.setCurrentDropUnderNode(this);
             setEffect(new Glow(0.3));
         });
         this.setOnDragExited(event -> {
-            DropSystem.setCurrentdropUnderNode(null);
+            DropSystem.setCurrentDropUnderNode(null);
             setEffect(null);
         });
 
@@ -74,9 +69,7 @@ public class Comment extends ViewBlock {
         this.setOnContextMenuRequested((e) -> {
             if (!contextMenuBuilt) {
                 MenuItem delete = new MenuItem("Delete");
-                delete.setOnAction(event -> {
-                    System.out.println("Delete");
-                });
+                delete.setOnAction(event -> ((VBox)this.getParent()).getChildren().remove(this));
             }
             contextMenuBuilt = true;
             contextMenu.show(this, e.getScreenX(), e.getScreenY());

@@ -9,8 +9,8 @@ import javafx.scene.layout.VBox;
 
 public class Expression extends ViewBlock {
 
-    public Expression(Block block){
-        super(block);
+    public Expression(Block block, String oldText){
+        super(block, oldText);
         this.setStyle(this.getStyle()+"-fx-background-radius: 25px; -fx-border-radius: 25px;");
         HBox.setMargin(this, new Insets(5, 5, 5, 5));
         VBox.setMargin(this, new Insets(5, 5, 5, 5));
