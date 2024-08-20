@@ -4,10 +4,12 @@ import com.polsat.visualskript.gui.block.Block;
 import com.polsat.visualskript.gui.block.BlockType;
 import com.polsat.visualskript.gui.manager.block.BlockPlacer;
 import com.polsat.visualskript.gui.manager.block.SelectiveBlock;
+import com.polsat.visualskript.gui.manager.drop.DropSystem;
 import com.polsat.visualskript.gui.manager.view.blocks.*;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.effect.Glow;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -24,6 +26,8 @@ public class DropViewExpr extends Pane {
         hbox.getChildren().add(label);
         this.getChildren().add(hbox);
 
+        this.setOnDragEntered(event -> setEffect(new Glow(0.3)));
+        this.setOnDragExited(event -> setEffect(null));
         this.setStyle("-fx-background-radius: 25px; -fx-background-color: #ffc0cb; -fx-border-color: #000000; -fx-border-radius: 25px;");
         HBox.setMargin(this, new Insets(5, 5, 5, 5));
         VBox.setMargin(this, new Insets(5, 5, 5, 5));

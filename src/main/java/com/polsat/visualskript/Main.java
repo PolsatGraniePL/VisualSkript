@@ -11,7 +11,6 @@ public class Main extends Application {
 
     //
     //TODO:
-    // - Miejsce podczas Drop
     // - Edycja miejsca drag and drop / Delete component
     // - Components: wyświetlanie wszystkich eventów/struktur
     // - Zapisywanie do .json

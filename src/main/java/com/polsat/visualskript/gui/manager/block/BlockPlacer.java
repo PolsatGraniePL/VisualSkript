@@ -1,5 +1,6 @@
 package com.polsat.visualskript.gui.manager.block;
 
+import com.polsat.visualskript.gui.manager.drop.DropSystem;
 import com.polsat.visualskript.gui.manager.view.ViewBlock;
 import com.polsat.visualskript.gui.manager.view.blocks.Conditions;
 import com.polsat.visualskript.gui.manager.view.blocks.Function;
@@ -27,27 +28,42 @@ public class BlockPlacer {
             //Drop on VBox
             case SECTION, EFFECT, COMMENT:
                 VBox vBox1 = (VBox) node;
+                if (!Objects.isNull(DropSystem.getCurrentdropUnderNode())){
+                    int index1 = vBox1.getChildren().indexOf(DropSystem.getCurrentdropUnderNode());
+                    vBox1.getChildren().add(index1+1, viewBlock);
+                    break;
+                }
                 vBox1.getChildren().add(vBox1.getChildren().size()-1, viewBlock);
                 break;
             //Drop on VBox and %xyz%
             case CONDITION:
                 if (((Conditions)viewBlock).getInVBox()){
                     VBox vBox2 = (VBox) node;
+                    if (!Objects.isNull(DropSystem.getCurrentdropUnderNode())){
+                        int index2 = vBox2.getChildren().indexOf(DropSystem.getCurrentdropUnderNode());
+                        vBox2.getChildren().add(index2+1, viewBlock);
+                        break;
+                    }
                     vBox2.getChildren().add(vBox2.getChildren().size()-1, viewBlock);
                 } else {
                     Pane pane1 = (Pane) node.getParent();
-                    int index1 = pane1.getChildren().indexOf(node);
-                    pane1.getChildren().set(index1, viewBlock);
+                    int indexe1 = pane1.getChildren().indexOf(node);
+                    pane1.getChildren().set(indexe1, viewBlock);
                 }
                 break;
             case FUNCTION:
                 if (((Function)viewBlock).getInVBox()){
-                    VBox vBox2 = (VBox) node;
-                    vBox2.getChildren().add(vBox2.getChildren().size()-1, viewBlock);
+                    VBox vBox3 = (VBox) node;
+                    if (!Objects.isNull(DropSystem.getCurrentdropUnderNode())){
+                        int index3 = vBox3.getChildren().indexOf(DropSystem.getCurrentdropUnderNode());
+                        vBox3.getChildren().add(index3+1, viewBlock);
+                        break;
+                    }
+                    vBox3.getChildren().add(vBox3.getChildren().size()-1, viewBlock);
                 } else {
                     Pane pane1 = (Pane) node.getParent();
-                    int index1 = pane1.getChildren().indexOf(node);
-                    pane1.getChildren().set(index1, viewBlock);
+                    int indexe1 = pane1.getChildren().indexOf(node);
+                    pane1.getChildren().set(indexe1, viewBlock);
                 }
                 break;
 

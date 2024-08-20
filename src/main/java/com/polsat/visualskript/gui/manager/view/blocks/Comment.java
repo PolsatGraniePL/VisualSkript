@@ -2,6 +2,7 @@ package com.polsat.visualskript.gui.manager.view.blocks;
 
 import com.polsat.visualskript.gui.block.Block;
 import com.polsat.visualskript.gui.manager.block.BlockPlacer;
+import com.polsat.visualskript.gui.manager.drop.DropSystem;
 import com.polsat.visualskript.gui.manager.view.DropViewExpr;
 import com.polsat.visualskript.gui.manager.view.ViewBlock;
 import javafx.animation.KeyFrame;
@@ -13,6 +14,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.effect.Glow;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
@@ -33,6 +35,14 @@ public class Comment extends ViewBlock {
         TextField textField = new TextField();
 
         this.setStyle("-fx-background-color: #"+ block.getType().getHexColor()+"; -fx-border-color: #000000; ");
+        this.setOnDragEntered(event -> {
+            DropSystem.setCurrentdropUnderNode(this);
+            setEffect(new Glow(0.3));
+        });
+        this.setOnDragExited(event -> {
+            DropSystem.setCurrentdropUnderNode(null);
+            setEffect(null);
+        });
 
         hbox.setAlignment(Pos.CENTER);
         hbox.setFillHeight(false);
@@ -53,7 +63,6 @@ public class Comment extends ViewBlock {
             textField.positionCaret(textField.getCaretPosition());
         }));
         textField.setOnAction((event -> {
-            System.out.println("ON ACTION");
             BlockPlacer.placeBlock(new Comment(block), this.getParent());
         }));
 

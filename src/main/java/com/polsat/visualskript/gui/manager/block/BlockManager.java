@@ -6,6 +6,7 @@ import com.polsat.visualskript.gui.manager.tabs.TabsManager;
 import com.polsat.visualskript.gui.manager.view.blocks.*;
 import com.polsat.visualskript.util.ErrorHandler;
 import javafx.application.Platform;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.VBox;

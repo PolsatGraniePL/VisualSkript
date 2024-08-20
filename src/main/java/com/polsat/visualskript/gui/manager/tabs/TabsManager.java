@@ -4,8 +4,10 @@ import com.polsat.visualskript.gui.block.Block;
 import com.polsat.visualskript.gui.block.BlockType;
 import com.polsat.visualskript.gui.manager.block.BlockPlacer;
 import com.polsat.visualskript.gui.manager.block.SelectiveBlock;
+import com.polsat.visualskript.gui.manager.view.ViewBlock;
 import com.polsat.visualskript.gui.manager.view.blocks.*;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -14,6 +16,8 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+
+import java.beans.Visibility;
 
 public class TabsManager {
 
@@ -35,8 +39,6 @@ public class TabsManager {
         scrollPane.setFitToHeight(false);
         scrollPane.setFitToWidth(false);
         scrollPane.setPadding(new Insets(10, 10, 10, 10));
-//        scrollPane.setStyle("-fx-border-color: #FF0000");
-//        vBox.setStyle("-fx-border-color: #0022ff");
         expandPane.setPrefHeight(300);
 
         vBox.setFillWidth(true);
