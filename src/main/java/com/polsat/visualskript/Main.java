@@ -16,7 +16,6 @@ public class Main extends Application {
     // - Wczytywanie z .json
     // - Eksportowanie do .sk
     // - Sections -> dodawanie bloków do środka.
-    // - [Stricture] również do () jako Text
     //
 
     public static void main(String[] args) {

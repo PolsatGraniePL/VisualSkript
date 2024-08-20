@@ -38,6 +38,7 @@ public class DropViewExpr extends Pane {
         setOnDragOver(event -> {
             Block placedBlock = ((SelectiveBlock) event.getGestureSource()).getBlock();
             if (
+                placedBlock.getType() == BlockType.STRUCTURE ||
                 placedBlock.getType() == BlockType.EXPRESSION ||
                 placedBlock.getType() == BlockType.TYPE ||
                 placedBlock.getType() == BlockType.TYPE_LIST ||
@@ -51,7 +52,8 @@ public class DropViewExpr extends Pane {
         setOnDragDropped(event -> {
             Block placedBlock = ((SelectiveBlock) event.getGestureSource()).getBlock();
             boolean success = false;
-            if (placedBlock.getType() == BlockType.EXPRESSION ||
+            if (placedBlock.getType() == BlockType.STRUCTURE ||
+                placedBlock.getType() == BlockType.EXPRESSION ||
                 placedBlock.getType() == BlockType.TYPE ||
                 placedBlock.getType() == BlockType.TYPE_LIST ||
                 placedBlock.getType() == BlockType.FUNCTION ||
@@ -63,6 +65,7 @@ public class DropViewExpr extends Pane {
                     case TYPE_LIST -> BlockPlacer.placeBlock(new TypeList(placedBlock, text), this);
                     case FUNCTION -> BlockPlacer.placeBlock(new Function(placedBlock, text, false), this);
                     case CONDITION -> BlockPlacer.placeBlock(new Conditions(placedBlock, text, false), this);
+                    case STRUCTURE -> BlockPlacer.placeBlock(new Structure(placedBlock, text, true), this);
                 }
                 success = true;
             }

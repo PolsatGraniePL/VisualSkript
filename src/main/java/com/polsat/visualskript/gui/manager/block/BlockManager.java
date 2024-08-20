@@ -130,7 +130,7 @@ public class BlockManager {
                 VBox newVBoxEvent = (VBox)((ScrollPane) tabPane.getSelectionModel().getSelectedItem().getContent()).getContent();
                 switch (placedBlock.getType()){
                     case EVENT -> BlockPlacer.placeBlock(new Event(placedBlock), newVBoxEvent);
-                    case STRUCTURE -> BlockPlacer.placeBlock(new Structure(placedBlock), newVBoxEvent);
+                    case STRUCTURE -> BlockPlacer.placeBlock(new Structure(placedBlock, null, false), newVBoxEvent);
                 }
                 success = true;
             }
