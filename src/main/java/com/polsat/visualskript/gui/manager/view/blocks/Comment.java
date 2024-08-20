@@ -1,6 +1,7 @@
 package com.polsat.visualskript.gui.manager.view.blocks;
 
 import com.polsat.visualskript.gui.block.Block;
+import com.polsat.visualskript.gui.manager.block.BlockPlacer;
 import com.polsat.visualskript.gui.manager.view.DropViewExpr;
 import com.polsat.visualskript.gui.manager.view.ViewBlock;
 import javafx.animation.KeyFrame;
@@ -51,9 +52,15 @@ public class Comment extends ViewBlock {
             textField.setPrefWidth(width);
             textField.positionCaret(textField.getCaretPosition());
         }));
+        textField.setOnAction((event -> {
+            System.out.println("ON ACTION");
+            BlockPlacer.placeBlock(new Comment(block), this.getParent());
+        }));
 
         hbox.getChildren().addAll(label, textField);
         this.getChildren().add(hbox);
+
+        new Timeline(new KeyFrame(Duration.seconds(0.01), event -> textField.requestFocus())).playFromStart();
 
         this.setOnContextMenuRequested((e) -> {
             if (!contextMenuBuilt) {
