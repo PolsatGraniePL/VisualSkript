@@ -11,11 +11,12 @@ import javafx.scene.control.Label;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
 public class DropViewExpr extends Pane {
 
-    DropViewExpr(String text){
+    public DropViewExpr(String text){
         HBox hbox = new HBox();
         Label label = new Label();
 
@@ -25,6 +26,7 @@ public class DropViewExpr extends Pane {
 
         this.setStyle("-fx-background-radius: 25px; -fx-background-color: #ffc0cb; -fx-border-color: #000000; -fx-border-radius: 25px;");
         HBox.setMargin(this, new Insets(5, 5, 5, 5));
+        VBox.setMargin(this, new Insets(5, 5, 5, 5));
         label.setText(text);
         label.setFont(new Font("System", 24));
         label.setPadding(new Insets(0, 5, 0, 5));
@@ -34,6 +36,7 @@ public class DropViewExpr extends Pane {
             if (
                 placedBlock.getType() == BlockType.EXPRESSION ||
                 placedBlock.getType() == BlockType.TYPE ||
+                placedBlock.getType() == BlockType.TYPE_LIST ||
                 placedBlock.getType() == BlockType.FUNCTION ||
                 placedBlock.getType() == BlockType.CONDITION)
             {
@@ -46,12 +49,14 @@ public class DropViewExpr extends Pane {
             boolean success = false;
             if (placedBlock.getType() == BlockType.EXPRESSION ||
                 placedBlock.getType() == BlockType.TYPE ||
+                placedBlock.getType() == BlockType.TYPE_LIST ||
                 placedBlock.getType() == BlockType.FUNCTION ||
                 placedBlock.getType() == BlockType.CONDITION)
             {
                 switch (placedBlock.getType()){
                     case EXPRESSION -> BlockPlacer.placeBlock(new Expression(placedBlock), this);
                     case TYPE -> BlockPlacer.placeBlock(new Type(placedBlock), this);
+                    case TYPE_LIST -> BlockPlacer.placeBlock(new TypeList(placedBlock), this);
                     case FUNCTION -> BlockPlacer.placeBlock(new Function(placedBlock, false), this);
                     case CONDITION -> BlockPlacer.placeBlock(new Conditions(placedBlock, false), this);
                 }

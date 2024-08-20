@@ -19,7 +19,7 @@ public class BlockPlacer {
                 vBox.getChildren().add(0, viewBlock);
                 break;
             //Drop on %xyz%
-            case EXPRESSION, TYPE:
+            case EXPRESSION, TYPE, TYPE_LIST:
                 Pane pane = (Pane) node.getParent();
                 int index = pane.getChildren().indexOf(node);
                 pane.getChildren().set(index, viewBlock);

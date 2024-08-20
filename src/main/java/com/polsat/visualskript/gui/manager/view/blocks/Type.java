@@ -19,6 +19,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
@@ -44,6 +45,7 @@ public class Type extends ViewBlock {
         label.setFont(new Font("System", 24));
         label.setPadding(new Insets(5, 5, 5, 5));
         HBox.setMargin(this, new Insets(5, 5, 5, 5));
+        VBox.setMargin(this, new Insets(5, 5, 5, 5));
         HBox.setMargin(textField, new Insets(5, 5, 5, 5));
         textField.setStyle("-fx-background-radius: 25px; -fx-background-color: #c6c6c6; -fx-border-radius: 25px; -fx-focus-color: transparent;");
         textField.setFont(new Font("System", 24));
@@ -60,25 +62,10 @@ public class Type extends ViewBlock {
         hbox.getChildren().addAll(label, textField);
         this.getChildren().add(hbox);
 
-        if (!Objects.equals(block.getType(), BlockType.TYPE)) {
-            //Wait 0.01 second and show SelectBoxPopOver with patterns to select.
-            new Timeline(new KeyFrame(Duration.seconds(0.01),
-                    event -> {
-                        System.out.println("InputText");
-                        //setCombinations(block.getPattern(), this, label, block.getType());
-                    })
-            ).playFromStart();
-        }
-
         this.setOnContextMenuRequested((e) -> {
             if (!contextMenuBuilt) {
-                MenuItem edit = new MenuItem("Edit");
                 MenuItem delete = new MenuItem("Delete");
-                contextMenu.getItems().addAll(edit, delete);
-                edit.setOnAction(event -> {
-                    System.out.println("InputText");
-                    //setCombinations(block.getPattern(), this, label, block.getType());
-                });
+                contextMenu.getItems().addAll(delete);
                 delete.setOnAction(event -> {
                     System.out.println("Delete");
                 });

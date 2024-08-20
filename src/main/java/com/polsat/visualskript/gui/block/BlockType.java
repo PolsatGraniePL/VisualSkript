@@ -8,6 +8,7 @@ public enum BlockType {
     EFFECT("Effects", "8bff00"),
     EXPRESSION("Expressions", "ff9800"),
     TYPE("Types", "0064ff"),
+    TYPE_LIST("Types", "0064ff"),
     STRUCTURE("Structures", "00dbff"),
     FUNCTION("Functions", "8000ff"),
     ERROR("ERROR", "000000");

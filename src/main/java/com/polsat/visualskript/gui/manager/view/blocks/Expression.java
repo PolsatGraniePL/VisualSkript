@@ -5,6 +5,7 @@ import com.polsat.visualskript.gui.block.BlockType;
 import com.polsat.visualskript.gui.manager.view.ViewBlock;
 import javafx.geometry.Insets;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 public class Expression extends ViewBlock {
 
@@ -12,6 +13,7 @@ public class Expression extends ViewBlock {
         super(block);
         this.setStyle(this.getStyle()+"-fx-background-radius: 25px; -fx-border-radius: 25px;");
         HBox.setMargin(this, new Insets(5, 5, 5, 5));
+        VBox.setMargin(this, new Insets(5, 5, 5, 5));
     }
 
 }

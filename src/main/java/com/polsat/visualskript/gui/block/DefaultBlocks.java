@@ -194,8 +194,24 @@ public class DefaultBlocks {
                             wait 1 second # without using a delay effect the server will crash
                         """
         );
+        Block CombineString = new Block("Combine texts",
+                BlockType.TYPE_LIST,
+                "[Types] Combine texts",
+                "Missing patterns.",
+                "Special Visual Script block",
+                "A block that allows you to create a list of texts in order to be able to add the use of variables, options, etc.",
+                "Missing example."
+        );
+        Block ObjectsList = new Block("Objects List",
+                BlockType.TYPE_LIST,
+                "[Types] Objects List",
+                "Missing patterns.",
+                "Special Visual Script block",
+                "A block allowing you to create a list of objects.",
+                "Missing example."
+        );
 
-        return new ArrayList<>(Arrays.asList(StructAliases, StructCommand, StructFunction, StructOptions, StructVariables, SecLoop, SecConditional, SecWhile, EffSecSpawn));
+        return new ArrayList<>(Arrays.asList(StructAliases, StructCommand, StructFunction, StructOptions, StructVariables, SecLoop, SecConditional, SecWhile, EffSecSpawn, CombineString, ObjectsList));
     }
 
 }

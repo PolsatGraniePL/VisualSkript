@@ -48,14 +48,12 @@ public abstract class ViewBlock extends Pane {
         hbox.getChildren().add(label);
         this.getChildren().add(hbox);
 
-        if (!Objects.equals(block.getType(), BlockType.TYPE)) {
-            //Wait 0.01 second and show SelectBoxPopOver with patterns to select.
-            new Timeline(new KeyFrame(Duration.seconds(0.01),
-                    event -> {
-                        setCombinations(block.getPattern(), this, label, block.getType());
-                    })
-            ).playFromStart();
-        }
+        //Wait 0.01 second and show SelectBoxPopOver with patterns to select.
+        new Timeline(new KeyFrame(Duration.seconds(0.01),
+                event -> {
+                    setCombinations(block.getPattern(), this, label, block.getType());
+                })
+        ).playFromStart();
 
         this.setOnContextMenuRequested((e) -> {
             if (!contextMenuBuilt) {

@@ -2,7 +2,6 @@
 
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
@@ -28,14 +27,6 @@
                                        </padding>
                                    </Label>
                                    <Region prefWidth="0.0" HBox.hgrow="ALWAYS" />
-                                   <Button alignment="CENTER" contentDisplay="TOP" graphicTextGap="0.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: rgba(0,0,0,0);">
-                                       <graphic>
-                                           <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" smooth="false">
-                                               <image>
-                                                   <Image url="@../images/lines.png" />
-                                               </image>
-                                           </ImageView>
-                                       </graphic></Button>
                                </children>
                            </HBox>
                        </children>
@@ -79,50 +70,89 @@
                                    </Label>
                                    <Pane style="-fx-background-radius: 25px; -fx-background-color: #0064ff;">
                                        <children>
-                                           <HBox alignment="CENTER">
-                                               <children>
-                                                   <Label text="[Timespan]">
-                                                       <font>
-                                                           <Font size="24.0" />
-                                                       </font>
-                                                       <padding>
-                                                           <Insets left="5.0" right="5.0" />
-                                                       </padding>
-                                                   </Label>
-                                                   <Label text="'">
-                                                       <font>
-                                                           <Font size="24.0" />
-                                                       </font>
-                                                   </Label>
-                                                   <TextField alignment="CENTER" prefColumnCount="2" promptText="X" style="-fx-background-color: rgba(0,0,0,0);" translateX="-10.0">
-                                                       <padding>
-                                                           <Insets left="5.0" right="5.0" />
-                                                       </padding>
-                                                       <font>
-                                                           <Font size="24.0" />
-                                                       </font>
-                                                   </TextField>
-                                                   <Label text="'">
-                                                       <font>
-                                                           <Font size="24.0" />
-                                                       </font>
-                                                   </Label>
-                                               </children>
-                                           </HBox>
+                                 <VBox alignment="CENTER_LEFT" fillWidth="false" prefHeight="114.0" prefWidth="231.0">
+                                    <children>
+                                        <HBox alignment="CENTER">
+                                            <children>
+                                                <Label text="[Timespan]">
+                                                    <font>
+                                                        <Font size="24.0" />
+                                                    </font>
+                                                    <padding>
+                                                        <Insets left="5.0" right="5.0" />
+                                                    </padding>
+                                                </Label>
+                                            </children>
+                                        </HBox>
+                                        <HBox alignment="CENTER">
+                                            <children>
+                                                <Label text="[Timespan]">
+                                                    <font>
+                                                        <Font size="24.0" />
+                                                    </font>
+                                                    <padding>
+                                                        <Insets left="5.0" right="5.0" />
+                                                    </padding>
+                                                </Label>
+                                                <Label text="'">
+                                                    <font>
+                                                        <Font size="24.0" />
+                                                    </font>
+                                                </Label>
+                                                <TextField alignment="CENTER" prefColumnCount="2" promptText="X" style="-fx-background-color: rgba(0,0,0,0);" translateX="-10.0">
+                                                    <padding>
+                                                        <Insets left="5.0" right="5.0" />
+                                                    </padding>
+                                                    <font>
+                                                        <Font size="24.0" />
+                                                    </font>
+                                                </TextField>
+                                                <Label text="'">
+                                                    <font>
+                                                        <Font size="24.0" />
+                                                    </font>
+                                                </Label>
+                                            </children>
+                                        </HBox>
+                                                 <HBox alignment="CENTER">
+                                                     <children>
+                                                         <Label text="[Timespan]">
+                                                             <font>
+                                                                 <Font size="24.0" />
+                                                             </font>
+                                                             <padding>
+                                                                 <Insets left="5.0" right="5.0" />
+                                                             </padding>
+                                                         </Label>
+                                                         <Label text="'">
+                                                             <font>
+                                                                 <Font size="24.0" />
+                                                             </font>
+                                                         </Label>
+                                                         <TextField alignment="CENTER" prefColumnCount="2" promptText="X" style="-fx-background-color: rgba(0,0,0,0);" translateX="-10.0">
+                                                             <padding>
+                                                                 <Insets left="5.0" right="5.0" />
+                                                             </padding>
+                                                             <font>
+                                                                 <Font size="24.0" />
+                                                             </font>
+                                                         </TextField>
+                                                         <Label text="'">
+                                                             <font>
+                                                                 <Font size="24.0" />
+                                                             </font>
+                                                         </Label>
+                                                     </children>
+                                                 </HBox>
+                                    </children>
+                                 </VBox>
                                        </children>
                                        <HBox.margin>
                                            <Insets bottom="5.0" top="5.0" />
                                        </HBox.margin>
                                    </Pane>
                                    <Region HBox.hgrow="ALWAYS" />
-                                   <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: rgba(0,0,0,0);">
-                                       <graphic>
-                                           <ImageView fitHeight="20.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true" smooth="false">
-                                               <image>
-                                                   <Image url="@../images/lines.png" />
-                                               </image>
-                                           </ImageView>
-                                       </graphic></Button>
+                                   
                                </children>
                            </HBox>
                        </children>
@@ -185,28 +215,12 @@
                                                        </padding>
                                                    </Label>
                                                    <Region HBox.hgrow="ALWAYS" />
-                                                   <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: rgba(0,0,0,0);">
-                                                       <graphic>
-                                                           <ImageView fitHeight="20.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true" smooth="false">
-                                                               <image>
-                                                                   <Image url="@../images/lines.png" />
-                                                               </image>
-                                                           </ImageView>
-                                                       </graphic></Button>
+                                                   
                                                </children>
                                            </HBox>
                                        </children>
                                    </Pane>
                                    <Region HBox.hgrow="ALWAYS" />
-                                   <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: rgba(0,0,0,0);">
-                                       <graphic>
-                                           <ImageView fitHeight="20.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true" smooth="false">
-                                               <image>
-                                                   <Image url="@../images/lines.png" />
-                                               </image>
-                                           </ImageView>
-                                       </graphic>
-                           </Button>
                                </children>
                            </HBox>
                        </children>
@@ -227,14 +241,7 @@
                                        </padding>
                                    </Label>
                                    <Region HBox.hgrow="ALWAYS" />
-                                   <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: rgba(0,0,0,0);">
-                                       <graphic>
-                                           <ImageView fitHeight="20.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true" smooth="false">
-                                               <image>
-                                                   <Image url="@../images/lines.png" />
-                                               </image>
-                                           </ImageView>
-                                       </graphic></Button>
+                                   
                                </children>
                            </HBox>
                        </children>
@@ -255,15 +262,7 @@
                                        </padding>
                                    </Label>
                                    <Region HBox.hgrow="ALWAYS" />
-                                   <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: rgba(0,0,0,0);">
-                                       <graphic>
-                                           <ImageView fitHeight="20.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true" smooth="false">
-                                               <image>
-                                                   <Image url="@../images/lines.png" />
-                                               </image>
-                                           </ImageView>
-                                       </graphic>
-                                   </Button>
+                                   
                                </children>
                            </HBox>
                        </children>
@@ -285,12 +284,7 @@
                                        </padding>
                                    </Label>
                                    <Region HBox.hgrow="ALWAYS" />
-                                   <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: rgba(0,0,0,0);">
-                                       <graphic>
-                                           <ImageView fitHeight="20.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true" smooth="false">
-                                               <Image url="@../images/lines.png" />
-                                           </ImageView>
-                                       </graphic></Button>
+                                   
                                </children>
                            </HBox>
                        </children>
@@ -311,14 +305,7 @@
                                        </padding>
                                    </Label>
                                    <Region HBox.hgrow="ALWAYS" />
-                                   <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: rgba(0,0,0,0);">
-                                       <graphic>
-                                           <ImageView fitHeight="20.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true" smooth="false">
-                                               <image>
-                                                   <Image url="@../images/lines.png" />
-                                               </image>
-                                           </ImageView>
-                                       </graphic></Button>
+                                   
                                </children>
                            </HBox>
                        </children>
@@ -339,14 +326,7 @@
                                        </padding>
                                    </Label>
                                    <Region HBox.hgrow="ALWAYS" />
-                                   <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: rgba(0,0,0,0);">
-                                       <graphic>
-                                           <ImageView fitHeight="20.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true" smooth="false">
-                                               <image>
-                                                   <Image url="@../images/lines.png" />
-                                               </image>
-                                           </ImageView>
-                                       </graphic></Button>
+                                   
                                </children>
                            </HBox>
                        </children>
@@ -367,14 +347,7 @@
                                        </padding>
                                    </Label>
                                    <Region HBox.hgrow="ALWAYS" />
-                                   <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: rgba(0,0,0,0);">
-                                       <graphic>
-                                           <ImageView fitHeight="20.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true" smooth="false">
-                                               <image>
-                                                   <Image url="@../images/lines.png" />
-                                               </image>
-                                           </ImageView>
-                                       </graphic></Button>
+                                   
                                </children>
                            </HBox>
                        </children>
