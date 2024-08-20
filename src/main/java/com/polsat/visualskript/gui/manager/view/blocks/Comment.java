@@ -67,6 +67,7 @@ public class Comment extends ViewBlock {
         new Timeline(new KeyFrame(Duration.seconds(0.01), event -> textField.requestFocus())).playFromStart();
 
         this.setOnContextMenuRequested((e) -> {
+            e.consume();
             if (!contextMenuBuilt) {
                 MenuItem delete = new MenuItem("Delete");
                 delete.setOnAction(event -> ((VBox)this.getParent()).getChildren().remove(this));

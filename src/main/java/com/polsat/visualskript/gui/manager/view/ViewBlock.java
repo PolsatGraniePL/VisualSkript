@@ -59,6 +59,7 @@ public abstract class ViewBlock extends Pane {
         ).playFromStart();
 
         this.setOnContextMenuRequested((e) -> {
+            e.consume();
             if (!contextMenuBuilt) {
                 MenuItem edit = new MenuItem("Edit");
                 MenuItem delete = new MenuItem("Delete");

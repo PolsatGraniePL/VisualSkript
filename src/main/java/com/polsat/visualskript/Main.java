@@ -11,14 +11,12 @@ public class Main extends Application {
 
     //
     //TODO:
-    // - Edycja miejsca drag and drop / Delete component
     // - Components: wyświetlanie wszystkich eventów/struktur
     // - Zapisywanie do .json
     // - Wczytywanie z .json
     // - Eksportowanie do .sk
     // - Sections -> dodawanie bloków do środka.
     // - [Stricture] również do () jako Text
-    // - contextMenu repair
     //
 
     public static void main(String[] args) {

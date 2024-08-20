@@ -64,6 +64,7 @@ public class Type extends ViewBlock {
         this.getChildren().add(hbox);
 
         this.setOnContextMenuRequested((e) -> {
+            e.consume();
             if (!contextMenuBuilt) {
                 MenuItem delete = new MenuItem("Delete");
                 contextMenu.getItems().addAll(delete);

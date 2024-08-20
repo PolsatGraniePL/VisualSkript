@@ -42,6 +42,7 @@ public class TypeList extends ViewBlock {
         this.getChildren().add(vBox);
 
         this.setOnContextMenuRequested((e) -> {
+            e.consume();
             if (!contextMenuBuilt) {
                 MenuItem add = new MenuItem("Add object");
                 MenuItem remove = new MenuItem("Remove object");
