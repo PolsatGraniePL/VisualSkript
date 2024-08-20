@@ -19,7 +19,6 @@ public class Main extends Application {
     // - Eksportowanie do .sk
     // - Sections -> dodawanie bloków do środka.
     // - [Stricture] również do () jako Text
-    // - Blok komentarza
     //
 
     public static void main(String[] args) {

@@ -11,6 +11,7 @@ public enum BlockType {
     TYPE_LIST("Types", "0064ff"),
     STRUCTURE("Structures", "00dbff"),
     FUNCTION("Functions", "8000ff"),
+    COMMENT("Effects", "3d7100"),
     ERROR("ERROR", "000000");
 
 

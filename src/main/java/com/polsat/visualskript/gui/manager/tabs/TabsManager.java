@@ -47,6 +47,7 @@ public class TabsManager {
             if (placedBlock.getType() == BlockType.SECTION ||
                     placedBlock.getType() == BlockType.EFFECT ||
                     placedBlock.getType() == BlockType.FUNCTION ||
+                    placedBlock.getType() == BlockType.COMMENT ||
                     placedBlock.getType() == BlockType.CONDITION )
             {
                 event.acceptTransferModes(TransferMode.ANY);
@@ -59,11 +60,13 @@ public class TabsManager {
             if (placedBlock.getType() == BlockType.SECTION ||
                 placedBlock.getType() == BlockType.EFFECT ||
                 placedBlock.getType() == BlockType.FUNCTION ||
+                placedBlock.getType() == BlockType.COMMENT ||
                 placedBlock.getType() == BlockType.CONDITION )
             {
                 switch (placedBlock.getType()){
                     case SECTION -> BlockPlacer.placeBlock(new Section(placedBlock), vBox);
                     case EFFECT -> BlockPlacer.placeBlock(new Effect(placedBlock), vBox);
+                    case COMMENT -> BlockPlacer.placeBlock(new Comment(placedBlock), vBox);
                     case FUNCTION -> BlockPlacer.placeBlock(new Function(placedBlock, true), vBox);
                     case CONDITION -> BlockPlacer.placeBlock(new Conditions(placedBlock, true), vBox);
                 }

@@ -196,7 +196,7 @@ public class DefaultBlocks {
         );
         Block CombineString = new Block("Combine texts",
                 BlockType.TYPE_LIST,
-                "[Types] Combine texts",
+                "[Types] Combine Texts",
                 "Missing patterns.",
                 "Special Visual Script block",
                 "A block that allows you to create a list of texts in order to be able to add the use of variables, options, etc.",
@@ -210,8 +210,16 @@ public class DefaultBlocks {
                 "A block allowing you to create a list of objects.",
                 "Missing example."
         );
+        Block Comment = new Block("Comment",
+                BlockType.COMMENT,
+                "[Comment] Comment",
+                "Missing patterns.",
+                "Special Visual Script block",
+                "Add a comment to your code!",
+                "Missing example."
+        );
 
-        return new ArrayList<>(Arrays.asList(StructAliases, StructCommand, StructFunction, StructOptions, StructVariables, SecLoop, SecConditional, SecWhile, EffSecSpawn, CombineString, ObjectsList));
+        return new ArrayList<>(Arrays.asList(StructAliases, StructCommand, StructFunction, StructOptions, StructVariables, SecLoop, SecConditional, SecWhile, EffSecSpawn, CombineString, ObjectsList, Comment));
     }
 
 }

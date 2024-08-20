@@ -25,7 +25,7 @@ public class BlockPlacer {
                 pane.getChildren().set(index, viewBlock);
                 break;
             //Drop on VBox
-            case SECTION, EFFECT:
+            case SECTION, EFFECT, COMMENT:
                 VBox vBox1 = (VBox) node;
                 vBox1.getChildren().add(vBox1.getChildren().size()-1, viewBlock);
                 break;

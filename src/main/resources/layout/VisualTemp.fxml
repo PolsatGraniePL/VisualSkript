@@ -289,22 +289,14 @@
                            </HBox>
                        </children>
                    </Pane>
-                   <Pane style="-fx-background-color: #8bff00;">
+                   <Pane prefHeight="100.0" prefWidth="698.0" style="-fx-background-color: #8bff00;">
                        <VBox.margin>
                            <Insets left="30.0" />
                        </VBox.margin>
                        <children>
-                           <HBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="434.0" VBox.vgrow="ALWAYS">
+                           <HBox alignment="CENTER_LEFT" prefHeight="93.0" prefWidth="502.0" VBox.vgrow="ALWAYS">
                                <children>
-                                   <Label text="[Effect] kick %entity% due to %text%">
-                                       <font>
-                                           <Font size="24.0" />
-                                       </font>
-                                       <padding>
-                                           <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </padding>
-                                   </Label>
-                                   <Region HBox.hgrow="ALWAYS" />
+                           <TextArea prefHeight="68.0" prefWidth="212.0" HBox.hgrow="ALWAYS" />
                                    
                                </children>
                            </HBox>
