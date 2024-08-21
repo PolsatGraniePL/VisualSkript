@@ -4,7 +4,7 @@ import com.polsat.visualskript.gui.block.Block;
 import com.polsat.visualskript.gui.manager.block.BlockPlacer;
 import com.polsat.visualskript.gui.manager.drop.DropSystem;
 import com.polsat.visualskript.gui.manager.view.ViewBlock;
-import com.polsat.visualskript.gui.manager.view.placeable;
+import com.polsat.visualskript.gui.manager.view.Placeable;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -19,9 +19,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
-import java.util.Objects;
-
-public class Comment extends ViewBlock implements placeable {
+public class Comment extends ViewBlock implements Placeable {
 
     private final ContextMenu contextMenu = new ContextMenu();
     private boolean contextMenuBuilt = false;

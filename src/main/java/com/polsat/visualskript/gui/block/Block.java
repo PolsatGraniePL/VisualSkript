@@ -3,22 +3,22 @@ package com.polsat.visualskript.gui.block;
 
 public class Block {
 
-    private String id;
-    private BlockType type;
-    private String name;
-    private String pattern;
-    private String since;
-    private String description;
-    private String example;
+    //private String id;
+    private final BlockType type;
+    private final String name;
+    private final String pattern;
+    //private String since;
+    private final String description;
+    //private String example;
 
     public Block(String id, BlockType type, String name, String pattern, String since, String description, String example){
-        this.id = id;
+        //this.id = id;
         this.type = type;
         this.name = name;
         this.pattern = pattern;
-        this.since = since;
+        //this.since = since;
         this.description = description;
-        this.example = example;
+        //this.example = example;
     }
 
     //GET

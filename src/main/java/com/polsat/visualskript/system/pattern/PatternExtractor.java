@@ -1,5 +1,6 @@
 package com.polsat.visualskript.system.pattern;
 
+import com.polsat.visualskript.util.ErrorHandler;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -8,8 +9,6 @@ import org.jsoup.Jsoup;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 
 public class PatternExtractor {
 
@@ -41,10 +40,9 @@ public class PatternExtractor {
             String url = URLEncoder.encode(pattern, StandardCharsets.UTF_8);
             String data = Jsoup.connect("https://rcgc.pl/VisuakSkript/api/index.php?pattern="+url).ignoreContentType(true).execute().body();
             JSONObject json = (JSONObject) new JSONParser().parse(data);
-            JSONArray array = (JSONArray) json.get("combinations");
-            return array;
+            return (JSONArray) json.get("combinations");
         } catch (Exception e){
-            e.printStackTrace();
+            new ErrorHandler(e.toString());
         }
         return null;
     }

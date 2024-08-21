@@ -2,10 +2,6 @@ package com.polsat.visualskript.gui.manager.block;
 
 import com.polsat.visualskript.gui.manager.drop.DropSystem;
 import com.polsat.visualskript.gui.manager.view.ViewBlock;
-import com.polsat.visualskript.gui.manager.view.blocks.Conditions;
-import com.polsat.visualskript.gui.manager.view.blocks.Function;
-import com.polsat.visualskript.gui.manager.view.blocks.Section;
-import com.polsat.visualskript.gui.manager.view.blocks.Structure;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -14,17 +10,6 @@ import java.util.Objects;
 
 public class BlockPlacer {
 
-//            //Drop on %xyz%
-//            case EXPRESSION, TYPE, TYPE_LIST:
-//            break;
-//            //Drop on VBox
-//            case SECTION, EFFECT, COMMENT:
-//            break;
-//            //Drop on VBox and %xyz%
-//            case CONDITION:
-//            case FUNCTION:
-//            //Drop on buildTab and %xyz%
-//            case STRUCTURE:
     public static void placeOnBuildTab(ViewBlock block, Node node) {
         VBox vBox = (VBox) node;
         vBox.getChildren().add(0, block);

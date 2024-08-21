@@ -5,9 +5,8 @@ import com.polsat.visualskript.gui.block.BlockType;
 import com.polsat.visualskript.gui.manager.block.BlockPlacer;
 import com.polsat.visualskript.gui.manager.block.SelectiveBlock;
 import com.polsat.visualskript.gui.manager.drop.DropSystem;
-import com.polsat.visualskript.gui.manager.view.DropViewExpr;
 import com.polsat.visualskript.gui.manager.view.ViewBlock;
-import com.polsat.visualskript.gui.manager.view.placeable;
+import com.polsat.visualskript.gui.manager.view.Placeable;
 import com.polsat.visualskript.system.pattern.PatternExtractor;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -25,9 +24,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
 
-import java.util.Objects;
-
-public class Section extends ViewBlock implements placeable {
+public class Section extends ViewBlock implements Placeable {
 
     private final ContextMenu contextMenu = new ContextMenu();
     private boolean contextMenuBuilt = false;
@@ -126,10 +123,6 @@ public class Section extends ViewBlock implements placeable {
             event.setDropCompleted(success);
             event.consume();
         });
-    }
-
-    public VBox getDropVBox() {
-        return dropVBox;
     }
 
     @Override

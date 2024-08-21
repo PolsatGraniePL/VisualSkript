@@ -15,7 +15,7 @@ import javafx.scene.paint.Color;
 
 public class SelectiveBlock extends Pane {
 
-    private Block block;
+    private final Block block;
 
     SelectiveBlock(Block block){
         this.block = block;

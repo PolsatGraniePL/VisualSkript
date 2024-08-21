@@ -1,11 +1,7 @@
 package com.polsat.visualskript.gui.manager.view;
 
-import com.polsat.visualskript.Main;
 import com.polsat.visualskript.gui.block.Block;
 import com.polsat.visualskript.gui.block.BlockType;
-import com.polsat.visualskript.gui.manager.tabs.MainTabManager;
-import com.polsat.visualskript.gui.manager.tabs.TabsManager;
-import com.polsat.visualskript.gui.manager.view.blocks.Effect;
 import com.polsat.visualskript.gui.manager.view.popovers.SelectBoxPopOver;
 import com.polsat.visualskript.system.pattern.PatternExtractor;
 import javafx.animation.KeyFrame;
@@ -15,8 +11,6 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.util.Duration;

@@ -4,17 +4,14 @@ import com.polsat.visualskript.gui.block.Block;
 import com.polsat.visualskript.gui.manager.block.BlockPlacer;
 import com.polsat.visualskript.gui.manager.drop.DropSystem;
 import com.polsat.visualskript.gui.manager.view.ViewBlock;
-import com.polsat.visualskript.gui.manager.view.placeable;
+import com.polsat.visualskript.gui.manager.view.Placeable;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.effect.Glow;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
-import java.util.Objects;
-
-public class Conditions extends ViewBlock implements placeable {
+public class Conditions extends ViewBlock implements Placeable {
 
     private final boolean inVBox;
 

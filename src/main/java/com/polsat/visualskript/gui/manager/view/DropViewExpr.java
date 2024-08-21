@@ -2,9 +2,7 @@ package com.polsat.visualskript.gui.manager.view;
 
 import com.polsat.visualskript.gui.block.Block;
 import com.polsat.visualskript.gui.block.BlockType;
-import com.polsat.visualskript.gui.manager.block.BlockPlacer;
 import com.polsat.visualskript.gui.manager.block.SelectiveBlock;
-import com.polsat.visualskript.gui.manager.drop.DropSystem;
 import com.polsat.visualskript.gui.manager.view.blocks.*;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;

@@ -36,7 +36,7 @@ public class Controller {
     @FXML private CheckBox checkBoxFunctions;
 
     private final List<CheckBox> checkBoxes = new ArrayList<>();
-    public List<Block> blocksList = new ArrayList<>();
+    private final List<Block> blocksList = new ArrayList<>();
 
     public void initialize() {
         System.out.println("initialize");
