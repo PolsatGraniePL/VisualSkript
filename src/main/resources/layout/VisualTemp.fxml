@@ -230,41 +230,52 @@
                            <Insets left="10.0" />
                        </VBox.margin>
                        <children>
-                           <HBox alignment="CENTER_LEFT" prefHeight="45.0" VBox.vgrow="ALWAYS">
-                               <children>
-                                   <Label text="[Section] if %condition%">
-                                       <font>
-                                           <Font size="24.0" />
-                                       </font>
-                                       <padding>
-                                           <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </padding>
-                                   </Label>
-                                   <Region HBox.hgrow="ALWAYS" />
-                                   
-                               </children>
-                           </HBox>
-                       </children>
-                   </Pane>
-                   <Pane fx:id="pane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="46.0" prefWidth="698.0" style="-fx-background-color: #8bff00;">
-                       <VBox.margin>
-                           <Insets left="30.0" />
-                       </VBox.margin>
-                       <children>
-                           <HBox fx:id="hbox" alignment="CENTER_RIGHT" fillHeight="false" prefWidth="634.0">
-                               <children>
-                                   <Label text="[Effect] send %text%">
-                                       <font>
-                                           <Font size="24.0" />
-                                       </font>
-                                       <padding>
-                                           <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </padding>
-                                   </Label>
-                                   <Region HBox.hgrow="ALWAYS" />
-                                   
-                               </children>
-                           </HBox>
+                     <VBox prefHeight="92.0" prefWidth="718.0">
+                        <children>
+                                 <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="718.0" VBox.vgrow="ALWAYS">
+                                     <children>
+                                         <Label text="[Section] if %condition%">
+                                             <font>
+                                                 <Font size="24.0" />
+                                             </font>
+                                             <padding>
+                                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                             </padding>
+                                         </Label>
+                                         <Region HBox.hgrow="ALWAYS" />
+                                         
+                                     </children>
+                                 </HBox>
+                           <VBox prefHeight="47.0" prefWidth="693.0">
+                              <VBox.margin>
+                                 <Insets left="25.0" />
+                              </VBox.margin>
+                              <children>
+                                     <Pane fx:id="pane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="46.0" prefWidth="698.0" style="-fx-background-color: #8bff00;">
+                                         <VBox.margin>
+                                             <Insets />
+                                         </VBox.margin>
+                                         <children>
+                                             <HBox fx:id="hbox" alignment="CENTER_RIGHT" fillHeight="false" prefWidth="634.0">
+                                                 <children>
+                                                     <Label text="[Effect] send %text%">
+                                                         <font>
+                                                             <Font size="24.0" />
+                                                         </font>
+                                                         <padding>
+                                                             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                         </padding>
+                                                     </Label>
+                                                     <Region HBox.hgrow="ALWAYS" />
+                                                     
+                                                 </children>
+                                             </HBox>
+                                         </children>
+                                     </Pane>
+                              </children>
+                           </VBox>
+                        </children>
+                     </VBox>
                        </children>
                    </Pane>
 

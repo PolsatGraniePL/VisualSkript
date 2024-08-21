@@ -84,7 +84,7 @@ public abstract class ViewBlock extends Pane {
         });
     }
 
-    private void setCombinations(String patterns, Pane pane, Label label, BlockType blockType) {
+    protected void setCombinations(String patterns, Pane pane, Label label, BlockType blockType) {
         List<String> patternList = Arrays.asList(patterns.split("\n"));
         if (patternList.size() == 1){
             //Show only popover with combinations
@@ -113,7 +113,7 @@ public abstract class ViewBlock extends Pane {
     }
 
     private void setupDropViews(Pane pane){
-        HBox hBox = (HBox) pane.getChildren().get(0);
+        HBox hBox = pane.getChildren().get(0) instanceof HBox ? (HBox)pane.getChildren().get(0) : (HBox) ((VBox)pane.getChildren().get(0)).getChildren().get(0);
         Label label = (Label) hBox.getChildren().get(0);
         String[] list = label.getText()
                 .replace("<.+>", "%object%")

@@ -4,6 +4,7 @@ import com.polsat.visualskript.gui.manager.drop.DropSystem;
 import com.polsat.visualskript.gui.manager.view.ViewBlock;
 import com.polsat.visualskript.gui.manager.view.blocks.Conditions;
 import com.polsat.visualskript.gui.manager.view.blocks.Function;
+import com.polsat.visualskript.gui.manager.view.blocks.Section;
 import com.polsat.visualskript.gui.manager.view.blocks.Structure;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
@@ -30,6 +31,10 @@ public class BlockPlacer {
             case SECTION, EFFECT, COMMENT:
                 VBox vBox1 = (VBox) node;
                 if (!Objects.isNull(DropSystem.getCurrentDropUnderNode())){
+                    if (DropSystem.getCurrentDropUnderNode() instanceof Section section){
+                        section.getDropVBox().getChildren().add(viewBlock);
+                        break;
+                    }
                     int index1 = vBox1.getChildren().indexOf(DropSystem.getCurrentDropUnderNode());
                     vBox1.getChildren().add(index1+1, viewBlock);
                     break;
@@ -41,6 +46,10 @@ public class BlockPlacer {
                 if (((Conditions)viewBlock).getInVBox()){
                     VBox vBox2 = (VBox) node;
                     if (!Objects.isNull(DropSystem.getCurrentDropUnderNode())){
+                        if (DropSystem.getCurrentDropUnderNode() instanceof Section section){
+                            section.getDropVBox().getChildren().add(viewBlock);
+                            break;
+                        }
                         int index2 = vBox2.getChildren().indexOf(DropSystem.getCurrentDropUnderNode());
                         vBox2.getChildren().add(index2+1, viewBlock);
                         break;
@@ -56,6 +65,10 @@ public class BlockPlacer {
                 if (((Function)viewBlock).getInVBox()){
                     VBox vBox3 = (VBox) node;
                     if (!Objects.isNull(DropSystem.getCurrentDropUnderNode())){
+                        if (DropSystem.getCurrentDropUnderNode() instanceof Section section){
+                            section.getDropVBox().getChildren().add(viewBlock);
+                            break;
+                        }
                         int index3 = vBox3.getChildren().indexOf(DropSystem.getCurrentDropUnderNode());
                         vBox3.getChildren().add(index3+1, viewBlock);
                         break;
