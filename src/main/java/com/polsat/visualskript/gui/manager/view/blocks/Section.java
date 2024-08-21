@@ -7,11 +7,13 @@ import com.polsat.visualskript.gui.manager.block.SelectiveBlock;
 import com.polsat.visualskript.gui.manager.drop.DropSystem;
 import com.polsat.visualskript.gui.manager.view.DropViewExpr;
 import com.polsat.visualskript.gui.manager.view.ViewBlock;
+import com.polsat.visualskript.gui.manager.view.placeable;
 import com.polsat.visualskript.system.pattern.PatternExtractor;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
@@ -25,7 +27,7 @@ import javafx.util.Duration;
 
 import java.util.Objects;
 
-public class Section extends ViewBlock {
+public class Section extends ViewBlock implements placeable {
 
     private final ContextMenu contextMenu = new ContextMenu();
     private boolean contextMenuBuilt = false;
@@ -113,11 +115,11 @@ public class Section extends ViewBlock {
                     placedBlock.getType() == BlockType.CONDITION )
             {
                 switch (placedBlock.getType()){
-                    case SECTION -> BlockPlacer.placeBlock(new Section(placedBlock), dropVBox);
-                    case EFFECT -> BlockPlacer.placeBlock(new Effect(placedBlock), dropVBox);
-                    case COMMENT -> BlockPlacer.placeBlock(new Comment(placedBlock), dropVBox);
-                    case FUNCTION -> BlockPlacer.placeBlock(new Function(placedBlock, null, true), dropVBox);
-                    case CONDITION -> BlockPlacer.placeBlock(new Conditions(placedBlock, null, true), dropVBox);
+                    case SECTION -> new Section(placedBlock).place(dropVBox);
+                    case EFFECT -> new Effect(placedBlock).place(dropVBox);
+                    case COMMENT -> new Comment(placedBlock).place(dropVBox);
+                    case FUNCTION -> new Function(placedBlock, null, true).place(dropVBox);
+                    case CONDITION -> new Conditions(placedBlock, null, true).place(dropVBox);
                 }
                 success = true;
             }
@@ -128,5 +130,10 @@ public class Section extends ViewBlock {
 
     public VBox getDropVBox() {
         return dropVBox;
+    }
+
+    @Override
+    public void place(Node node) {
+        BlockPlacer.placeOnVBox(this, node);
     }
 }

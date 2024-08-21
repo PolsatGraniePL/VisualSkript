@@ -66,11 +66,11 @@ public class TabsManager {
                 placedBlock.getType() == BlockType.CONDITION )
             {
                 switch (placedBlock.getType()){
-                    case SECTION -> BlockPlacer.placeBlock(new Section(placedBlock), vBox);
-                    case EFFECT -> BlockPlacer.placeBlock(new Effect(placedBlock), vBox);
-                    case COMMENT -> BlockPlacer.placeBlock(new Comment(placedBlock), vBox);
-                    case FUNCTION -> BlockPlacer.placeBlock(new Function(placedBlock, null, true), vBox);
-                    case CONDITION -> BlockPlacer.placeBlock(new Conditions(placedBlock, null, true), vBox);
+                    case SECTION -> new Section(placedBlock).place(vBox);
+                    case EFFECT -> new Effect(placedBlock).place(vBox);
+                    case COMMENT -> new Comment(placedBlock).place(vBox);
+                    case FUNCTION -> new Function(placedBlock, null, true).place(vBox);
+                    case CONDITION -> new Conditions(placedBlock, null, true).place(vBox);
                 }
                 success = true;
             }

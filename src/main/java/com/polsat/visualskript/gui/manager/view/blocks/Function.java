@@ -1,14 +1,20 @@
 package com.polsat.visualskript.gui.manager.view.blocks;
 
 import com.polsat.visualskript.gui.block.Block;
+import com.polsat.visualskript.gui.manager.block.BlockPlacer;
 import com.polsat.visualskript.gui.manager.drop.DropSystem;
 import com.polsat.visualskript.gui.manager.view.ViewBlock;
+import com.polsat.visualskript.gui.manager.view.placeable;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.effect.Glow;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
-public class Function extends ViewBlock {
+import java.util.Objects;
+
+public class Function extends ViewBlock implements placeable {
 
     private final boolean inVBox;
 
@@ -33,6 +39,14 @@ public class Function extends ViewBlock {
 
     public boolean getInVBox() {
         return inVBox;
+    }
+
+    @Override
+    public void place(Node node) {
+        if (this.getInVBox()){
+            BlockPlacer.placeOnVBox(this, node);
+        }
+        BlockPlacer.placeOnExpr(this, node);
     }
 
 }

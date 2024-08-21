@@ -4,11 +4,13 @@ import com.polsat.visualskript.gui.block.Block;
 import com.polsat.visualskript.gui.manager.block.BlockPlacer;
 import com.polsat.visualskript.gui.manager.drop.DropSystem;
 import com.polsat.visualskript.gui.manager.view.ViewBlock;
+import com.polsat.visualskript.gui.manager.view.placeable;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.effect.Glow;
 import javafx.scene.layout.HBox;
@@ -17,7 +19,9 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
-public class Comment extends ViewBlock {
+import java.util.Objects;
+
+public class Comment extends ViewBlock implements placeable {
 
     private final ContextMenu contextMenu = new ContextMenu();
     private boolean contextMenuBuilt = false;
@@ -58,7 +62,7 @@ public class Comment extends ViewBlock {
             textField.positionCaret(textField.getCaretPosition());
         }));
         textField.setOnAction((event -> {
-            BlockPlacer.placeBlock(new Comment(block), this.getParent());
+            new Comment(block).place(this.getParent());
         }));
 
         hbox.getChildren().addAll(label, textField);
@@ -75,5 +79,10 @@ public class Comment extends ViewBlock {
             contextMenuBuilt = true;
             contextMenu.show(this, e.getScreenX(), e.getScreenY());
         });
+    }
+
+    @Override
+    public void place(Node node) {
+        BlockPlacer.placeOnVBox(this, node);
     }
 }

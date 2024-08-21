@@ -2,21 +2,25 @@ package com.polsat.visualskript.gui.manager.view.blocks;
 
 import com.polsat.visualskript.gui.block.Block;
 import com.polsat.visualskript.gui.block.BlockType;
+import com.polsat.visualskript.gui.manager.block.BlockPlacer;
 import com.polsat.visualskript.gui.manager.drop.DropSystem;
 import com.polsat.visualskript.gui.manager.view.DropViewExpr;
 import com.polsat.visualskript.gui.manager.view.ViewBlock;
+import com.polsat.visualskript.gui.manager.view.placeable;
 import com.polsat.visualskript.system.pattern.PatternExtractor;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.Glow;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -24,7 +28,7 @@ import javafx.util.Duration;
 
 import java.util.Objects;
 
-public class Structure extends ViewBlock {
+public class Structure extends ViewBlock implements placeable {
 
     private final ContextMenu contextMenu = new ContextMenu();
     private boolean contextMenuBuilt = false;
@@ -124,6 +128,14 @@ public class Structure extends ViewBlock {
 
     public boolean isInExpression() {
         return inExpression;
+    }
+
+    @Override
+    public void place(Node node) {
+        if (this.isInExpression()){
+            BlockPlacer.placeOnExpr(this, node);
+        }
+        BlockPlacer.placeOnBuildTab(this, node);
     }
 
 }
