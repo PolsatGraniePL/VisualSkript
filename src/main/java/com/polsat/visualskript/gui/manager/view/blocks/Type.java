@@ -16,11 +16,9 @@ import javafx.scene.text.Text;
 
 public class Type extends ViewBlock implements Placeable {
 
-    private final ContextMenu contextMenu = new ContextMenu();
-    private boolean contextMenuBuilt = false;
-
     public Type(Block block, String oldText){
         super(block);
+        this.oldText = oldText;
         //build view box
         HBox hbox = new HBox();
         Label label = new Label();
@@ -50,16 +48,9 @@ public class Type extends ViewBlock implements Placeable {
         hbox.getChildren().addAll(label, textField);
         this.getChildren().add(hbox);
 
+        buildMenu();
         this.setOnContextMenuRequested((e) -> {
             e.consume();
-            if (!contextMenuBuilt) {
-                MenuItem delete = new MenuItem("Delete");
-                contextMenu.getItems().addAll(delete);
-                delete.setOnAction(event -> {
-                    ((HBox)this.getParent()).getChildren().set(((HBox)this.getParent()).getChildren().indexOf(this), new DropViewExpr(oldText));
-                });
-            }
-            contextMenuBuilt = true;
             contextMenu.show(this, e.getScreenX(), e.getScreenY());
         });
     }
@@ -67,6 +58,15 @@ public class Type extends ViewBlock implements Placeable {
     @Override
     public void place(Node node) {
         BlockPlacer.placeOnExpr(this, node);
+    }
+
+    @Override
+    public void buildMenu(){
+        MenuItem delete = new MenuItem("Delete");
+        contextMenu.getItems().addAll(delete);
+        delete.setOnAction(event -> {
+            ((HBox)this.getParent()).getChildren().set(((HBox)this.getParent()).getChildren().indexOf(this), new DropViewExpr(oldText));
+        });
     }
 
 }

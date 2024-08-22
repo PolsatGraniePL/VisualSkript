@@ -5,6 +5,7 @@ import com.polsat.visualskript.gui.block.BlockType;
 import com.polsat.visualskript.gui.manager.block.BlockPlacer;
 import com.polsat.visualskript.gui.manager.block.SelectiveBlock;
 import com.polsat.visualskript.gui.manager.drop.DropSystem;
+import com.polsat.visualskript.gui.manager.view.DropViewExpr;
 import com.polsat.visualskript.gui.manager.view.ViewBlock;
 import com.polsat.visualskript.gui.manager.view.Placeable;
 import com.polsat.visualskript.system.pattern.PatternExtractor;
@@ -25,9 +26,6 @@ import javafx.scene.text.Font;
 import javafx.util.Duration;
 
 public class Section extends ViewBlock implements Placeable {
-
-    private final ContextMenu contextMenu = new ContextMenu();
-    private boolean contextMenuBuilt = false;
 
     private final VBox dropVBox;
 
@@ -71,22 +69,9 @@ public class Section extends ViewBlock implements Placeable {
                 })
         ).playFromStart();
 
+        buildMenu();
         this.setOnContextMenuRequested((e) -> {
             e.consume();
-            if (!contextMenuBuilt) {
-                MenuItem edit = new MenuItem("Edit");
-                MenuItem delete = new MenuItem("Delete");
-                contextMenu.getItems().addAll(edit, delete);
-                edit.setOnAction(event -> {
-                    setCombinations(block.getPattern(), this, label, block.getType());
-                });
-                delete.setOnAction(event -> {
-                    if (this.getParent() instanceof VBox vboxMain) {
-                        vboxMain.getChildren().remove(this);
-                    }
-                });
-            }
-            contextMenuBuilt = true;
             contextMenu.show(this, e.getScreenX(), e.getScreenY());
         });
 
@@ -128,5 +113,20 @@ public class Section extends ViewBlock implements Placeable {
     @Override
     public void place(Node node) {
         BlockPlacer.placeOnVBox(this, node);
+    }
+
+    @Override
+    public void buildMenu(){
+        MenuItem edit = new MenuItem("Edit");
+        MenuItem delete = new MenuItem("Delete");
+        contextMenu.getItems().addAll(edit, delete);
+        edit.setOnAction(event -> {
+            setCombinations(block.getPattern(), this, label, block.getType());
+        });
+        delete.setOnAction(event -> {
+            if (this.getParent() instanceof VBox vboxMain) {
+                vboxMain.getChildren().remove(this);
+            }
+        });
     }
 }

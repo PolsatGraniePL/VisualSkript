@@ -5,6 +5,7 @@ import com.polsat.visualskript.gui.manager.block.BlockPlacer;
 import com.polsat.visualskript.gui.manager.view.DropViewExpr;
 import com.polsat.visualskript.gui.manager.view.ViewBlock;
 import com.polsat.visualskript.gui.manager.view.Placeable;
+import com.polsat.visualskript.gui.manager.view.ViewBlockBuilder;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -17,13 +18,13 @@ import javafx.scene.text.Font;
 
 public class TypeList extends ViewBlock implements Placeable {
 
-    private final ContextMenu contextMenu = new ContextMenu();
-    private boolean contextMenuBuilt = false;
+    private VBox vBox;
 
     public TypeList(Block block, String oldText) {
         super(block);
+        this.oldText = oldText;
         //build view box
-        VBox vBox = new VBox();
+        vBox = new VBox();
         HBox hbox = new HBox();
         Label label = new Label();
 
@@ -44,26 +45,9 @@ public class TypeList extends ViewBlock implements Placeable {
         vBox.getChildren().addAll(hbox, newDropViewExpr(), newDropViewExpr());
         this.getChildren().add(vBox);
 
+        buildMenu();
         this.setOnContextMenuRequested((e) -> {
             e.consume();
-            if (!contextMenuBuilt) {
-                MenuItem add = new MenuItem("Add object");
-                MenuItem remove = new MenuItem("Remove object");
-                MenuItem delete = new MenuItem("Delete");
-                contextMenu.getItems().addAll(add, remove, delete);
-                add.setOnAction(event -> {
-                    vBox.getChildren().add(newDropViewExpr());
-                });
-                remove.setOnAction(event -> {
-                    if (vBox.getChildren().size()>2){
-                        vBox.getChildren().remove(vBox.getChildren().size()-1);
-                    }
-                });
-                delete.setOnAction(event -> {
-                    ((HBox)this.getParent()).getChildren().set(((HBox)this.getParent()).getChildren().indexOf(this), new DropViewExpr(oldText));
-                });
-            }
-            contextMenuBuilt = true;
             contextMenu.show(this, e.getScreenX(), e.getScreenY());
         });
     }
@@ -79,4 +63,25 @@ public class TypeList extends ViewBlock implements Placeable {
     public void place(Node node) {
         BlockPlacer.placeOnExpr(this, node);
     }
+
+    @Override
+    public void buildMenu(){
+        MenuItem add = new MenuItem("Add object");
+        MenuItem remove = new MenuItem("Remove object");
+        MenuItem delete = new MenuItem("Delete");
+        contextMenu.getItems().addAll(add, remove, delete);
+        add.setOnAction(event -> {
+            vBox.getChildren().add(newDropViewExpr());
+        });
+        remove.setOnAction(event -> {
+            if (vBox.getChildren().size()>2){
+                vBox.getChildren().remove(vBox.getChildren().size()-1);
+            }
+        });
+        delete.setOnAction(event -> {
+            ((HBox)this.getParent()).getChildren().set(((HBox)this.getParent()).getChildren().indexOf(this), new DropViewExpr(oldText));
+        });
+    }
+
+
 }

@@ -17,12 +17,13 @@ import javafx.util.Duration;
 
 import java.util.*;
 
-public abstract class ViewBlock extends Pane {
+public abstract class ViewBlock extends Pane implements Menu{
 
-    private final ContextMenu contextMenu = new ContextMenu();
-    private boolean contextMenuBuilt = false;
+    protected ContextMenu contextMenu = new ContextMenu();
 
-    private final Block block;
+    protected final Block block;
+    protected String oldText;
+    protected Label label;
 
     protected ViewBlock(Block block){
         this.block = block;
@@ -30,10 +31,11 @@ public abstract class ViewBlock extends Pane {
 
     protected ViewBlock(Block block, String oldText){
         this.block = block;
+        this.oldText = oldText;
 
         //build view box
         HBox hbox = new HBox();
-        Label label = new Label();
+        label = new Label();
 
         this.setStyle("-fx-background-color: #"+ block.getType().getHexColor()+"; -fx-border-color: #000000; ");
         hbox.setAlignment(Pos.CENTER);
@@ -52,31 +54,35 @@ public abstract class ViewBlock extends Pane {
                 })
         ).playFromStart();
 
+        buildMenu();
         this.setOnContextMenuRequested((e) -> {
             e.consume();
-            if (!contextMenuBuilt) {
-                MenuItem edit = new MenuItem("Edit");
-                MenuItem delete = new MenuItem("Delete");
-                contextMenu.getItems().addAll(edit, delete);
-                edit.setOnAction(event -> {
-                    setCombinations(block.getPattern(), this, label, block.getType());
-                });
-                delete.setOnAction(event -> {
-                    if (this.getParent() instanceof VBox vbox) {
-                        if (Objects.equals(block.getType(), BlockType.EVENT) || Objects.equals(block.getType(), BlockType.STRUCTURE)){
-                            //TODO: DELETE CURRENT COMPONENT
-                        } else {
-                            vbox.getChildren().remove(this);
-                        }
-                    } else {
-                        ((HBox)this.getParent()).getChildren().set(((HBox)this.getParent()).getChildren().indexOf(this), new DropViewExpr(oldText));
-                    }
-                });
-            }
-            contextMenuBuilt = true;
             contextMenu.show(this, e.getScreenX(), e.getScreenY());
         });
     }
+
+    @Override
+    public void buildMenu() {
+        MenuItem edit = new MenuItem("Edit");
+        MenuItem delete = new MenuItem("Delete");
+        contextMenu.getItems().addAll(edit, delete);
+        edit.setOnAction(event -> {
+            setCombinations(block.getPattern(), this, label, block.getType());
+        });
+        delete.setOnAction(event -> {
+            if (this.getParent() instanceof VBox vbox) {
+                vbox.getChildren().remove(this);
+            } else {
+                ((HBox)this.getParent()).getChildren().set(((HBox)this.getParent()).getChildren().indexOf(this), new DropViewExpr(oldText));
+            }
+        });
+    }
+
+    public Block getBlock() {
+        return block;
+    }
+
+    //OTHER METHODS
 
     protected void setCombinations(String patterns, Pane pane, Label label, BlockType blockType) {
         List<String> patternList = Arrays.asList(patterns.split("\n"));
@@ -126,9 +132,5 @@ public abstract class ViewBlock extends Pane {
             }
         }
         hBox.getChildren().addAll(0, nodes);
-    }
-
-    public Block getBlock() {
-        return block;
     }
 }

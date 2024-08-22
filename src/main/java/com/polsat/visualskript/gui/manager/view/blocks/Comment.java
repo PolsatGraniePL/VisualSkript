@@ -3,6 +3,7 @@ package com.polsat.visualskript.gui.manager.view.blocks;
 import com.polsat.visualskript.gui.block.Block;
 import com.polsat.visualskript.gui.manager.block.BlockPlacer;
 import com.polsat.visualskript.gui.manager.drop.DropSystem;
+import com.polsat.visualskript.gui.manager.view.DropViewExpr;
 import com.polsat.visualskript.gui.manager.view.ViewBlock;
 import com.polsat.visualskript.gui.manager.view.Placeable;
 import javafx.animation.KeyFrame;
@@ -20,9 +21,6 @@ import javafx.scene.text.Text;
 import javafx.util.Duration;
 
 public class Comment extends ViewBlock implements Placeable {
-
-    private final ContextMenu contextMenu = new ContextMenu();
-    private boolean contextMenuBuilt = false;
 
     public Comment(Block block) {
         super(block);
@@ -68,13 +66,9 @@ public class Comment extends ViewBlock implements Placeable {
 
         new Timeline(new KeyFrame(Duration.seconds(0.01), event -> textField.requestFocus())).playFromStart();
 
+        buildMenu();
         this.setOnContextMenuRequested((e) -> {
             e.consume();
-            if (!contextMenuBuilt) {
-                MenuItem delete = new MenuItem("Delete");
-                delete.setOnAction(event -> ((VBox)this.getParent()).getChildren().remove(this));
-            }
-            contextMenuBuilt = true;
             contextMenu.show(this, e.getScreenX(), e.getScreenY());
         });
     }
@@ -82,5 +76,12 @@ public class Comment extends ViewBlock implements Placeable {
     @Override
     public void place(Node node) {
         BlockPlacer.placeOnVBox(this, node);
+    }
+
+    @Override
+    public void buildMenu(){
+        MenuItem delete = new MenuItem("Delete");
+        contextMenu.getItems().add(delete);
+        delete.setOnAction(event -> ((VBox)this.getParent()).getChildren().remove(this));
     }
 }

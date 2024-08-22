@@ -42,6 +42,7 @@ public class Function extends ViewBlock implements Placeable {
     public void place(Node node) {
         if (this.getInVBox()){
             BlockPlacer.placeOnVBox(this, node);
+            return;
         }
         BlockPlacer.placeOnExpr(this, node);
     }

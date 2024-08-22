@@ -26,13 +26,11 @@ import java.util.Objects;
 
 public class Structure extends ViewBlock implements Placeable {
 
-    private final ContextMenu contextMenu = new ContextMenu();
-    private boolean contextMenuBuilt = false;
-
     private final boolean inExpression;
 
     public Structure(Block block, String oldText, boolean inExpression){
         super(block);
+        this.oldText = oldText;
         this.inExpression = inExpression;
         HBox hbox = new HBox();
         Label label = new Label();
@@ -65,16 +63,9 @@ public class Structure extends ViewBlock implements Placeable {
             hbox.getChildren().addAll(label, textField);
             this.getChildren().add(hbox);
 
+            buildMenu();
             this.setOnContextMenuRequested((e) -> {
                 e.consume();
-                if (!contextMenuBuilt) {
-                    MenuItem delete = new MenuItem("Delete");
-                    contextMenu.getItems().addAll(delete);
-                    delete.setOnAction(event -> {
-                        ((HBox)this.getParent()).getChildren().set(((HBox)this.getParent()).getChildren().indexOf(this), new DropViewExpr(oldText));
-                    });
-                }
-                contextMenuBuilt = true;
                 contextMenu.show(this, e.getScreenX(), e.getScreenY());
             });
         } else {
@@ -98,25 +89,9 @@ public class Structure extends ViewBlock implements Placeable {
             hbox.getChildren().add(label);
             this.getChildren().add(hbox);
 
+            buildMenu();
             this.setOnContextMenuRequested((e) -> {
                 e.consume();
-                if (!contextMenuBuilt) {
-                    //TODO: ADD ITEMS ETC. (list block)or new block type.
-                    MenuItem delete = new MenuItem("Delete");
-                    contextMenu.getItems().add(delete);
-                    delete.setOnAction(event -> {
-                        if (this.getParent() instanceof VBox vbox) {
-                            if (Objects.equals(block.getType(), BlockType.EVENT) || Objects.equals(block.getType(), BlockType.STRUCTURE)){
-                                //TODO: DELETE CURRENT COMPONENT
-                            } else {
-                                vbox.getChildren().remove(this);
-                            }
-                        } else {
-                            ((HBox)this.getParent()).getChildren().set(((HBox)this.getParent()).getChildren().indexOf(this), new DropViewExpr(oldText));
-                        }
-                    });
-                }
-                contextMenuBuilt = true;
                 contextMenu.show(this, e.getScreenX(), e.getScreenY());
             });
         }
@@ -130,8 +105,23 @@ public class Structure extends ViewBlock implements Placeable {
     public void place(Node node) {
         if (this.isInExpression()){
             BlockPlacer.placeOnExpr(this, node);
+            return;
         }
         BlockPlacer.placeOnBuildTab(this, node);
+    }
+
+    @Override
+    public void buildMenu() {
+        //TODO: ADD ITEMS ETC. (list block)or new block type.
+        MenuItem delete = new MenuItem("Delete");
+        contextMenu.getItems().add(delete);
+        delete.setOnAction(event -> {
+            if (this.getParent() instanceof VBox vbox) {
+                //TODO: DELETE CURRENT COMPONENT
+            } else {
+                ((HBox)this.getParent()).getChildren().set(((HBox)this.getParent()).getChildren().indexOf(this), new DropViewExpr(oldText));
+            }
+        });
     }
 
 }
