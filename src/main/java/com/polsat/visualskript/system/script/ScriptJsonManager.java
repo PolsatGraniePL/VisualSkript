@@ -21,7 +21,7 @@ public class ScriptJsonManager {
             writer.write(jsonObject.toJSONString());
             writer.close();
         } catch (Exception e){
-            new ErrorHandler(e.toString());
+            ErrorHandler.alert(e.toString());
         }
     }
 
@@ -37,7 +37,7 @@ public class ScriptJsonManager {
             }
             return (boolean) jsonObject.get("opened");
         } catch (Exception e){
-            new ErrorHandler(e.toString());
+            ErrorHandler.alert(e.toString());
             return false;
         }
     }

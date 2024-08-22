@@ -13,7 +13,7 @@ public class FileManager {
         try {
             return newFile.createNewFile();
         }catch (Exception e){
-            new ErrorHandler(e.toString());
+            ErrorHandler.alert(e.toString());
             return false;
         }
     }
@@ -31,7 +31,7 @@ public class FileManager {
         try {
             return new File(Main.class.getResource(folderName).toURI()).listFiles();
         } catch (Exception e){
-            new ErrorHandler(e.toString());
+            ErrorHandler.alert(e.toString());
             return new File[0];
         }
     }

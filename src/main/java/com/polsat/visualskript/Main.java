@@ -16,6 +16,8 @@ public class Main extends Application {
     // - Wczytywanie z .json
     // - Eksportowanie do .sk
     // - Naprawa edytowania bloków
+    // - ViewBlock[Builder]
+    // - ContextMenu - interface
     //
 
     public static void main(String[] args) {

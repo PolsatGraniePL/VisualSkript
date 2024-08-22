@@ -42,7 +42,7 @@ public class PatternExtractor {
             JSONObject json = (JSONObject) new JSONParser().parse(data);
             return (JSONArray) json.get("combinations");
         } catch (Exception e){
-            new ErrorHandler(e.toString());
+            ErrorHandler.alert(e.toString());
         }
         return null;
     }

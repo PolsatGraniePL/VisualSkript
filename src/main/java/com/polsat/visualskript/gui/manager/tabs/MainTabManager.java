@@ -25,7 +25,7 @@ public class MainTabManager {
                 }
             }
         } catch (Exception e){
-            new ErrorHandler(e.toString());
+            ErrorHandler.alert(e.toString());
         }
 
     }

@@ -87,7 +87,7 @@ public class BlockManager {
                 }
             }
         } catch (Exception e) {
-            new ErrorHandler(e.toString());
+            ErrorHandler.alert(e.toString());
         }
         return list;
     }

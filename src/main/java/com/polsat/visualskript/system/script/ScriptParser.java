@@ -44,7 +44,7 @@ public class ScriptParser {
                 }
             }
         } catch (Exception e){
-            new ErrorHandler(e.toString());
+            ErrorHandler.alert(e.toString());
         }
     }
 
@@ -99,7 +99,7 @@ public class ScriptParser {
             return stringBuilder.toString().trim();
         }
         catch (Exception e){
-            new ErrorHandler(e.toString());
+            ErrorHandler.alert(e.toString());
             return "Error";
         }
     }
@@ -119,7 +119,7 @@ public class ScriptParser {
             writer.write(jsonObject.toJSONString());
             writer.close();
         } catch (Exception e){
-            new ErrorHandler(e.toString());
+            ErrorHandler.alert(e.toString());
         }
     }
 
