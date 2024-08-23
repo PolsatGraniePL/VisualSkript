@@ -2,36 +2,24 @@ package com.polsat.visualskript.gui.manager.view.blocks;
 
 import com.polsat.visualskript.gui.block.Block;
 import com.polsat.visualskript.gui.manager.block.BlockPlacer;
-import com.polsat.visualskript.gui.manager.drop.DropSystem;
 import com.polsat.visualskript.gui.manager.view.ViewBlock;
 import com.polsat.visualskript.gui.manager.view.Placeable;
-import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.effect.Glow;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 
 public class Conditions extends ViewBlock implements Placeable {
 
     private final boolean inVBox;
 
     public Conditions(Block block, String oldText, boolean inVBox){
-        super(block, oldText);
+        super(block);
         this.inVBox = inVBox;
         if (!inVBox) {
-            this.setStyle(this.getStyle()+"-fx-background-radius: 25px; -fx-border-radius: 25px;");
-            HBox.setMargin(this, new Insets(5, 5, 5, 5));
-            VBox.setMargin(this, new Insets(5, 5, 5, 5));
-        } else {
-            this.setOnDragEntered(event -> {
-                DropSystem.setCurrentDropUnderNode(this);
-                setEffect(new Glow(0.3));
-            });
-            this.setOnDragExited(event -> {
-                DropSystem.setCurrentDropUnderNode(null);
-                setEffect(null);
-            });
+            this.setStyle(this.getStyle() + "-fx-background-radius: 25px; -fx-border-radius: 25px;");
+            oldText(oldText).margins();
         }
+        hbox().label().contextMenu().dropGlowing().showCombinations();
+        hBox.getChildren().add(label);
+        this.getChildren().add(hBox);
     }
 
     public boolean getInVBox() {

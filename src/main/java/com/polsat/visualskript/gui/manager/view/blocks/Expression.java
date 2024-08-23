@@ -12,10 +12,13 @@ import javafx.scene.layout.VBox;
 public class Expression extends ViewBlock implements Placeable {
 
     public Expression(Block block, String oldText){
-        super(block, oldText);
+        super(block);
+
         this.setStyle(this.getStyle()+"-fx-background-radius: 25px; -fx-border-radius: 25px;");
-        HBox.setMargin(this, new Insets(5, 5, 5, 5));
-        VBox.setMargin(this, new Insets(5, 5, 5, 5));
+        hbox().label().contextMenu().oldText(oldText).margins().showCombinations();
+
+        hBox.getChildren().add(label);
+        this.getChildren().add(hBox);
     }
 
     @Override

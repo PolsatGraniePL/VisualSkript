@@ -14,24 +14,14 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
-public class DropViewExpr extends Pane {
+public class DropViewExpr extends ViewBlock {
 
     public DropViewExpr(String text){
-        HBox hbox = new HBox();
-        Label label = new Label();
 
-        hbox.setAlignment(Pos.CENTER);
-        hbox.getChildren().add(label);
-        this.getChildren().add(hbox);
+        hbox().thinLabel(text).glowing().margins();
 
-        this.setOnDragEntered(event -> setEffect(new Glow(0.3)));
-        this.setOnDragExited(event -> setEffect(null));
-        this.setStyle("-fx-background-radius: 25px; -fx-background-color: #ffc0cb; -fx-border-color: #000000; -fx-border-radius: 25px;");
-        HBox.setMargin(this, new Insets(5, 5, 5, 5));
-        VBox.setMargin(this, new Insets(5, 5, 5, 5));
-        label.setText(text);
-        label.setFont(new Font("System", 24));
-        label.setPadding(new Insets(0, 5, 0, 5));
+        hBox.getChildren().add(label);
+        this.getChildren().add(hBox);
 
         setOnDragOver(event -> {
             Block placedBlock = ((SelectiveBlock) event.getGestureSource()).getBlock();

@@ -16,7 +16,9 @@ public class Main extends Application {
     // - Wczytywanie z .json
     // - Eksportowanie do .sk
     // - Naprawa edytowania bloków
-    // - ViewBlock[Builder]
+    // - new line comment repair
+    // - DropManager (Wszystkie checki do jednej klasy)
+    // - setCurrentDropUnderNode - najnowszy || kolejka node.
     //
 
     public static void main(String[] args) {
