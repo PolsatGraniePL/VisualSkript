@@ -16,7 +16,6 @@ public class Main extends Application {
     // - Wczytywanie z .json
     // - Eksportowanie do .sk
     // - Naprawa edytowania bloków
-    // - new line comment repair
     // - setCurrentDropUnderNode - najnowszy || kolejka node.
     //
 

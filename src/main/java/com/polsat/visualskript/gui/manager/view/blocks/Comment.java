@@ -2,6 +2,7 @@ package com.polsat.visualskript.gui.manager.view.blocks;
 
 import com.polsat.visualskript.gui.block.Block;
 import com.polsat.visualskript.gui.manager.block.BlockPlacer;
+import com.polsat.visualskript.gui.manager.drop.DropSystem;
 import com.polsat.visualskript.gui.manager.view.ViewBlock;
 import com.polsat.visualskript.gui.manager.view.Placeable;
 import javafx.scene.Node;
@@ -14,7 +15,11 @@ public class Comment extends ViewBlock implements Placeable {
         super(block);
 
         hbox().label("["+block.getName().substring(10)+"]").dropGlowing().textField().contextMenu();
-        textField.setOnAction((event -> new Comment(block).place(this.getParent())));
+        textField.setOnAction((event -> {
+            DropSystem.setCurrentDropUnderNode(this);
+            new Comment(block).place(this.getParent());
+            DropSystem.setCurrentDropUnderNode(null);
+        }));
 
         hBox.getChildren().addAll(label, textField);
         this.getChildren().add(hBox);
