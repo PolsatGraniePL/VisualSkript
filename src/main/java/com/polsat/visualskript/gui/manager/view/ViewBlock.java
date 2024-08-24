@@ -86,17 +86,13 @@ public abstract class ViewBlock extends Pane implements Menu {
             //Show popovers with patterns and combinations
             new SelectBoxPopOver(patternList, this, result -> {
                 Platform.runLater(() -> {
-                    System.out.println(label.getText());
                     label.setText("["+block.getType().getName()+"] " + result);
-                    System.out.println(label.getText());
                 });
                 List<String> combinationsList = PatternExtractor.getCombinations(result);
                 Collections.reverse(combinationsList);
                 Platform.runLater(()-> new SelectBoxPopOver(combinationsList, this, result2 ->{
                     Platform.runLater(() -> {
-                        System.out.println(label.getText());
                         label.setText("["+block.getType().getName()+"] " + result2);
-                        System.out.println(label.getText());
                         setupDropViews();
                     });
                 }));

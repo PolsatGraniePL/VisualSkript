@@ -13,13 +13,13 @@ public class Conditions extends ViewBlock implements Placeable {
 
     public Conditions(Block block, String oldText){
         super(block);
-        hbox().label().contextMenu().dropGlowing().showCombinations().oldText(oldText);
+        hbox().label().contextMenu().showCombinations().oldText(oldText);
+        hBox.getChildren().add(label);
+        this.getChildren().add(hBox);
         if (!getInVBox()) {
             this.setStyle(this.getStyle() + "-fx-background-radius: 25px; -fx-border-radius: 25px;");
             margins();
-        }
-        hBox.getChildren().add(label);
-        this.getChildren().add(hBox);
+        } else { dropGlowing(); }
     }
 
     public boolean getInVBox() {
