@@ -162,8 +162,10 @@ public abstract class ViewBlock extends Pane implements Menu {
 
     public ViewBlock dropGlowing(){
         this.setOnDragEntered(event -> {
-            DropSystem.addNode(this);
-            setEffect(new Glow(0.3));
+            if (((SelectiveBlock) event.getGestureSource()).getBlock().getType().getPlaceOnVBox()) {
+                DropSystem.addNode(this);
+                setEffect(new Glow(0.3));
+            }
         });
         this.setOnDragExited(event -> {
             DropSystem.removeNode(this);
@@ -173,7 +175,10 @@ public abstract class ViewBlock extends Pane implements Menu {
     }
 
     public ViewBlock glowing(){
-        this.setOnDragEntered(event -> setEffect(new Glow(0.3)));
+        this.setOnDragEntered(event -> {
+            if (((SelectiveBlock) event.getGestureSource()).getBlock().getType().getPlaceOnExpr())
+                setEffect(new Glow(0.3));
+        });
         this.setOnDragExited(event -> setEffect(null));
         return this;
     }
