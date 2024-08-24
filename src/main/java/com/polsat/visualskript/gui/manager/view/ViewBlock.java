@@ -85,12 +85,18 @@ public abstract class ViewBlock extends Pane implements Menu {
         } else {
             //Show popovers with patterns and combinations
             new SelectBoxPopOver(patternList, this, result -> {
-                Platform.runLater(() -> label.setText("["+block.getType().getName()+"] " + result));
+                Platform.runLater(() -> {
+                    System.out.println(label.getText());
+                    label.setText("["+block.getType().getName()+"] " + result);
+                    System.out.println(label.getText());
+                });
                 List<String> combinationsList = PatternExtractor.getCombinations(result);
                 Collections.reverse(combinationsList);
                 Platform.runLater(()-> new SelectBoxPopOver(combinationsList, this, result2 ->{
                     Platform.runLater(() -> {
+                        System.out.println(label.getText());
                         label.setText("["+block.getType().getName()+"] " + result2);
+                        System.out.println(label.getText());
                         setupDropViews();
                     });
                 }));
@@ -99,13 +105,11 @@ public abstract class ViewBlock extends Pane implements Menu {
     }
 
     protected void setupDropViews(){
-        HBox hBox = this.getChildren().get(0) instanceof HBox ? (HBox)this.getChildren().get(0) : (HBox) ((VBox)this.getChildren().get(0)).getChildren().get(0);
-        Label label = (Label) hBox.getChildren().get(0);
         String[] list = label.getText()
                 .replace("<.+>", "%object%")
                 .replace("<.*>", "%object%")
                 .split("%");
-        hBox.getChildren().remove(label);
+        hBox.getChildren().clear();
         List<Node> nodes = new ArrayList<>();
         for (int i = 0; i < list.length; i++){
             if (i % 2 == 0){
