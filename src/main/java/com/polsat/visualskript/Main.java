@@ -16,7 +16,6 @@ public class Main extends Application {
     // - Wczytywanie z .json
     // - Eksportowanie do .sk
     // - Naprawa edytowania bloków
-    // - setCurrentDropUnderNode - najnowszy || kolejka node.
     //
 
     public static void main(String[] args) {

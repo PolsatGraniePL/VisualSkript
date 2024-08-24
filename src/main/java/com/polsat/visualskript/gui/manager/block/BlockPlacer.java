@@ -23,8 +23,8 @@ public class BlockPlacer {
 
     public static void placeOnVBox(ViewBlock block, Node node) {
         VBox vBox1 = (VBox) node;
-        if (!Objects.isNull(DropSystem.getCurrentDropUnderNode())){
-            int index1 = vBox1.getChildren().indexOf(DropSystem.getCurrentDropUnderNode());
+        if (!Objects.isNull(DropSystem.getLatestNode())){
+            int index1 = vBox1.getChildren().indexOf(DropSystem.getLatestNode());
             vBox1.getChildren().add(index1+1, block);
             return;
         }

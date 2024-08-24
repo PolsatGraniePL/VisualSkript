@@ -1,10 +1,8 @@
 package com.polsat.visualskript.gui.manager.view;
 
 import com.polsat.visualskript.gui.block.Block;
-import com.polsat.visualskript.gui.block.BlockType;
 import com.polsat.visualskript.gui.manager.block.SelectiveBlock;
 import com.polsat.visualskript.gui.manager.drop.DropSystem;
-import com.polsat.visualskript.gui.manager.view.blocks.*;
 import com.polsat.visualskript.gui.manager.view.popovers.SelectBoxPopOver;
 import com.polsat.visualskript.system.pattern.PatternExtractor;
 import javafx.animation.KeyFrame;
@@ -160,11 +158,11 @@ public abstract class ViewBlock extends Pane implements Menu {
 
     public ViewBlock dropGlowing(){
         this.setOnDragEntered(event -> {
-            DropSystem.setCurrentDropUnderNode(this);
+            DropSystem.addNode(this);
             setEffect(new Glow(0.3));
         });
         this.setOnDragExited(event -> {
-            DropSystem.setCurrentDropUnderNode(null);
+            DropSystem.removeNode(this);
             setEffect(null);
         });
         return this;

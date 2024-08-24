@@ -16,9 +16,9 @@ public class Comment extends ViewBlock implements Placeable {
 
         hbox().label("["+block.getName().substring(10)+"]").dropGlowing().textField().contextMenu();
         textField.setOnAction((event -> {
-            DropSystem.setCurrentDropUnderNode(this);
+            DropSystem.addNode(this);
             new Comment(block).place(this.getParent());
-            DropSystem.setCurrentDropUnderNode(null);
+            DropSystem.removeNode(this);
         }));
 
         hBox.getChildren().addAll(label, textField);
