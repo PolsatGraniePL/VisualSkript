@@ -23,7 +23,7 @@ import javafx.util.Duration;
 
 import java.util.*;
 
-public abstract class ViewBlock extends Pane implements Menu{
+public abstract class ViewBlock extends Pane implements Menu {
 
     protected ContextMenu contextMenu = new ContextMenu();
 
@@ -100,7 +100,7 @@ public abstract class ViewBlock extends Pane implements Menu{
         }
     }
 
-    private void setupDropViews(Pane pane){
+    protected void setupDropViews(Pane pane){
         HBox hBox = pane.getChildren().get(0) instanceof HBox ? (HBox)pane.getChildren().get(0) : (HBox) ((VBox)pane.getChildren().get(0)).getChildren().get(0);
         Label label = (Label) hBox.getChildren().get(0);
         String[] list = label.getText()
@@ -222,12 +222,7 @@ public abstract class ViewBlock extends Pane implements Menu{
         dropVBox = new VBox();
         dropVBox.setFillWidth(true);
         this.setOnDragOver(event -> {
-            Block placedBlock = ((SelectiveBlock) event.getGestureSource()).getBlock();
-            if (placedBlock.getType() == BlockType.SECTION ||
-                    placedBlock.getType() == BlockType.EFFECT ||
-                    placedBlock.getType() == BlockType.FUNCTION ||
-                    placedBlock.getType() == BlockType.COMMENT ||
-                    placedBlock.getType() == BlockType.CONDITION )
+            if (((SelectiveBlock) event.getGestureSource()).getBlock().getType().getPlaceOnVBox())
             {
                 event.acceptTransferModes(TransferMode.ANY);
                 event.consume();
@@ -236,19 +231,9 @@ public abstract class ViewBlock extends Pane implements Menu{
         this.setOnDragDropped(event -> {
             Block placedBlock = ((SelectiveBlock) event.getGestureSource()).getBlock();
             boolean success = false;
-            if (placedBlock.getType() == BlockType.SECTION ||
-                    placedBlock.getType() == BlockType.EFFECT ||
-                    placedBlock.getType() == BlockType.FUNCTION ||
-                    placedBlock.getType() == BlockType.COMMENT ||
-                    placedBlock.getType() == BlockType.CONDITION )
+            if (placedBlock.getType().getPlaceOnVBox())
             {
-                switch (placedBlock.getType()){
-                    case SECTION -> new Section(placedBlock).place(dropVBox);
-                    case EFFECT -> new Effect(placedBlock).place(dropVBox);
-                    case COMMENT -> new Comment(placedBlock).place(dropVBox);
-                    case FUNCTION -> new Function(placedBlock, null, true).place(dropVBox);
-                    case CONDITION -> new Conditions(placedBlock, null, true).place(dropVBox);
-                }
+                placedBlock.getType().place(placedBlock, null, dropVBox);
                 success = true;
             }
             event.setDropCompleted(success);

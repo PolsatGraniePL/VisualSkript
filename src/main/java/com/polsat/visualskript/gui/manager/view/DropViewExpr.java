@@ -2,6 +2,7 @@ package com.polsat.visualskript.gui.manager.view;
 
 import com.polsat.visualskript.gui.block.Block;
 import com.polsat.visualskript.gui.block.BlockType;
+import com.polsat.visualskript.gui.manager.block.BlockPlacer;
 import com.polsat.visualskript.gui.manager.block.SelectiveBlock;
 import com.polsat.visualskript.gui.manager.view.blocks.*;
 import javafx.geometry.Insets;
@@ -24,14 +25,7 @@ public class DropViewExpr extends ViewBlock {
         this.getChildren().add(hBox);
 
         setOnDragOver(event -> {
-            Block placedBlock = ((SelectiveBlock) event.getGestureSource()).getBlock();
-            if (
-                placedBlock.getType() == BlockType.STRUCTURE ||
-                placedBlock.getType() == BlockType.EXPRESSION ||
-                placedBlock.getType() == BlockType.TYPE ||
-                placedBlock.getType() == BlockType.TYPE_LIST ||
-                placedBlock.getType() == BlockType.FUNCTION ||
-                placedBlock.getType() == BlockType.CONDITION)
+            if (((SelectiveBlock) event.getGestureSource()).getBlock().getType().getPlaceOnExpr())
             {
                 event.acceptTransferModes(TransferMode.ANY);
                 event.consume();
@@ -40,21 +34,9 @@ public class DropViewExpr extends ViewBlock {
         setOnDragDropped(event -> {
             Block placedBlock = ((SelectiveBlock) event.getGestureSource()).getBlock();
             boolean success = false;
-            if (placedBlock.getType() == BlockType.STRUCTURE ||
-                placedBlock.getType() == BlockType.EXPRESSION ||
-                placedBlock.getType() == BlockType.TYPE ||
-                placedBlock.getType() == BlockType.TYPE_LIST ||
-                placedBlock.getType() == BlockType.FUNCTION ||
-                placedBlock.getType() == BlockType.CONDITION)
+            if (placedBlock.getType().getPlaceOnExpr())
             {
-                switch (placedBlock.getType()){
-                    case EXPRESSION -> new Expression(placedBlock, text).place(this);
-                    case TYPE -> new Type(placedBlock, text).place(this);
-                    case TYPE_LIST -> new TypeList(placedBlock, text).place(this);
-                    case FUNCTION -> new Function(placedBlock, text, false).place(this);
-                    case CONDITION -> new Conditions(placedBlock, text, false).place(this);
-                    case STRUCTURE -> new Structure(placedBlock, text, true).place(this);
-                }
+                placedBlock.getType().place(placedBlock, text, this);
                 success = true;
             }
             event.setDropCompleted(success);

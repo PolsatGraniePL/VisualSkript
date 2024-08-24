@@ -114,7 +114,7 @@ public class BlockManager {
 
         buildTab.setOnDragOver(event -> {
             Block placedBlock = ((SelectiveBlock) event.getGestureSource()).getBlock();
-            if ((placedBlock.getType() == BlockType.EVENT || placedBlock.getType() == BlockType.STRUCTURE) && !Objects.isNull(buildTab.getSelectionModel().getSelectedItem())) {
+            if ((placedBlock.getType().getPlaceOnBuildTab()) && !Objects.isNull(buildTab.getSelectionModel().getSelectedItem())) {
                 event.acceptTransferModes(TransferMode.ANY);
                 event.consume();
             }
@@ -123,14 +123,11 @@ public class BlockManager {
         buildTab.setOnDragDropped(event -> {
             Block placedBlock = ((SelectiveBlock) event.getGestureSource()).getBlock();
             boolean success = false;
-            if ((placedBlock.getType() == BlockType.EVENT || placedBlock.getType() == BlockType.STRUCTURE) && !Objects.isNull(buildTab.getSelectionModel().getSelectedItem())) {
+            if ((placedBlock.getType().getPlaceOnBuildTab()) && !Objects.isNull(buildTab.getSelectionModel().getSelectedItem())) {
                 TabPane tabPane = (TabPane) buildTab.getSelectionModel().getSelectedItem().getContent();
                 TabsManager.addTab(placedBlock.getName(), tabPane);
                 VBox newVBoxEvent = (VBox)((ScrollPane) tabPane.getSelectionModel().getSelectedItem().getContent()).getContent();
-                switch (placedBlock.getType()){
-                    case EVENT -> new Event(placedBlock).place(newVBoxEvent);
-                    case STRUCTURE -> new Structure(placedBlock, null, false).place(newVBoxEvent);
-                }
+                placedBlock.getType().place(placedBlock, null, newVBoxEvent);
                 success = true;
             }
             event.setDropCompleted(success);

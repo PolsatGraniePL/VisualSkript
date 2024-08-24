@@ -10,18 +10,17 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+import java.util.Objects;
+
 public class Structure extends ViewBlock implements Placeable {
 
-    private final boolean inExpression;
-
-    public Structure(Block block, String oldText, boolean inExpression){
+    public Structure(Block block, String oldText){
         super(block);
-        this.inExpression = inExpression;
 
         oldText(oldText).hbox().contextMenu();
 
         this.getChildren().add(hBox);
-        if (inExpression){
+        if (isInExpression()){
             this.setStyle(this.getStyle()+"-fx-background-radius: 25px; -fx-border-radius: 25px;");
             label("["+block.getName().substring(12)+"]").margins().textField();
             hBox.getChildren().addAll(label, textField);
@@ -30,10 +29,11 @@ public class Structure extends ViewBlock implements Placeable {
         this.setStyle(this.getStyle()+"-fx-background-radius: 10px 10px 0 0; -fx-border-radius: 10px 10px 0 0;");
         dropGlowing().label();
         hBox.getChildren().add(label);
+        setupDropViews(this);
     }
 
     public boolean isInExpression() {
-        return inExpression;
+        return Objects.nonNull(oldText);
     }
 
     @Override

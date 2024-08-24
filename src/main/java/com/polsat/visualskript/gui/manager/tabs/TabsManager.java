@@ -1,7 +1,6 @@
 package com.polsat.visualskript.gui.manager.tabs;
 
 import com.polsat.visualskript.gui.block.Block;
-import com.polsat.visualskript.gui.block.BlockType;
 import com.polsat.visualskript.gui.manager.block.SelectiveBlock;
 import com.polsat.visualskript.gui.manager.view.blocks.*;
 import javafx.geometry.Insets;
@@ -38,12 +37,7 @@ public class TabsManager {
         vBox.getChildren().add(expandPane);
 
         vBox.setOnDragOver(event -> {
-            Block placedBlock = ((SelectiveBlock) event.getGestureSource()).getBlock();
-            if (placedBlock.getType() == BlockType.SECTION ||
-                    placedBlock.getType() == BlockType.EFFECT ||
-                    placedBlock.getType() == BlockType.FUNCTION ||
-                    placedBlock.getType() == BlockType.COMMENT ||
-                    placedBlock.getType() == BlockType.CONDITION )
+            if (((SelectiveBlock) event.getGestureSource()).getBlock().getType().getPlaceOnVBox())
             {
                 event.acceptTransferModes(TransferMode.ANY);
                 event.consume();
@@ -52,19 +46,9 @@ public class TabsManager {
         vBox.setOnDragDropped(event -> {
             Block placedBlock = ((SelectiveBlock) event.getGestureSource()).getBlock();
             boolean success = false;
-            if (placedBlock.getType() == BlockType.SECTION ||
-                placedBlock.getType() == BlockType.EFFECT ||
-                placedBlock.getType() == BlockType.FUNCTION ||
-                placedBlock.getType() == BlockType.COMMENT ||
-                placedBlock.getType() == BlockType.CONDITION )
+            if (placedBlock.getType().getPlaceOnVBox())
             {
-                switch (placedBlock.getType()){
-                    case SECTION -> new Section(placedBlock).place(vBox);
-                    case EFFECT -> new Effect(placedBlock).place(vBox);
-                    case COMMENT -> new Comment(placedBlock).place(vBox);
-                    case FUNCTION -> new Function(placedBlock, null, true).place(vBox);
-                    case CONDITION -> new Conditions(placedBlock, null, true).place(vBox);
-                }
+                placedBlock.getType().place(placedBlock, null, vBox);
                 success = true;
             }
             event.setDropCompleted(success);

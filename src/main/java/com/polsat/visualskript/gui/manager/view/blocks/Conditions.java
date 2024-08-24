@@ -6,24 +6,24 @@ import com.polsat.visualskript.gui.manager.view.ViewBlock;
 import com.polsat.visualskript.gui.manager.view.Placeable;
 import javafx.scene.Node;
 
+import java.util.Objects;
+
 public class Conditions extends ViewBlock implements Placeable {
 
-    private final boolean inVBox;
 
-    public Conditions(Block block, String oldText, boolean inVBox){
+    public Conditions(Block block, String oldText){
         super(block);
-        this.inVBox = inVBox;
-        if (!inVBox) {
+        hbox().label().contextMenu().dropGlowing().showCombinations().oldText(oldText);
+        if (!getInVBox()) {
             this.setStyle(this.getStyle() + "-fx-background-radius: 25px; -fx-border-radius: 25px;");
-            oldText(oldText).margins();
+            margins();
         }
-        hbox().label().contextMenu().dropGlowing().showCombinations();
         hBox.getChildren().add(label);
         this.getChildren().add(hBox);
     }
 
     public boolean getInVBox() {
-        return inVBox;
+        return Objects.isNull(oldText);
     }
 
     @Override
