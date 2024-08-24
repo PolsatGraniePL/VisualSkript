@@ -29,7 +29,7 @@ public class Structure extends ViewBlock implements Placeable {
         this.setStyle(this.getStyle()+"-fx-background-radius: 10px 10px 0 0; -fx-border-radius: 10px 10px 0 0;");
         dropGlowing().label();
         hBox.getChildren().add(label);
-        setupDropViews(this);
+        setupDropViews();
     }
 
     public boolean isInExpression() {

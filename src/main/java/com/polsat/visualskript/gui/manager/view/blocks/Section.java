@@ -32,7 +32,7 @@ public class Section extends ViewBlock implements Placeable {
         MenuItem delete = new MenuItem("Delete");
         contextMenu.getItems().addAll(edit, delete);
         edit.setOnAction(event -> {
-            setCombinations(block.getPattern(), this, label, block.getType());
+            setCombinations();
         });
         delete.setOnAction(event -> {
             if (this.getParent() instanceof VBox vboxMain) {

@@ -17,7 +17,6 @@ public class Main extends Application {
     // - Eksportowanie do .sk
     // - Naprawa edytowania bloków
     // - new line comment repair
-    // - DropManager (Wszystkie checki do jednej klasy)
     // - setCurrentDropUnderNode - najnowszy || kolejka node.
     //
 

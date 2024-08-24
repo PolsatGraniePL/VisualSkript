@@ -55,7 +55,7 @@ public abstract class ViewBlock extends Pane implements Menu {
         MenuItem delete = new MenuItem("Delete");
         contextMenu.getItems().addAll(edit, delete);
         edit.setOnAction(event -> {
-            setCombinations(block.getPattern(), this, label, block.getType());
+            setCombinations();
         });
         delete.setOnAction(event -> {
             if (this.getParent() instanceof VBox vbox) {
@@ -72,36 +72,36 @@ public abstract class ViewBlock extends Pane implements Menu {
 
     /**<h1>UTIL METHODS</h1>**/
 
-    protected void setCombinations(String patterns, Pane pane, Label label, BlockType blockType) {
-        List<String> patternList = Arrays.asList(patterns.split("\n"));
+    protected void setCombinations() {
+        List<String> patternList = Arrays.asList(block.getPattern().split("\n"));
         if (patternList.size() == 1){
             //Show only popover with combinations
-            List<String> combinationsList = PatternExtractor.getCombinations(PatternExtractor.getFirstPattern(patterns));
+            List<String> combinationsList = PatternExtractor.getCombinations(PatternExtractor.getFirstPattern(block.getPattern()));
             Collections.reverse(combinationsList);
-            Platform.runLater(()-> new SelectBoxPopOver(combinationsList, pane, result2 ->{
+            Platform.runLater(()-> new SelectBoxPopOver(combinationsList, this, result2 ->{
                 Platform.runLater(() -> {
-                    label.setText("["+blockType.getName()+"] " + result2);
-                    setupDropViews(pane);
+                    label.setText("["+block.getType().getName()+"] " + result2);
+                    setupDropViews();
                 });
             }));
         } else {
             //Show popovers with patterns and combinations
-            new SelectBoxPopOver(patternList, pane, result -> {
-                Platform.runLater(() -> label.setText("["+blockType.getName()+"] " + result));
+            new SelectBoxPopOver(patternList, this, result -> {
+                Platform.runLater(() -> label.setText("["+block.getType().getName()+"] " + result));
                 List<String> combinationsList = PatternExtractor.getCombinations(result);
                 Collections.reverse(combinationsList);
-                Platform.runLater(()-> new SelectBoxPopOver(combinationsList, pane, result2 ->{
+                Platform.runLater(()-> new SelectBoxPopOver(combinationsList, this, result2 ->{
                     Platform.runLater(() -> {
-                        label.setText("["+blockType.getName()+"] " + result2);
-                        setupDropViews(pane);
+                        label.setText("["+block.getType().getName()+"] " + result2);
+                        setupDropViews();
                     });
                 }));
             });
         }
     }
 
-    protected void setupDropViews(Pane pane){
-        HBox hBox = pane.getChildren().get(0) instanceof HBox ? (HBox)pane.getChildren().get(0) : (HBox) ((VBox)pane.getChildren().get(0)).getChildren().get(0);
+    protected void setupDropViews(){
+        HBox hBox = this.getChildren().get(0) instanceof HBox ? (HBox)this.getChildren().get(0) : (HBox) ((VBox)this.getChildren().get(0)).getChildren().get(0);
         Label label = (Label) hBox.getChildren().get(0);
         String[] list = label.getText()
                 .replace("<.+>", "%object%")
@@ -207,7 +207,7 @@ public abstract class ViewBlock extends Pane implements Menu {
 
     public ViewBlock showCombinations() {
         //Wait 0.01 second and show SelectBoxPopOver with patterns to select.
-        new Timeline(new KeyFrame(Duration.seconds(0.01), event -> setCombinations(block.getPattern(), this, label, block.getType()))).playFromStart();
+        new Timeline(new KeyFrame(Duration.seconds(0.01), event -> setCombinations())).playFromStart();
         return this;
     }
 
