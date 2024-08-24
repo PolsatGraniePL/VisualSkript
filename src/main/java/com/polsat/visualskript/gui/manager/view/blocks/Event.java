@@ -3,10 +3,13 @@ package com.polsat.visualskript.gui.manager.view.blocks;
 
 import com.polsat.visualskript.gui.block.Block;
 import com.polsat.visualskript.gui.manager.block.BlockPlacer;
+import com.polsat.visualskript.gui.manager.view.DropViewExpr;
 import com.polsat.visualskript.gui.manager.view.ViewBlock;
 import com.polsat.visualskript.gui.manager.view.Placeable;
 import javafx.scene.Node;
 import javafx.scene.control.MenuItem;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 public class Event extends ViewBlock implements Placeable {
 
@@ -27,8 +30,12 @@ public class Event extends ViewBlock implements Placeable {
 
     @Override
     public void buildMenu() {
+        MenuItem edit = new MenuItem("Edit");
         MenuItem delete = new MenuItem("Delete");
-        contextMenu.getItems().add(delete);
+        contextMenu.getItems().addAll(edit, delete);
+        edit.setOnAction(event -> {
+            setCombinations();
+        });
         delete.setOnAction(event -> {
             //TODO: DELETE CURRENT COMPONENT
         });
