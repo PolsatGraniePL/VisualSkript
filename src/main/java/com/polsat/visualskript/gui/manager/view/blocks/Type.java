@@ -36,6 +36,10 @@ public class Type extends ViewBlock implements Placeable {
         MenuItem delete = new MenuItem("Delete");
         contextMenu.getItems().addAll(delete);
         delete.setOnAction(event -> {
+            if (this.getParent() instanceof VBox vbox) {
+                vbox.getChildren().remove(this);
+                return;
+            }
             ((HBox)this.getParent()).getChildren().set(((HBox)this.getParent()).getChildren().indexOf(this), new DropViewExpr(oldText));
         });
     }

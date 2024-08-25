@@ -58,9 +58,9 @@ public abstract class ViewBlock extends Pane implements Menu {
         delete.setOnAction(event -> {
             if (this.getParent() instanceof VBox vbox) {
                 vbox.getChildren().remove(this);
-            } else {
-                ((HBox)this.getParent()).getChildren().set(((HBox)this.getParent()).getChildren().indexOf(this), new DropViewExpr(oldText));
+                return;
             }
+            ((HBox)this.getParent()).getChildren().set(((HBox)this.getParent()).getChildren().indexOf(this), new DropViewExpr(oldText));
         });
     }
 

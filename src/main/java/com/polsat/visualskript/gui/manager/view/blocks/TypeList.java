@@ -21,7 +21,7 @@ public class TypeList extends ViewBlock implements Placeable {
 
         this.setStyle(this.getStyle() + "-fx-background-radius: 25px; -fx-border-radius: 25px;");
 
-        vbox().hbox().label("["+block.getName().substring(8)+"]").oldText(oldText).margins().contextMenu();;
+        vbox().hbox().label("["+block.getName().substring(8)+"]").oldText(oldText).margins().contextMenu();
 
         hBox.getChildren().add(label);
         vBox.getChildren().addAll(hBox, newDropViewExpr(), newDropViewExpr());
@@ -55,8 +55,11 @@ public class TypeList extends ViewBlock implements Placeable {
             }
         });
         delete.setOnAction(event -> {
-            ((HBox)this.getParent()).getChildren().set(((HBox)this.getParent()).getChildren().indexOf(this), new DropViewExpr(oldText));
-        });
+            if (this.getParent() instanceof VBox vbox) {
+                vbox.getChildren().remove(this);
+                return;
+            }
+            ((HBox)this.getParent()).getChildren().set(((HBox)this.getParent()).getChildren().indexOf(this), new DropViewExpr(oldText));        });
     }
 
 
