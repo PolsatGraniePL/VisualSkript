@@ -104,6 +104,7 @@ public abstract class ViewBlock extends Pane implements Menu {
         String[] list = label.getText()
                 .replace("<.+>", "%object%")
                 .replace("<.*>", "%object%")
+                .replace("<\\d+>", "%number%")
                 .split("%");
         hBox.getChildren().clear();
         List<Node> nodes = new ArrayList<>();
