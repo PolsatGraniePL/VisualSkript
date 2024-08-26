@@ -138,6 +138,7 @@ public class BlockManager {
     }
 
     //Inserts a list of blocks into VBox
+    //TODO: Naprawić wyciek pamięci XD (Tworzenie setki obiektów co każdą zmianę tekstu)
     public static void putBlocksInContainer(List<Block> listType){
         for (Block block : listType) {
             SelectiveBlock selectiveBlock = new SelectiveBlock(block);
