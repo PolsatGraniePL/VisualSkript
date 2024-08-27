@@ -1,126 +1,92 @@
 package com.polsat.visualskript.system.script;
 
+import com.polsat.visualskript.Main;
+import com.polsat.visualskript.gui.manager.block.BlockManager;
+import com.polsat.visualskript.gui.manager.view.DropViewExpr;
+import com.polsat.visualskript.gui.manager.view.ViewBlock;
 import com.polsat.visualskript.util.ErrorHandler;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TabPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.*;
 
 public class ScriptParser {
 
+    //Load .sk to visual skript
+    public static void load(File file){
+        //if option is not exist
+        //  add options
+    }
 
-
-    // JSON TO Skript
-    public static void build(File file){
-
+    //Build visual skript to .sk
+    public static void build(){
         try {
-            StringBuilder jsonString = new StringBuilder();
-            Scanner reader = new Scanner(file);
-            while (reader.hasNextLine()){
-                jsonString.append(reader.nextLine());
-            }
-            reader.close();
+            TabPane tabPane = (TabPane) BlockManager.getBuildTab().getSelectionModel().getSelectedItem().getContent();
+            VBox vBox = (VBox)((ScrollPane) tabPane.getSelectionModel().getSelectedItem().getContent()).getContent();
 
-            JSONParser parser = new JSONParser();
-            JSONObject mainObject = (JSONObject) parser.parse(jsonString.toString());
+            String skriptLoc = Main.class.getResource("/scripts/").getPath();
+            String skriptName = BlockManager.getBuildTab().getSelectionModel().getSelectedItem().getText();
 
-            for (Object key : mainObject.keySet()){
+            File file = new File(skriptLoc + skriptName);
 
-                String keyStr = (String)key;
-                Object keyValue = mainObject.get(keyStr);
+            FileWriter fileWriter = new FileWriter(file);
+            PrintWriter printWriter = new PrintWriter(fileWriter);
 
-                if (Objects.equals(keyStr, "structures")){
-                    for (Object structureList : ((JSONArray) keyValue)){
-                        System.out.println("Info: " + ((JSONObject)((JSONArray) structureList).get(0)).get("Info"));
-                        latestDepth = 0;
-                        for (Object itemList : ((JSONArray) structureList)){
-                            if (Objects.isNull(((JSONObject) itemList).get("Info")))
-                                System.out.println(separateStringAndJSONObject((JSONObject) itemList, 1));
-                        }
-                    }
+            System.out.println("-=-=-=-=-");
+
+            vBox.getChildren().forEach((viewBlock)->{
+                if (viewBlock instanceof ViewBlock block) {
+                    System.out.println(recurency(block));
                 }
-            }
-        } catch (Exception e){
-            ErrorHandler.alert(e.toString());
+            });
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 
-    static ArrayList<String> listAll = new ArrayList<>(Arrays.asList("Event", "Effect", "Section", "Conditionals", "Expression", "Structure"));
-    static ArrayList<String> listNewLine = new ArrayList<>(Arrays.asList("Effect", "Section", "Structure", "Event"));
-    static int latestDepth = 0;
+    private static String recurency(ViewBlock viewBlock){
+        StringBuilder builder = new StringBuilder();
+        builder.append("\n");
+        viewBlock.getChildren().forEach((node -> {
+            if (node instanceof HBox hBoxBlock){
+                //NORMAL BLOCK
+                builder.append(blockOnHbox(hBoxBlock));
+            } else if (node instanceof VBox) {
+                //SECTION
+                builder.append(blockOnHbox((HBox) ((VBox)viewBlock.getChildren().get(0)).getChildren().get(0)));
+                viewBlock.getDropVBox().getChildren().forEach((hBox)->{
+                    if (hBox instanceof ViewBlock block) {
+                        builder.append(recurency(block));
+                    }
+                });
+            }
+        }));
+        return builder.toString();
+    }
 
-    private static String separateStringAndJSONObject(JSONObject json, int depth){
+    private static String blockOnHbox(HBox hBox){
         StringBuilder stringBuilder = new StringBuilder();
-        String tabs = "\t".repeat(Math.max(0, depth));
-        try {
-            for (Object key : json.keySet()){
-                String keyStr = (String)key;
-                Object keyValue = json.get(keyStr);
-                for (Object key2 : (JSONArray) keyValue){
-                    JSONObject object = (JSONObject)key2;
-                    for (Object x : object.keySet()){
-                        String key2Str = (String)x;
-                        Object key2Value = object.get(key2Str);
-                        if (listAll.contains(key2Str)){
-                            if (listNewLine.contains(key2Str)){
-                                if (latestDepth < depth){
-                                    stringBuilder.append(":\n").append(tabs).append(separateStringAndJSONObject(object, depth+1));
-                                } else {
-                                    stringBuilder.append("\n").append(tabs).append(separateStringAndJSONObject(object, depth+1));
-                                }
-                                latestDepth = depth;
-                            } else {
-                                stringBuilder.append(separateStringAndJSONObject(object, depth)).append(" ");
-                            }
-                        } else {
-                            switch (key2Str){
-                                case "Text":
-                                    stringBuilder.append("\"").append(key2Value.toString()).append("\"").append(" ");
-                                    break;
-                                case "Variable":
-                                    stringBuilder.append("{").append(key2Value.toString()).append("}").append(" ");
-                                    break;
-                                case "Options":
-                                    stringBuilder.append("{@").append(key2Value.toString()).append("}").append(" ");
-                                    break;
-                                case "World":
-                                    stringBuilder.append("world \"").append(key2Value.toString()).append("\"").append(" ");
-                                    break;
-                                default:
-                                    stringBuilder.append(key2Value.toString()).append(" ");
-                            }
-                        }
-                    }
-                }
+        hBox.getChildren().forEach((node -> {
+            if (node instanceof Label label){
+                stringBuilder.append(label.getText());
+            } else if (node instanceof DropViewExpr dropViewExpr){
+                stringBuilder.append(" %").append(((Label) ((HBox) dropViewExpr.getChildren().get(0)).getChildren().get(0)).getText()).append("% ");
+            } else {
+                stringBuilder.append(node.getClass().getName());
             }
-            return stringBuilder.toString().trim();
-        }
-        catch (Exception e){
-            ErrorHandler.alert(e.toString());
-            return "Error";
-        }
-    }
-
-    //JSON to visual language
-    public static void read(File file) {
-
-    }
-
-    //Empty file to json
-    public static void makeVSkript(File file){
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("opened", true);
-        jsonObject.put("blocks", new JSONArray());
-        try {
-            FileWriter writer = new FileWriter(file);
-            writer.write(jsonObject.toJSONString());
-            writer.close();
-        } catch (Exception e){
-            ErrorHandler.alert(e.toString());
-        }
+        }));
+        return stringBuilder.toString();
     }
 
 }

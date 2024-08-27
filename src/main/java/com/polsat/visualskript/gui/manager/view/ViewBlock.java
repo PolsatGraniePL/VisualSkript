@@ -21,6 +21,8 @@ import javafx.util.Duration;
 
 import java.util.*;
 
+import static com.polsat.visualskript.system.script.ScriptParser.build;
+
 public abstract class ViewBlock extends Pane implements Menu {
 
     protected ContextMenu contextMenu = new ContextMenu();
@@ -66,6 +68,10 @@ public abstract class ViewBlock extends Pane implements Menu {
 
     public Block getBlock() {
         return block;
+    }
+
+    public VBox getDropVBox() {
+        return dropVBox;
     }
 
     /**<h1>UTIL METHODS</h1>**/
@@ -119,6 +125,7 @@ public abstract class ViewBlock extends Pane implements Menu {
             }
         }
         hBox.getChildren().addAll(0, nodes);
+        build();
     }
 
     /** <h1>BUILDER</h1>**/

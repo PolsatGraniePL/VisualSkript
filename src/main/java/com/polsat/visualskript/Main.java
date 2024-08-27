@@ -12,10 +12,9 @@ public class Main extends Application {
     //
     //TODO:
     // - Components: wyświetlanie wszystkich eventów/struktur
-    // - Zapisywanie do .json
-    // - Wczytywanie z .json
-    // - Eksportowanie do .sk
-    // - Poprawne działanie bloków Struktur.
+    // - Zapisywanie do .sk
+    // - Wczytywanie z .sk
+    // - Działający blok funkcji
     //
 
     public static void main(String[] args) {

@@ -24,7 +24,7 @@ public class FileManager {
 
     public static boolean renameFile(String path, String newName){
         File file = new File(path);
-        return file.renameTo(new File(ScriptsManager.getScriptPathFolder()+newName+".vsk"));
+        return file.renameTo(new File(ScriptsManager.getScriptPathFolder()+newName+".sk"));
     }
 
     public static File[] getFileList(String folderName){

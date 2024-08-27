@@ -13,10 +13,10 @@ import java.util.Objects;
 public class ScriptsManager {
 
     public static boolean createScript(String name){
-        boolean success = FileManager.createFile(getScriptPathFolder()+name+".vsk");
+        boolean success = FileManager.createFile(getScriptPathFolder()+name+".sk");
         if (success){
-            MainTabManager.addTab(name+".vsk");
-            ScriptParser.makeVSkript(FileManager.getFileByName(name+".vsk"));
+            MainTabManager.addTab(name+".sk");
+            ScriptParser.load(FileManager.getFileByName(name+".sk"));
             return true;
         }else{
             return false;
@@ -29,7 +29,7 @@ public class ScriptsManager {
     public static void openScript(String name){
         MainTabManager.addTab(name);
         ScriptJsonManager.setOpened(FileManager.getFileByName(name), true);
-        ScriptParser.build(FileManager.getFileByName(name));
+        //ScriptParser.build(FileManager.getFileByName(name));
         //TODO: DELETE ^^, ZMIANA SYSTEMU
     }
     public static void closeScript(String name){
@@ -38,7 +38,7 @@ public class ScriptsManager {
     public static void editScriptName(String name, String newName){
         FileManager.renameFile(ScriptsManager.getScriptPathFolder()+name, newName);
         MainTabManager.removeTab(name);
-        MainTabManager.addTab(newName+".vsk");
+        MainTabManager.addTab(newName+".sk");
     }
 
     public static ArrayList<String> getScriptsList() {
@@ -46,7 +46,7 @@ public class ScriptsManager {
         try {
             File[] filesList = FileManager.getFileList("/scripts");
             for (File file : filesList) {
-                if (file.getName().endsWith(".vsk")) {
+                if (file.getName().endsWith(".sk")) {
                     list.add(file.getName());
                 }
             }

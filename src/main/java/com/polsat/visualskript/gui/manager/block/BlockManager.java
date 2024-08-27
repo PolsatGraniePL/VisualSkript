@@ -145,4 +145,8 @@ public class BlockManager {
             blockContainer.getChildren().add(selectiveBlock);
         }
     }
+
+    public static TabPane getBuildTab() {
+        return buildTab;
+    }
 }

@@ -56,7 +56,7 @@ public class MenuManager {
                 DialogAlert.alertError("You do not have any scripts open.");
                 return;
             }
-            if(ScriptsManager.getScriptsList().contains(result+".vsk")){
+            if(ScriptsManager.getScriptsList().contains(result+".sk")){
                 DialogAlert.alertError("Script with this name is already exists.");
                 return;
             }
