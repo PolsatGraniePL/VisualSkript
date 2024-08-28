@@ -24,6 +24,8 @@ import javafx.util.Duration;
 
 import java.util.*;
 
+import static com.polsat.visualskript.system.script.ScriptParser.build;
+
 public class Structure extends ViewBlock implements Placeable {
 
     private final StrType type;
@@ -109,6 +111,7 @@ public class Structure extends ViewBlock implements Placeable {
             } else {
                 ((HBox)this.getParent()).getChildren().set(((HBox)this.getParent()).getChildren().indexOf(this), new DropViewExpr(oldText));
             }
+            build();
         });
         if (!isInExpression())
             switch (type){

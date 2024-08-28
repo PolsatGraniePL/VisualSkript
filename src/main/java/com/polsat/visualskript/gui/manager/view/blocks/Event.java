@@ -11,6 +11,8 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+import static com.polsat.visualskript.system.script.ScriptParser.build;
+
 public class Event extends ViewBlock implements Placeable {
 
     public Event(Block block) {
@@ -37,6 +39,7 @@ public class Event extends ViewBlock implements Placeable {
             setCombinations();
         });
         delete.setOnAction(event -> {
+            build();
             //TODO: DELETE CURRENT COMPONENT
         });
     }

@@ -14,6 +14,8 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
+import static com.polsat.visualskript.system.script.ScriptParser.build;
+
 public class Type extends ViewBlock implements Placeable {
 
     public Type(Block block, String oldText){
@@ -41,6 +43,7 @@ public class Type extends ViewBlock implements Placeable {
                 return;
             }
             ((HBox)this.getParent()).getChildren().set(((HBox)this.getParent()).getChildren().indexOf(this), new DropViewExpr(oldText));
+            build();
         });
     }
 

@@ -9,6 +9,8 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 
+import static com.polsat.visualskript.system.script.ScriptParser.build;
+
 public class Comment extends ViewBlock implements Placeable {
 
     public Comment(Block block) {
@@ -34,6 +36,9 @@ public class Comment extends ViewBlock implements Placeable {
     public void buildMenu(){
         MenuItem delete = new MenuItem("Delete");
         contextMenu.getItems().add(delete);
-        delete.setOnAction(event -> ((VBox)this.getParent()).getChildren().remove(this));
+        delete.setOnAction(event -> {
+            ((VBox)this.getParent()).getChildren().remove(this);
+            build();
+        });
     }
 }

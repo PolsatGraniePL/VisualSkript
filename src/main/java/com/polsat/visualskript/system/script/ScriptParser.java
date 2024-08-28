@@ -4,10 +4,13 @@ import com.polsat.visualskript.Main;
 import com.polsat.visualskript.gui.manager.block.BlockManager;
 import com.polsat.visualskript.gui.manager.view.DropViewExpr;
 import com.polsat.visualskript.gui.manager.view.ViewBlock;
+import com.polsat.visualskript.gui.manager.view.blocks.Effect;
+import com.polsat.visualskript.gui.manager.view.blocks.Expression;
 import com.polsat.visualskript.util.ErrorHandler;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.json.simple.JSONArray;
@@ -30,6 +33,7 @@ public class ScriptParser {
 
     //Build visual skript to .sk
     public static void build(){
+        //NEW THREAD
         try {
             TabPane tabPane = (TabPane) BlockManager.getBuildTab().getSelectionModel().getSelectedItem().getContent();
             VBox vBox = (VBox)((ScrollPane) tabPane.getSelectionModel().getSelectedItem().getContent()).getContent();
@@ -46,7 +50,7 @@ public class ScriptParser {
 
             vBox.getChildren().forEach((viewBlock)->{
                 if (viewBlock instanceof ViewBlock block) {
-                    System.out.println(recurency(block));
+                    System.out.println(recurency(block, 1));
                 }
             });
 
@@ -55,21 +59,35 @@ public class ScriptParser {
         }
     }
 
-    private static String recurency(ViewBlock viewBlock){
+    private static String recurency(ViewBlock viewBlock, int depth){
         StringBuilder builder = new StringBuilder();
-        builder.append("\n");
+        String tabs = "\t".repeat(depth);
         viewBlock.getChildren().forEach((node -> {
-            if (node instanceof HBox hBoxBlock){
-                //NORMAL BLOCK
-                builder.append(blockOnHbox(hBoxBlock));
-            } else if (node instanceof VBox) {
-                //SECTION
-                builder.append(blockOnHbox((HBox) ((VBox)viewBlock.getChildren().get(0)).getChildren().get(0)));
-                viewBlock.getDropVBox().getChildren().forEach((hBox)->{
-                    if (hBox instanceof ViewBlock block) {
-                        builder.append(recurency(block));
-                    }
-                });
+
+            switch (viewBlock.getBlock().getType()){
+                case EVENT:
+                    builder.append(blockOnHbox((HBox) node)).append(":");
+                    break;
+                case STRUCTURE:
+                    builder.append(blockOnHbox((HBox) node)).append(":");
+                    break;
+                case CONDITION, EFFECT:
+                    builder.append(tabs).append(blockOnHbox((HBox) node));
+                    break;
+//                case FUNCTION:
+//                    TODO
+//                    break;
+                case COMMENT:
+                    builder.append(tabs).append("#").append(viewBlock.getTextField().getText());
+                    break;
+                case SECTION:
+                    builder.append(tabs).append(blockOnHbox((HBox) viewBlock.getvBox().getChildren().get(0))).append(":");
+                    viewBlock.getDropVBox().getChildren().forEach((hBox)->{
+                        if (hBox instanceof ViewBlock block) {
+                            builder.append("\n").append(recurency(block, depth+1));
+                        }
+                    });
+                    break;
             }
         }));
         return builder.toString();
@@ -79,14 +97,67 @@ public class ScriptParser {
         StringBuilder stringBuilder = new StringBuilder();
         hBox.getChildren().forEach((node -> {
             if (node instanceof Label label){
-                stringBuilder.append(label.getText());
+                stringBuilder.append(getNameWithoutType(label.getText()));
             } else if (node instanceof DropViewExpr dropViewExpr){
-                stringBuilder.append(" %").append(((Label) ((HBox) dropViewExpr.getChildren().get(0)).getChildren().get(0)).getText()).append("% ");
+                stringBuilder.append(space(stringBuilder)).append("%").append(blockOnHbox(dropViewExpr.gethBox())).append("%").append(space(stringBuilder));
+            } else if (node instanceof ViewBlock viewBlock){
+                viewBlockCompiler(viewBlock, stringBuilder);
             } else {
-                stringBuilder.append(node.getClass().getName());
+                stringBuilder.append("[").append(node.getClass().getName()).append("]");
             }
         }));
         return stringBuilder.toString();
+    }
+
+    private static void viewBlockCompiler(ViewBlock viewBlock, StringBuilder stringBuilder){
+        switch (viewBlock.getBlock().getType()){
+            case CONDITION, EXPRESSION -> stringBuilder.append(space(stringBuilder)).append(blockOnHbox(viewBlock.gethBox())).append(space(stringBuilder));
+            case TYPE, STRUCTURE -> {
+                switch (getNameWithoutType(viewBlock.getBlock().getName())){
+                    case "Text":
+                        stringBuilder.append(space(stringBuilder)).append("\"").append(viewBlock.getTextField().getText()).append("\"").append(space(stringBuilder));
+                        break;
+                    case "Variables":
+                        stringBuilder.append(space(stringBuilder)).append("{").append(viewBlock.getTextField().getText()).append("}").append(space(stringBuilder));
+                        break;
+                    case "Options":
+                        stringBuilder.append(space(stringBuilder)).append("{@").append(viewBlock.getTextField().getText()).append("}").append(space(stringBuilder));
+                        break;
+                    case "World":
+                        stringBuilder.append(space(stringBuilder)).append("world \"").append(viewBlock.getTextField().getText()).append("\"").append(space(stringBuilder));
+                        break;
+                    default:
+                        stringBuilder.append(space(stringBuilder)).append(viewBlock.getTextField().getText()).append(space(stringBuilder));
+                }
+
+            }
+            case TYPE_LIST -> {
+                viewBlock.getvBox().getChildren().forEach(block -> {
+                    System.out.println();
+
+                    if (viewBlock.getvBox().getChildren().indexOf(block) > 1) {
+                        stringBuilder.append(",");
+                    }
+
+                    if (block instanceof DropViewExpr dropViewExpr){
+                        stringBuilder.append(space(stringBuilder)).append("%").append(blockOnHbox(dropViewExpr.gethBox())).append("%").append(space(stringBuilder));
+                    } else if (block instanceof ViewBlock viewBlock1) {
+                        viewBlockCompiler(viewBlock1, stringBuilder);
+                    }
+                });
+            }
+        }
+    }
+
+    private static String getNameWithoutType(String text){
+        return text.substring(Objects.equals(text.indexOf("] "), -1) ? 0 : text.indexOf("] ") + 2);
+    }
+
+    private static String space(StringBuilder builder){
+        if (!Objects.equals(builder.lastIndexOf(" "), builder.length()-1)){
+             return " ";
+        }
+        return "";
     }
 
 }

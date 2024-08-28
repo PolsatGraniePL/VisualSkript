@@ -8,6 +8,8 @@ import javafx.scene.Node;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.VBox;
 
+import static com.polsat.visualskript.system.script.ScriptParser.build;
+
 public class Section extends ViewBlock implements Placeable {
 
     public Section(Block block){
@@ -37,6 +39,7 @@ public class Section extends ViewBlock implements Placeable {
         delete.setOnAction(event -> {
             if (this.getParent() instanceof VBox vboxMain) {
                 vboxMain.getChildren().remove(this);
+                build();
             }
         });
     }

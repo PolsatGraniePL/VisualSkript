@@ -65,6 +65,7 @@ public abstract class ViewBlock extends Pane implements Menu {
                 return;
             }
             ((HBox)this.getParent()).getChildren().set(((HBox)this.getParent()).getChildren().indexOf(this), new DropViewExpr(oldText));
+            build();
         });
     }
 
@@ -74,6 +75,18 @@ public abstract class ViewBlock extends Pane implements Menu {
 
     public VBox getDropVBox() {
         return dropVBox;
+    }
+
+    public HBox gethBox() {
+        return hBox;
+    }
+
+    public VBox getvBox() {
+        return vBox;
+    }
+
+    public TextField getTextField() {
+        return textField;
     }
 
     /**<h1>UTIL METHODS</h1>**/
@@ -98,7 +111,6 @@ public abstract class ViewBlock extends Pane implements Menu {
             List<String> combinationsList = PatternExtractor.getCombinations(result);
             showCombinations(combinationsList);
         });
-
     }
 
     private void showCombinations(List<String> combinationsList) {
@@ -223,6 +235,7 @@ public abstract class ViewBlock extends Pane implements Menu {
             double width = text.getLayoutBounds().getWidth() + textField.getPadding().getLeft() + textField.getPadding().getRight() + 4d;
             textField.setPrefWidth(width);
             textField.positionCaret(textField.getCaretPosition());
+            build();
         }));
         HBox.setMargin(textField, new Insets(5, 5, 5, 5));
         new Timeline(new KeyFrame(Duration.seconds(0.01), event -> textField.requestFocus())).playFromStart();

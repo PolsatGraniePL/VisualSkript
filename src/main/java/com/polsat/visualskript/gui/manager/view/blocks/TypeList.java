@@ -14,6 +14,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
+import static com.polsat.visualskript.system.script.ScriptParser.build;
+
 public class TypeList extends ViewBlock implements Placeable {
 
     public TypeList(Block block, String oldText) {
@@ -29,7 +31,7 @@ public class TypeList extends ViewBlock implements Placeable {
     }
 
     private DropViewExpr newDropViewExpr() {
-        DropViewExpr dropViewExpr = new DropViewExpr("Object");
+        DropViewExpr dropViewExpr = new DropViewExpr("object");
         HBox.setMargin(dropViewExpr, new Insets(5, 5, 5, 5));
         VBox.setMargin(dropViewExpr, new Insets(5, 5, 5, 5));
         return dropViewExpr;
@@ -59,7 +61,9 @@ public class TypeList extends ViewBlock implements Placeable {
                 vbox.getChildren().remove(this);
                 return;
             }
-            ((HBox)this.getParent()).getChildren().set(((HBox)this.getParent()).getChildren().indexOf(this), new DropViewExpr(oldText));        });
+            ((HBox)this.getParent()).getChildren().set(((HBox)this.getParent()).getChildren().indexOf(this), new DropViewExpr(oldText));
+            build();
+        });
     }
 
 
