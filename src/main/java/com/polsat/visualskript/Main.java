@@ -15,6 +15,7 @@ public class Main extends Application {
     // - Zapisywanie do .sk
     // - Wczytywanie z .sk
     // - Działający blok funkcji
+    // - Placement nad/pod blokiem w zależności od YDrop
     //
 
     public static void main(String[] args) {

@@ -26,17 +26,12 @@ import java.util.*;
 
 public class Structure extends ViewBlock implements Placeable {
 
-    private StrType type;
+    private final StrType type;
 
     public Structure(Block block, String oldText){
         super(block);
-        switch (block.getName().substring(12)){
-            case "Aliases" -> this.type = StrType.ALIASES;
-            case "Command" -> this.type = StrType.COMMAND;
-            case "Function" -> this.type = StrType.FUNCTION;
-            case "Options" -> this.type = StrType.OPTIONS;
-            case "Variables" -> this.type = StrType.VARIABLES;
-        }
+        this.type = StrType.valueOf(block.getName().substring(12).toUpperCase());
+
         oldText(oldText);
         if (isInExpression()){
             this.setStyle(this.getStyle()+"-fx-background-radius: 25px; -fx-border-radius: 25px;");

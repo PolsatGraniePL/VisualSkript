@@ -1,8 +1,10 @@
 package com.polsat.visualskript.gui.manager.view;
 
 import com.polsat.visualskript.gui.block.Block;
+import com.polsat.visualskript.gui.block.BlockType;
 import com.polsat.visualskript.gui.manager.block.SelectiveBlock;
 import com.polsat.visualskript.gui.manager.drop.DropSystem;
+import com.polsat.visualskript.gui.manager.view.blocks.Structure;
 import com.polsat.visualskript.gui.manager.view.popovers.SelectBoxPopOver;
 import com.polsat.visualskript.system.pattern.PatternExtractor;
 import javafx.animation.KeyFrame;
@@ -81,29 +83,36 @@ public abstract class ViewBlock extends Pane implements Menu {
         if (patternList.size() == 1){
             //Show only popover with combinations
             List<String> combinationsList = PatternExtractor.getCombinations(PatternExtractor.getFirstPattern(block.getPattern()));
-            Collections.reverse(combinationsList);
-            Platform.runLater(()-> new SelectBoxPopOver(combinationsList, this, result2 ->{
-                Platform.runLater(() -> {
-                    label.setText("["+block.getType().getName()+"] " + result2);
-                    setupDropViews();
-                });
-            }));
-        } else {
-            //Show popovers with patterns and combinations
-            new SelectBoxPopOver(patternList, this, result -> {
-                Platform.runLater(() -> {
-                    label.setText("["+block.getType().getName()+"] " + result);
-                });
-                List<String> combinationsList = PatternExtractor.getCombinations(result);
-                Collections.reverse(combinationsList);
-                Platform.runLater(()-> new SelectBoxPopOver(combinationsList, this, result2 ->{
-                    Platform.runLater(() -> {
-                        label.setText("["+block.getType().getName()+"] " + result2);
-                        setupDropViews();
-                    });
-                }));
-            });
+            showCombinations(combinationsList);
+            return;
         }
+        //Show popovers with patterns and combinations
+        new SelectBoxPopOver(patternList, this, result -> {
+            Platform.runLater(() -> {
+                if (block.getType().getPlaceOnExpr()) {
+                    label.setText(result);
+                } else {
+                    label.setText("[" + block.getType().getName() + "] " + result);
+                }
+            });
+            List<String> combinationsList = PatternExtractor.getCombinations(result);
+            showCombinations(combinationsList);
+        });
+
+    }
+
+    private void showCombinations(List<String> combinationsList) {
+        Collections.reverse(combinationsList);
+        Platform.runLater(()-> new SelectBoxPopOver(combinationsList, this, result2 ->{
+            Platform.runLater(() -> {
+                if (block.getType().getPlaceOnExpr()){
+                    label.setText(result2);
+                } else {
+                    label.setText("[" + block.getType().getName() + "] " + result2);
+                }
+                setupDropViews();
+            });
+        }));
     }
 
     protected void setupDropViews(){
@@ -160,6 +169,10 @@ public abstract class ViewBlock extends Pane implements Menu {
     }
 
     public ViewBlock label(){
+        if (block.getType().getPlaceOnExpr() && Objects.equals(block.getType(), BlockType.STRUCTURE)){
+            label(PatternExtractor.getFirstPattern(block.getPattern()));
+            return this;
+        }
         label("["+block.getType().getName()+"] " + PatternExtractor.getFirstPattern(block.getPattern()));
         return this;
     }
@@ -193,7 +206,7 @@ public abstract class ViewBlock extends Pane implements Menu {
     }
 
     public ViewBlock margins() {
-        HBox.setMargin(this, new Insets(5, 5, 5, 5));
+        HBox.setMargin(this, new Insets(5, 0, 5, 0));
         VBox.setMargin(this, new Insets(5, 5, 5, 5));
         return this;
     }
