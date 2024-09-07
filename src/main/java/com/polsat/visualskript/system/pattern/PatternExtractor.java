@@ -38,7 +38,7 @@ public class PatternExtractor {
     public static JSONArray downloadCombinations(String pattern){
         try {
             String url = URLEncoder.encode(pattern, StandardCharsets.UTF_8);
-            String data = Jsoup.connect("https://rcgc.pl/VisuakSkript/api/index.php?pattern="+url).ignoreContentType(true).execute().body();
+            String data = Jsoup.connect("http://site19960.web1.titanaxe.com/VisuakSkript/api/index.php?pattern="+url).ignoreContentType(true).execute().body();
             JSONObject json = (JSONObject) new JSONParser().parse(data);
             return (JSONArray) json.get("combinations");
         } catch (Exception e){
