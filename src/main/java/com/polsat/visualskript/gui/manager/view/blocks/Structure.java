@@ -107,7 +107,11 @@ public class Structure extends ViewBlock implements Placeable {
         contextMenu.getItems().add(delete);
         delete.setOnAction(event -> {
             if (this.getParent() instanceof VBox vbox) {
-                //TODO: DELETE CURRENT COMPONENT
+                if (vbox.getChildren().indexOf(this) == 0){
+                    //TODO: DELETE CURRENT COMPONENT
+                } else {
+                    ((VBox)this.getParent()).getChildren().set(((VBox)this.getParent()).getChildren().indexOf(this), new DropViewExpr(oldText));
+                }
             } else {
                 ((HBox)this.getParent()).getChildren().set(((HBox)this.getParent()).getChildren().indexOf(this), new DropViewExpr(oldText));
             }
