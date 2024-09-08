@@ -1,6 +1,7 @@
 package com.polsat.visualskript.system.script;
 
 import com.polsat.visualskript.Main;
+import com.polsat.visualskript.gui.block.Block;
 import com.polsat.visualskript.gui.manager.block.BlockManager;
 import com.polsat.visualskript.gui.manager.view.DropViewExpr;
 import com.polsat.visualskript.gui.manager.view.ViewBlock;
@@ -58,6 +59,8 @@ public class ScriptParser {
             throw new RuntimeException(e);
         }
     }
+
+    //TODO: Structure, function
 
     private static String recurency(ViewBlock viewBlock, int depth){
         StringBuilder builder = new StringBuilder();
@@ -128,23 +131,92 @@ public class ScriptParser {
                         break;
                     default:
                         stringBuilder.append(space(stringBuilder)).append(viewBlock.getTextField().getText()).append(space(stringBuilder));
+                        break;
                 }
 
             }
             case TYPE_LIST -> {
-                viewBlock.getvBox().getChildren().forEach(block -> {
-                    System.out.println();
+                switch (((Label)((HBox) viewBlock.getvBox().getChildren().get(0)).getChildren().get(0)).getText()){
+                    case "[Combine Texts]":
+                        stringBuilder.append(space(stringBuilder)).append("\"");
+                        viewBlock.getvBox().getChildren().forEach(block -> {
 
-                    if (viewBlock.getvBox().getChildren().indexOf(block) > 1) {
-                        stringBuilder.append(",");
-                    }
+                            if (block instanceof DropViewExpr dropViewExpr) {
+                                stringBuilder.append("%").append(blockOnHbox(dropViewExpr.gethBox())).append("%");
+                            } else if (block instanceof ViewBlock viewBlock1) {
+                                viewBlockCompilerInText(viewBlock1, stringBuilder);
+                            }
+                        });
+                        stringBuilder.append("\"").append(space(stringBuilder));
+                        break;
+                    case "[Objects List]":
+                        viewBlock.getvBox().getChildren().forEach(block -> {
+                            if (viewBlock.getvBox().getChildren().indexOf(block) > 1) {
+                                stringBuilder.append(",");
+                            }
 
-                    if (block instanceof DropViewExpr dropViewExpr){
-                        stringBuilder.append(space(stringBuilder)).append("%").append(blockOnHbox(dropViewExpr.gethBox())).append("%").append(space(stringBuilder));
-                    } else if (block instanceof ViewBlock viewBlock1) {
-                        viewBlockCompiler(viewBlock1, stringBuilder);
-                    }
-                });
+                            if (block instanceof DropViewExpr dropViewExpr) {
+                                stringBuilder.append(space(stringBuilder)).append("%").append(blockOnHbox(dropViewExpr.gethBox())).append("%").append(space(stringBuilder));
+                            } else if (block instanceof ViewBlock viewBlock1) {
+                                viewBlockCompiler(viewBlock1, stringBuilder);
+                            }
+                        });
+                        break;
+                }
+
+
+            }
+        }
+    }
+
+    private static void viewBlockCompilerInText(ViewBlock viewBlock, StringBuilder stringBuilder){
+        switch (viewBlock.getBlock().getType()){
+            case CONDITION, EXPRESSION -> stringBuilder.append("%").append(blockOnHbox(viewBlock.gethBox())).append("%");
+            case TYPE, STRUCTURE -> {
+                switch (getNameWithoutType(viewBlock.getBlock().getName())){
+                    case "Text":
+                        stringBuilder.append(viewBlock.getTextField().getText());
+                        break;
+                    case "Variables":
+                        stringBuilder.append("%{").append(viewBlock.getTextField().getText()).append("}%");
+                        break;
+                    case "Options":
+                        stringBuilder.append("{@").append(viewBlock.getTextField().getText()).append("}");
+                        break;
+                    default:
+                        stringBuilder.append("%").append(viewBlock.getTextField().getText()).append("%");
+                        break;
+                }
+
+            }
+            case TYPE_LIST -> {
+                switch (((Label)((HBox) viewBlock.getvBox().getChildren().get(0)).getChildren().get(0)).getText()){
+                    case "[Combine Texts]":
+                        viewBlock.getvBox().getChildren().forEach(block -> {
+
+                            if (block instanceof DropViewExpr dropViewExpr) {
+                                stringBuilder.append("%").append(blockOnHbox(dropViewExpr.gethBox())).append("%");
+                            } else if (block instanceof ViewBlock viewBlock1) {
+                                viewBlockCompilerInText(viewBlock1, stringBuilder);
+                            }
+                        });
+                        break;
+                    case "[Objects List]":
+                        viewBlock.getvBox().getChildren().forEach(block -> {
+                            if (viewBlock.getvBox().getChildren().indexOf(block) > 1) {
+                                stringBuilder.append(",");
+                            }
+
+                            if (block instanceof DropViewExpr dropViewExpr) {
+                                stringBuilder.append(space(stringBuilder)).append("%").append(blockOnHbox(dropViewExpr.gethBox())).append("%").append(space(stringBuilder));
+                            } else if (block instanceof ViewBlock viewBlock1) {
+                                viewBlockCompilerInText(viewBlock1, stringBuilder);
+                            }
+                        });
+                        break;
+                }
+
+
             }
         }
     }
