@@ -34,7 +34,7 @@ public class ScriptParser {
 
     //Build visual skript to .sk
     public static void build(){
-        //NEW THREAD
+        //TODO: NEW THREAD
         try {
             TabPane tabPane = (TabPane) BlockManager.getBuildTab().getSelectionModel().getSelectedItem().getContent();
             VBox vBox = (VBox)((ScrollPane) tabPane.getSelectionModel().getSelectedItem().getContent()).getContent();
@@ -56,7 +56,8 @@ public class ScriptParser {
             });
 
         } catch (Exception e) {
-            ErrorHandler.alert(e.toString());
+            throw new RuntimeException(e);
+            //ErrorHandler.alert(e.toString());
         }
     }
 
@@ -77,9 +78,9 @@ public class ScriptParser {
                 case CONDITION, EFFECT:
                     builder.append(tabs).append(blockOnHbox((HBox) node));
                     break;
-//                case FUNCTION:
-//                    TODO
-//                    break;
+                case FUNCTION:
+                    builder.append(tabs).append(functionBlockOnHbox((HBox) node).substring(1).replaceFirst("]", "(")).append(")");
+                    break;
                 case COMMENT:
                     builder.append(tabs).append("#").append(viewBlock.getTextField().getText());
                     break;
@@ -107,6 +108,18 @@ public class ScriptParser {
                 viewBlockCompiler(viewBlock, stringBuilder);
             } else {
                 stringBuilder.append("[").append(node.getClass().getName()).append("]");
+            }
+        }));
+        return stringBuilder.toString();
+    }
+
+    private static String functionBlockOnHbox(HBox hBox){
+        StringBuilder stringBuilder = new StringBuilder();
+        hBox.getChildren().forEach((node -> {
+            if (node instanceof DropViewExpr dropViewExpr){
+                stringBuilder.append(space(stringBuilder)).append("%").append(blockOnHbox(dropViewExpr.gethBox())).append("%").append(space(stringBuilder));
+            } else if (node instanceof ViewBlock viewBlock){
+                viewBlockCompiler(viewBlock, stringBuilder);
             }
         }));
         return stringBuilder.toString();
