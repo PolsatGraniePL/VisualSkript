@@ -56,11 +56,11 @@ public class ScriptParser {
             });
 
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            ErrorHandler.alert(e.toString());
         }
     }
 
-    //TODO: Structure, function
+    //TODO: Structure, function, tablist foreach.
 
     private static String recurency(ViewBlock viewBlock, int depth){
         StringBuilder builder = new StringBuilder();
