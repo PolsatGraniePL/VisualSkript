@@ -57,11 +57,11 @@ public class ScriptParser {
 
         } catch (Exception e) {
             throw new RuntimeException(e);
-            //ErrorHandler.alert(e.toString());
+            //TODO: ErrorHandler.alert(e.toString());
         }
     }
 
-    //TODO: Structure, function, tablist foreach.
+    //TODO: Structure, tablist foreach.
 
     private static String recurency(ViewBlock viewBlock, int depth){
         StringBuilder builder = new StringBuilder();
@@ -79,7 +79,7 @@ public class ScriptParser {
                     builder.append(tabs).append(blockOnHbox((HBox) node));
                     break;
                 case FUNCTION:
-                    builder.append(tabs).append(functionBlockOnHbox((HBox) node).substring(1).replaceFirst("]", "(")).append(")");
+                    builder.append(tabs).append(functionBlockOnHbox((HBox) node));
                     break;
                 case COMMENT:
                     builder.append(tabs).append("#").append(viewBlock.getTextField().getText());
@@ -120,14 +120,19 @@ public class ScriptParser {
                 stringBuilder.append(space(stringBuilder)).append("%").append(blockOnHbox(dropViewExpr.gethBox())).append("%").append(space(stringBuilder));
             } else if (node instanceof ViewBlock viewBlock){
                 viewBlockCompiler(viewBlock, stringBuilder);
+            } else if (node instanceof Label label){
+                if (!label.getText().contains(":")){
+                    stringBuilder.append(label.getText());
+                }
             }
         }));
-        return stringBuilder.toString();
+        return stringBuilder.toString().replaceFirst("\\[", "").replaceFirst("]", "(") + ")";
     }
 
     private static void viewBlockCompiler(ViewBlock viewBlock, StringBuilder stringBuilder){
         switch (viewBlock.getBlock().getType()){
             case CONDITION, EXPRESSION -> stringBuilder.append(space(stringBuilder)).append(blockOnHbox(viewBlock.gethBox())).append(space(stringBuilder));
+            case FUNCTION -> stringBuilder.append(space(stringBuilder)).append(functionBlockOnHbox(viewBlock.gethBox())).append(space(stringBuilder));
             case TYPE, STRUCTURE -> {
                 switch (getNameWithoutType(viewBlock.getBlock().getName())){
                     case "Text":
@@ -185,6 +190,7 @@ public class ScriptParser {
     private static void viewBlockCompilerInText(ViewBlock viewBlock, StringBuilder stringBuilder){
         switch (viewBlock.getBlock().getType()){
             case CONDITION, EXPRESSION -> stringBuilder.append("%").append(blockOnHbox(viewBlock.gethBox())).append("%");
+            case FUNCTION -> stringBuilder.append(functionBlockOnHbox(viewBlock.gethBox()));
             case TYPE, STRUCTURE -> {
                 switch (getNameWithoutType(viewBlock.getBlock().getName())){
                     case "Text":
