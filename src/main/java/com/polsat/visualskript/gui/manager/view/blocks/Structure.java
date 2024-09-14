@@ -140,6 +140,11 @@ public class Structure extends ViewBlock implements Placeable {
                     }
                     break;
                 case FUNCTION:
+                    MenuItem edit = new MenuItem("Edit");
+                    contextMenu.getItems().add(edit);
+                    edit.setOnAction(event -> {
+                        setCombinations();
+                    });
                     createMenuItems("Add new argument", "Remove argument", StrType.FUNCTION);
                     break;
                 case OPTIONS:
@@ -152,7 +157,7 @@ public class Structure extends ViewBlock implements Placeable {
 
     }
 
-    private enum StrType{
+    public enum StrType{
         ALIASES,
         COMMAND,
         FUNCTION,
@@ -171,11 +176,13 @@ public class Structure extends ViewBlock implements Placeable {
                 case OPTIONS -> vBox.getChildren().add(new StrOptions());
                 case VARIABLES -> vBox.getChildren().add(new StrVariables());
             }
+            build();
         });
         varRemoveItem.setOnAction(event -> {
             if (vBox.getChildren().size()>2) {
                 vBox.getChildren().remove(vBox.getChildren().size() - 1);
             }
+            build();
         });
     }
 
@@ -254,4 +261,7 @@ public class Structure extends ViewBlock implements Placeable {
         }
     }
 
+    public StrType getType() {
+        return type;
+    }
 }
