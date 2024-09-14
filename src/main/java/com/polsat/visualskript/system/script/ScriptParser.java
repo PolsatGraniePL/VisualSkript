@@ -7,6 +7,7 @@ import com.polsat.visualskript.gui.manager.view.DropViewExpr;
 import com.polsat.visualskript.gui.manager.view.ViewBlock;
 import com.polsat.visualskript.gui.manager.view.blocks.Effect;
 import com.polsat.visualskript.gui.manager.view.blocks.Expression;
+import com.polsat.visualskript.gui.manager.view.blocks.Structure;
 import com.polsat.visualskript.util.ErrorHandler;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -14,6 +15,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.MeshView;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -73,7 +75,7 @@ public class ScriptParser {
                     builder.append(blockOnHbox((HBox) node)).append(":");
                     break;
                 case STRUCTURE:
-                    builder.append(blockOnHbox((HBox) node)).append(":");
+                    builder.append(structureBlockOnHbox(viewBlock));
                     break;
                 case CONDITION, EFFECT:
                     builder.append(tabs).append(blockOnHbox((HBox) node));
@@ -127,6 +129,41 @@ public class ScriptParser {
             }
         }));
         return stringBuilder.toString().replaceFirst("\\[", "").replaceFirst("]", "(") + ")";
+    }
+
+    //HERE
+    private static String structureBlockOnHbox(ViewBlock node){
+        StringBuilder stringBuilder = new StringBuilder();
+        node.getChildren().forEach((vbox)->{
+            if (vbox instanceof VBox vBox && node instanceof Structure structure){
+                vBox.getChildren().forEach((hBox)->{
+                    if (hBox instanceof HBox hBoxBlock){
+                        switch (structure.getType()){
+                            case ALIASES, OPTIONS, VARIABLES:
+                                if (hBoxBlock.getChildren().size() == 1){
+                                    stringBuilder.append(blockOnHbox(hBoxBlock)).append(":\n");
+                                } else {
+                                    stringBuilder.append("\t").append(blockOnHbox(hBoxBlock).replaceFirst(" {2}= ", " = ")).append("\n");
+                                }
+                                break;
+                            case COMMAND:
+                                stringBuilder.append(blockOnHbox(hBoxBlock));
+                                break;
+                            case FUNCTION:
+                                stringBuilder.append(functionStructureCompile(vBox));
+                                break;
+                        }
+                    }
+                });
+            }
+        });
+        return stringBuilder.toString();
+    }
+
+    private static String functionStructureCompile(VBox vBox){
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(blockOnHbox((HBox)vBox.getChildren().get(0)));
+        return stringBuilder.toString();
     }
 
     private static void viewBlockCompiler(ViewBlock viewBlock, StringBuilder stringBuilder){
