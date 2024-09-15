@@ -115,6 +115,22 @@ public class ScriptParser {
         return stringBuilder.toString();
     }
 
+    private static String blockOnHboxNoSpace(HBox hBox){
+        StringBuilder stringBuilder = new StringBuilder();
+        hBox.getChildren().forEach((node -> {
+            if (node instanceof Label label){
+                stringBuilder.append(getNameWithoutType(label.getText()));
+            } else if (node instanceof DropViewExpr dropViewExpr){
+                stringBuilder.append("%").append(blockOnHbox(dropViewExpr.gethBox())).append("%");
+            } else if (node instanceof ViewBlock viewBlock){
+                viewBlockCompilerNoSpace(viewBlock, stringBuilder);
+            } else {
+                stringBuilder.append("[").append(node.getClass().getName()).append("]");
+            }
+        }));
+        return stringBuilder.toString();
+    }
+
     private static String functionBlockOnHbox(HBox hBox){
         StringBuilder stringBuilder = new StringBuilder();
         hBox.getChildren().forEach((node -> {
@@ -131,16 +147,16 @@ public class ScriptParser {
         return stringBuilder.toString().replaceFirst("\\[", "").replaceFirst("]", "(") + ")";
     }
 
-    //HERE
-    private static String structureBlockOnHbox(ViewBlock node){
+    private static String structureBlockOnHbox(ViewBlock node) {
         StringBuilder stringBuilder = new StringBuilder();
-        node.getChildren().forEach((vbox)->{
-            if (vbox instanceof VBox vBox && node instanceof Structure structure){
-                vBox.getChildren().forEach((hBox)->{
-                    if (hBox instanceof HBox hBoxBlock){
-                        switch (structure.getType()){
+        node.getChildren().forEach((vbox) -> {
+            if (vbox instanceof VBox vBox && node instanceof Structure structure) {
+                final boolean[] functionCompiled = {false};
+                vBox.getChildren().forEach((hBox) -> {
+                    if (hBox instanceof HBox hBoxBlock) {
+                        switch (structure.getType()) {
                             case ALIASES, OPTIONS, VARIABLES:
-                                if (hBoxBlock.getChildren().size() == 1){
+                                if (hBoxBlock.getChildren().size() == 1) {
                                     stringBuilder.append(blockOnHbox(hBoxBlock)).append(":\n");
                                 } else {
                                     stringBuilder.append("\t").append(blockOnHbox(hBoxBlock).replaceFirst(" {2}= ", " = ")).append("\n");
@@ -150,7 +166,10 @@ public class ScriptParser {
                                 stringBuilder.append(blockOnHbox(hBoxBlock));
                                 break;
                             case FUNCTION:
-                                stringBuilder.append(functionStructureCompile(vBox));
+                                if (!functionCompiled[0]) {
+                                    stringBuilder.append(functionStructureCompile(vBox));
+                                    functionCompiled[0] = true;
+                                }
                                 break;
                         }
                     }
@@ -162,7 +181,23 @@ public class ScriptParser {
 
     private static String functionStructureCompile(VBox vBox){
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(blockOnHbox((HBox)vBox.getChildren().get(0)));
+        String functionName = blockOnHbox((HBox)vBox.getChildren().get(0));
+        String functionReturn = blockOnHboxNoSpace((HBox)vBox.getChildren().get(1)).replaceFirst("Returns:", "");
+        String functionArguments = functionStructureCompileArguments(vBox);
+        stringBuilder.append(functionName, 0, functionName.length() - 1).append("(").append(functionArguments).append(") ::").append(functionReturn).append(":");
+        return stringBuilder.toString();
+    }
+
+    private static String functionStructureCompileArguments(VBox vBox){
+        StringBuilder stringBuilder = new StringBuilder();
+        vBox.getChildren().forEach((hbox) -> {
+            if (hbox instanceof HBox hBox) {
+                if (!((vBox.getChildren().indexOf(hBox) == 0) || (vBox.getChildren().indexOf(hBox) == 1))){
+                    //TODO: Dodanie przecinka jako listy argumentów.
+                    stringBuilder.append(blockOnHboxNoSpace(hBox));
+                }
+            }
+        });
         return stringBuilder.toString();
     }
 
@@ -212,6 +247,63 @@ public class ScriptParser {
 
                             if (block instanceof DropViewExpr dropViewExpr) {
                                 stringBuilder.append(space(stringBuilder)).append("%").append(blockOnHbox(dropViewExpr.gethBox())).append("%").append(space(stringBuilder));
+                            } else if (block instanceof ViewBlock viewBlock1) {
+                                viewBlockCompiler(viewBlock1, stringBuilder);
+                            }
+                        });
+                        break;
+                }
+
+
+            }
+        }
+    }
+    private static void viewBlockCompilerNoSpace(ViewBlock viewBlock, StringBuilder stringBuilder){
+        switch (viewBlock.getBlock().getType()){
+            case CONDITION, EXPRESSION -> stringBuilder.append(blockOnHbox(viewBlock.gethBox()));
+            case FUNCTION -> stringBuilder.append(functionBlockOnHbox(viewBlock.gethBox()));
+            case TYPE, STRUCTURE -> {
+                switch (getNameWithoutType(viewBlock.getBlock().getName())){
+                    case "Text":
+                        stringBuilder.append("\"").append(viewBlock.getTextField().getText()).append("\"");
+                        break;
+                    case "Variables":
+                        stringBuilder.append("{").append(viewBlock.getTextField().getText()).append("}");
+                        break;
+                    case "Options":
+                        stringBuilder.append("{@").append(viewBlock.getTextField().getText()).append("}");
+                        break;
+                    case "World":
+                        stringBuilder.append("world \"").append(viewBlock.getTextField().getText()).append("\"");
+                        break;
+                    default:
+                        stringBuilder.append(viewBlock.getTextField().getText());
+                        break;
+                }
+
+            }
+            case TYPE_LIST -> {
+                switch (((Label)((HBox) viewBlock.getvBox().getChildren().get(0)).getChildren().get(0)).getText()){
+                    case "[Combine Texts]":
+                        stringBuilder.append("\"");
+                        viewBlock.getvBox().getChildren().forEach(block -> {
+
+                            if (block instanceof DropViewExpr dropViewExpr) {
+                                stringBuilder.append("%").append(blockOnHbox(dropViewExpr.gethBox())).append("%");
+                            } else if (block instanceof ViewBlock viewBlock1) {
+                                viewBlockCompilerInText(viewBlock1, stringBuilder);
+                            }
+                        });
+                        stringBuilder.append("\"");
+                        break;
+                    case "[Objects List]":
+                        viewBlock.getvBox().getChildren().forEach(block -> {
+                            if (viewBlock.getvBox().getChildren().indexOf(block) > 1) {
+                                stringBuilder.append(",");
+                            }
+
+                            if (block instanceof DropViewExpr dropViewExpr) {
+                                stringBuilder.append("%").append(blockOnHbox(dropViewExpr.gethBox())).append("%");
                             } else if (block instanceof ViewBlock viewBlock1) {
                                 viewBlockCompiler(viewBlock1, stringBuilder);
                             }
