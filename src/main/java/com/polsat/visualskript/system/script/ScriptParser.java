@@ -193,7 +193,9 @@ public class ScriptParser {
         vBox.getChildren().forEach((hbox) -> {
             if (hbox instanceof HBox hBox) {
                 if (!((vBox.getChildren().indexOf(hBox) == 0) || (vBox.getChildren().indexOf(hBox) == 1))){
-                    //TODO: Dodanie przecinka jako listy argumentów.
+                    if (!stringBuilder.isEmpty()) {
+                        stringBuilder.append(", ");
+                    }
                     stringBuilder.append(blockOnHboxNoSpace(hBox));
                 }
             }
