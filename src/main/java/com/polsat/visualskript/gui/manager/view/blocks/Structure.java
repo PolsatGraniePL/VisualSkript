@@ -136,6 +136,7 @@ public class Structure extends ViewBlock implements Placeable {
                             toUse.remove(entre);
                             inUse.add(entre);
                             vBox.getChildren().add(entre);
+                            build();
                         });
                     }
                     break;

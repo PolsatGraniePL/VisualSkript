@@ -51,6 +51,7 @@ public class ScriptParser {
 
             System.out.println("-=-=-=-=-");
 
+            additionalDepth = 0;
             vBox.getChildren().forEach((viewBlock)->{
                 if (viewBlock instanceof ViewBlock block) {
                     System.out.println(recurency(block, 1));
@@ -63,11 +64,13 @@ public class ScriptParser {
         }
     }
 
-    //TODO: Structure, tablist foreach.
+    //TODO: tablist foreach.
+
+    private static int additionalDepth = 0;
 
     private static String recurency(ViewBlock viewBlock, int depth){
         StringBuilder builder = new StringBuilder();
-        String tabs = "\t".repeat(depth);
+        String tabs = "\t".repeat(depth+additionalDepth);
         viewBlock.getChildren().forEach((node -> {
 
             switch (viewBlock.getBlock().getType()){
@@ -90,7 +93,7 @@ public class ScriptParser {
                     builder.append(tabs).append(blockOnHbox((HBox) viewBlock.getvBox().getChildren().get(0))).append(":");
                     viewBlock.getDropVBox().getChildren().forEach((hBox)->{
                         if (hBox instanceof ViewBlock block) {
-                            builder.append("\n").append(recurency(block, depth+1));
+                            builder.append("\n").append(recurency(block, depth+additionalDepth+1));
                         }
                     });
                     break;
@@ -163,17 +166,27 @@ public class ScriptParser {
                                 }
                                 break;
                             case COMMAND:
-                                stringBuilder.append(blockOnHbox(hBoxBlock));
+                                if (vBox.getChildren().indexOf(hBox) == 0) {
+                                    stringBuilder.append(blockOnHbox(hBoxBlock));
+                                } else if (vBox.getChildren().indexOf(hBox) == 1){
+                                    stringBuilder.append(blockOnHboxNoSpace(hBoxBlock).replaceFirst("Arguments: ", "").replaceFirst("%arguments list%", "")).append(":");
+                                } else {
+                                    stringBuilder.append("\n\t").append(blockOnHbox(hBoxBlock));
+                                }
                                 break;
                             case FUNCTION:
                                 if (!functionCompiled[0]) {
-                                    stringBuilder.append(functionStructureCompile(vBox));
+                                    stringBuilder.append(functionStructureCompile(vBox).replaceFirst(" :: %type%", ""));
                                     functionCompiled[0] = true;
                                 }
                                 break;
                         }
                     }
                 });
+                if (structure.getType() == Structure.StrType.COMMAND){
+                    stringBuilder.append("\n\ttrigger:");
+                    additionalDepth=1;
+                }
             }
         });
         return stringBuilder.toString();
