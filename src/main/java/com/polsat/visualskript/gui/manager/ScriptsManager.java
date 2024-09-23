@@ -2,7 +2,7 @@ package com.polsat.visualskript.gui.manager;
 
 import com.polsat.visualskript.Main;
 import com.polsat.visualskript.gui.manager.tabs.MainTabManager;
-import com.polsat.visualskript.system.script.ScriptJsonManager;
+import com.polsat.visualskript.system.script.ScriptManager;
 import com.polsat.visualskript.system.script.ScriptParser;
 import com.polsat.visualskript.util.ErrorHandler;
 
@@ -28,7 +28,7 @@ public class ScriptsManager {
     }
     public static void openScript(String name){
         MainTabManager.addTab(name);
-        ScriptJsonManager.setOpened(FileManager.getFileByName(name), true);
+        ScriptManager.setOpened(FileManager.getFileByName(name), true);
         //ScriptParser.build(FileManager.getFileByName(name));
         //TODO: DELETE ^^, ZMIANA SYSTEMU
     }
@@ -60,7 +60,7 @@ public class ScriptsManager {
     public static ArrayList<String> getScriptsListWithOpenedStatus(boolean status) {
         ArrayList<String> list = new ArrayList<>();
         for (String text : ScriptsManager.getScriptsList()){
-            if (Objects.equals(ScriptJsonManager.getOpened(FileManager.getFileByName(text)), status)) {
+            if (Objects.equals(ScriptManager.getOpened(FileManager.getFileByName(text)), status)) {
                 list.add(text);
             }
         }

@@ -2,7 +2,7 @@ package com.polsat.visualskript.gui.manager.tabs;
 
 import com.polsat.visualskript.gui.manager.FileManager;
 import com.polsat.visualskript.gui.manager.ScriptsManager;
-import com.polsat.visualskript.system.script.ScriptJsonManager;
+import com.polsat.visualskript.system.script.ScriptManager;
 import com.polsat.visualskript.util.ErrorHandler;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -20,7 +20,7 @@ public class MainTabManager {
         File[] filesList = folder.listFiles();
         try {
             for (File file : filesList) {
-                if (file.getName().endsWith(".sk") && ScriptJsonManager.getOpened(file)) {
+                if (file.getName().endsWith(".sk") && ScriptManager.getOpened(file)) {
                     MainTabManager.addTab(file.getName());
                 }
             }
@@ -37,7 +37,7 @@ public class MainTabManager {
         buildTabGlobal.getSelectionModel().selectLast();
         tab.setStyle("-fx-background-radius: 0px; -fx-background-insets: 0 1 0 0, 1 2 1 1, 2 3 1 2");
         tab.setContent(tabPane);
-        tab.setOnClosed(event -> ScriptJsonManager.setOpened(FileManager.getFileByName(name), false));
+        tab.setOnClosed(event -> ScriptManager.setOpened(FileManager.getFileByName(name), false));
     }
 
     public static void removeTab(int id){

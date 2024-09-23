@@ -25,7 +25,7 @@ public class TabsManager {
 
         tab.setContent(scrollPane);
         tab.setStyle("-fx-background-radius: 0px");
-        //tab.onclose(set opened to false)
+        tab.setClosable(false);
 
         scrollPane.setContent(vBox);
         scrollPane.setFitToHeight(false);

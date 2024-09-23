@@ -1,14 +1,10 @@
 package com.polsat.visualskript.system.script;
 
 import com.polsat.visualskript.util.ErrorHandler;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 
 import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
 
-public class ScriptJsonManager {
+public class ScriptManager {
 
     public static void setOpened(File file, boolean status){
         System.out.println("Opened na " + status + " dla " + file.getName());
