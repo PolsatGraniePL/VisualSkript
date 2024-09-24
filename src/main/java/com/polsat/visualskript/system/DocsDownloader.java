@@ -73,6 +73,8 @@ public class DocsDownloader {
             scannerURL.nextLine();
             String URLVersion = scannerURL.nextLine().replace(" ", "");
 
+            scannerURL.close();
+            scannerFile.close();
             // Comparing lines with version
             return !Objects.equals(fileVersion, URLVersion);
         }

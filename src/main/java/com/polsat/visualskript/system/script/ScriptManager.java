@@ -20,11 +20,11 @@ public class ScriptManager {
             }
             scanner.close();
 
-            if (!list.isEmpty() && list.get(0).startsWith("#status: ")) {
+            if (!list.isEmpty() && list.get(0).startsWith("#open: ")) {
                 list.remove(0);
             }
             FileWriter fileWriter = new FileWriter(file);
-            fileWriter.write("#status: "+status + "\n");
+            fileWriter.write("#open: "+status + "\n");
             for (String line : list) {
                 fileWriter.write(line + "\n");
             }
@@ -44,7 +44,7 @@ public class ScriptManager {
             }
             scanner.close();
 
-            return Boolean.parseBoolean(list.get(0).replace("#status: ",""));
+            return Boolean.parseBoolean(list.get(0).replace("#open: ",""));
         } catch (Exception e){
             return false;
         }
