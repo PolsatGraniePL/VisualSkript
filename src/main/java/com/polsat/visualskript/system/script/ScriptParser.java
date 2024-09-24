@@ -32,8 +32,8 @@ public class ScriptParser {
 
     //Load .sk to visual skript
     public static void load(File file){
-        //if option is not exist
-        //  add options
+        ScriptManager.setOpened(file, true);
+        //TODO: generate TabPane & viewblocks
     }
 
     //Build visual skript to .sk

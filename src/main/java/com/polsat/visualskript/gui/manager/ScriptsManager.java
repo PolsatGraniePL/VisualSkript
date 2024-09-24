@@ -29,7 +29,7 @@ public class ScriptsManager {
     public static void openScript(String name){
         MainTabManager.addTab(name);
         ScriptManager.setOpened(FileManager.getFileByName(name), true);
-        //ScriptParser.load(FileManager.getFileByName(name));
+        ScriptParser.load(FileManager.getFileByName(name));
         //TODO: DELETE ^^, ZMIANA SYSTEMU
     }
     public static void closeScript(String name){
