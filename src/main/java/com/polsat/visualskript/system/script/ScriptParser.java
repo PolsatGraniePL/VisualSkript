@@ -1,6 +1,7 @@
 package com.polsat.visualskript.system.script;
 
 import com.polsat.visualskript.Main;
+import com.polsat.visualskript.gui.Controller;
 import com.polsat.visualskript.gui.block.Block;
 import com.polsat.visualskript.gui.manager.block.BlockManager;
 import com.polsat.visualskript.gui.manager.view.DropViewExpr;
@@ -49,24 +50,28 @@ public class ScriptParser {
             FileWriter fileWriter = new FileWriter(file);
             PrintWriter printWriter = new PrintWriter(fileWriter);
 
-            System.out.println("#status: true");
-            System.out.println();
+            printWriter.println("#status: true");
+            printWriter.println();
             tabPane.getTabs().forEach((tab)->{
                 VBox vBox = (VBox)((ScrollPane) tab.getContent()).getContent();
                 additionalDepth = 0;
                 vBox.getChildren().forEach((viewBlock)->{
                     if (viewBlock instanceof ViewBlock block) {
-                        System.out.println(recurency(block, 1));
+                        printWriter.println(recurency(block, 1));
                     }
                 });
-                System.out.println();
+                printWriter.println();
             });
+            printWriter.close();
 
-
+            Scanner scanner = new Scanner(file);
+            Controller.sfileViewer.setText("");
+            while (scanner.hasNextLine()) {
+                Controller.sfileViewer.setText(Controller.sfileViewer.getText() + scanner.nextLine() + "\n");
+            }
 
         } catch (Exception e) {
-            throw new RuntimeException(e);
-            //TODO: ErrorHandler.alert(e.toString());
+            ErrorHandler.alert(e.toString());
         }
     }
 
