@@ -1,6 +1,7 @@
 package com.polsat.visualskript.gui.manager.view.blocks;
 
 import com.polsat.visualskript.gui.block.Block;
+import com.polsat.visualskript.gui.manager.block.BlockManager;
 import com.polsat.visualskript.gui.manager.block.BlockPlacer;
 import com.polsat.visualskript.gui.manager.view.DropViewExpr;
 import com.polsat.visualskript.gui.manager.view.ViewBlock;
@@ -15,6 +16,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -108,7 +110,8 @@ public class Structure extends ViewBlock implements Placeable {
         delete.setOnAction(event -> {
             if (this.getParent() instanceof VBox vbox) {
                 if (vbox.getChildren().indexOf(this) == 0){
-                    //TODO: DELETE CURRENT COMPONENT
+                    TabPane tabPane = (TabPane) BlockManager.getBuildTab().getSelectionModel().getSelectedItem().getContent();
+                    tabPane.getTabs().remove(tabPane.getSelectionModel().getSelectedItem());
                 } else {
                     ((VBox)this.getParent()).getChildren().set(((VBox)this.getParent()).getChildren().indexOf(this), new DropViewExpr(oldText));
                 }

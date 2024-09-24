@@ -138,7 +138,7 @@ public class BlockManager {
     }
 
     //Inserts a list of blocks into VBox
-    //TODO: Naprawić wyciek pamięci XD (Tworzenie setki obiektów co każdą zmianę tekstu)
+    //TODO: Naprawić wyciek pamięci XD (Tworzenie setki obiektów co każdą zmianę tekstu) Dobrze, że garbage collector daje sobie rade.
     public static void putBlocksInContainer(List<Block> listType){
         for (Block block : listType) {
             SelectiveBlock selectiveBlock = new SelectiveBlock(block);

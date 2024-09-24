@@ -11,10 +11,7 @@ public class Main extends Application {
 
     //
     //TODO:
-    // - Components: wyświetlanie wszystkich eventów/struktur
-    // - Zapisywanie do .sk
     // - Wczytywanie z .sk
-    // - Działający blok funkcji
     // - Placement nad/pod blokiem w zależności od YDrop
     //
 
