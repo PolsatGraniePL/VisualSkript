@@ -1,6 +1,7 @@
 package com.polsat.visualskript.gui.manager.block;
 
 import com.polsat.visualskript.gui.block.Block;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Label;
@@ -26,6 +27,7 @@ public class SelectiveBlock extends Pane {
         //Style objects
         this.getChildren().add(tmpLabel);
         this.setStyle("-fx-border-color:  #020202; -fx-border-radius: 5px ; -fx-background-color: #" + block.getType().getHexColor() + "; -fx-background-radius: 5px; -fx-border-width: 1px");
+
         tmpLabel.setStyle("-fx-font-color: #000000; -fx-font-weight: bold; -fx-font-size: 14px;");
         tmpLabel.setTooltip(new Tooltip(block.getDescription() + "\n\n" + block.getPattern()));
 
