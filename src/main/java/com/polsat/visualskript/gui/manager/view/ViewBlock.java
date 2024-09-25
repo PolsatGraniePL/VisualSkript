@@ -15,6 +15,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.effect.Glow;
+import javafx.scene.effect.InnerShadow;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
@@ -190,10 +191,26 @@ public abstract class ViewBlock extends Pane implements Menu {
     }
 
     public ViewBlock dropGlowing(){
+        this.setOnDragOver(event -> {
+            if ((this.getLayoutBounds().getMaxY()/2)>event.getY()){
+                //UP
+                InnerShadow effect = new InnerShadow();
+                effect.setInput(new Glow(0.2));
+                effect.setOffsetY(2);
+                setEffect(effect);
+                DropSystem.setOffset(0);
+            } else {
+                //DOWN
+                InnerShadow effect = new InnerShadow();
+                effect.setInput(new Glow(0.2));
+                effect.setOffsetY(-2);
+                setEffect(effect);
+                DropSystem.setOffset(1);
+            }
+        });
         this.setOnDragEntered(event -> {
             if (((SelectiveBlock) event.getGestureSource()).getBlock().getType().getPlaceOnVBox()) {
                 DropSystem.addNode(this);
-                setEffect(new Glow(0.3));
             }
         });
         this.setOnDragExited(event -> {
@@ -206,7 +223,7 @@ public abstract class ViewBlock extends Pane implements Menu {
     public ViewBlock glowing(){
         this.setOnDragEntered(event -> {
             if (((SelectiveBlock) event.getGestureSource()).getBlock().getType().getPlaceOnExpr())
-                setEffect(new Glow(0.3));
+                setEffect(new Glow(0.2));
         });
         this.setOnDragExited(event -> setEffect(null));
         return this;

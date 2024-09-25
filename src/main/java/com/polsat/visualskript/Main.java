@@ -12,7 +12,6 @@ public class Main extends Application {
     //
     //TODO:
     // - Wczytywanie z .sk
-    // - Placement nad/pod blokiem w zależności od YDrop
     //
 
     public static void main(String[] args) {

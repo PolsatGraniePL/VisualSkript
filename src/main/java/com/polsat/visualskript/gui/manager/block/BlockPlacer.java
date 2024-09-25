@@ -2,8 +2,10 @@ package com.polsat.visualskript.gui.manager.block;
 
 import com.polsat.visualskript.gui.manager.drop.DropSystem;
 import com.polsat.visualskript.gui.manager.view.ViewBlock;
+import com.polsat.visualskript.gui.manager.view.blocks.Event;
 import com.polsat.visualskript.system.script.ScriptParser;
 import javafx.scene.Node;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
@@ -28,9 +30,11 @@ public class BlockPlacer {
         VBox vBox1 = (VBox) node;
         if (!Objects.isNull(DropSystem.getLatestNode())){
             int index1 = vBox1.getChildren().indexOf(DropSystem.getLatestNode());
-            vBox1.getChildren().add(index1+1, block);
-            ScriptParser.build();
-            return;
+            if (!Objects.equals(index1, -1)){
+                vBox1.getChildren().add(index1+DropSystem.getOffset(), block);
+                ScriptParser.build();
+                return;
+            }
         }
         vBox1.getChildren().add(vBox1.getChildren().size()-1, block);
         ScriptParser.build();
