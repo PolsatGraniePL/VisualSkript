@@ -9,6 +9,7 @@ public class ScriptParser {
     //Load .sk to visual skript
     public static void load(File file){
         ScriptManager.setOpened(file, true);
+
         //TODO: generate TabPane & viewblocks
     }
 

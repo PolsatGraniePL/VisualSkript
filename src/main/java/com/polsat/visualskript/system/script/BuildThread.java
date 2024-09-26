@@ -7,6 +7,7 @@ import com.polsat.visualskript.gui.manager.view.DropViewExpr;
 import com.polsat.visualskript.gui.manager.view.ViewBlock;
 import com.polsat.visualskript.gui.manager.view.blocks.Structure;
 import com.polsat.visualskript.util.ErrorHandler;
+import javafx.application.Platform;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TabPane;
@@ -35,6 +36,7 @@ public class BuildThread extends Thread{
 
             printWriter.println("#open: true");
             printWriter.println();
+
             tabPane.getTabs().forEach((tab)->{
                 VBox vBox = (VBox)((ScrollPane) tab.getContent()).getContent();
                 additionalDepth = 0;
@@ -45,15 +47,19 @@ public class BuildThread extends Thread{
                 });
                 printWriter.println();
             });
+
             printWriter.close();
             fileWriter.close();
 
             Scanner scanner = new Scanner(file);
-            Controller.sfileViewer.setText("");
-            while (scanner.hasNextLine()) {
-                Controller.sfileViewer.setText(Controller.sfileViewer.getText() + scanner.nextLine() + "\n");
-            }
-            scanner.close();
+            Platform.runLater(() -> {
+                Controller.sfileViewer.setText("");
+                while (scanner.hasNextLine()) {
+                    Controller.sfileViewer.setText(Controller.sfileViewer.getText() + scanner.nextLine() + "\n");
+                }
+                scanner.close();
+            });
+
         } catch (Exception e){
             ErrorHandler.alert(e.toString());
         }
