@@ -29,22 +29,13 @@ public class PatternExtractor {
 
     public static ArrayList<String> getCombinations(String pattern) {
         ArrayList<String> combinations = new ArrayList<>();
-        for (Object obj : downloadCombinations(pattern)){
-            combinations.add((String) obj);
+        try {
+            PatternNode parsedPattern = PatternParser.parse(pattern);
+            combinations.addAll(PatternParser.cleanCombinations(PatternParser.getCombinations(parsedPattern)));
+        } catch (Exception e) {
+            e.printStackTrace();
+            ErrorHandler.alert(e.toString());
         }
         return combinations;
     }
-
-    public static JSONArray downloadCombinations(String pattern){
-        try {
-            String url = URLEncoder.encode(pattern, StandardCharsets.UTF_8);
-            String data = Jsoup.connect("http://site19960.web1.titanaxe.com/VisuakSkript/api/index.php?pattern="+url).ignoreContentType(true).execute().body();
-            JSONObject json = (JSONObject) new JSONParser().parse(data);
-            return (JSONArray) json.get("combinations");
-        } catch (Exception e){
-            ErrorHandler.alert(e.toString());
-        }
-        return null;
-    }
-
 }

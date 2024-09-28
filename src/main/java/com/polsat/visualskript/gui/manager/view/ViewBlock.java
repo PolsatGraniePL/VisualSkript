@@ -133,12 +133,13 @@ public abstract class ViewBlock extends Pane implements Menu {
                 .replace("<.+>", "%object%")
                 .replace("<.*>", "%object%")
                 .replace("<\\d+>", "%number%")
+                .replace("\\%", "\uEF02")
                 .split("%");
         hBox.getChildren().clear();
         List<Node> nodes = new ArrayList<>();
         for (int i = 0; i < list.length; i++){
             if (i % 2 == 0){
-                Label tempLabel = new Label(list[i].trim());
+                Label tempLabel = new Label(list[i].trim().replace("\uEF02", "%"));
                 tempLabel.setFont(new Font("System", 24));
                 tempLabel.setPadding(new Insets(5, 5, 5, 5));
                 nodes.add(tempLabel);
