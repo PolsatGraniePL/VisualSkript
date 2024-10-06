@@ -23,7 +23,7 @@ public class TypeList extends ViewBlock implements Placeable {
 
         this.setStyle(this.getStyle() + "-fx-background-radius: 25px; -fx-border-radius: 25px;");
 
-        vbox().hbox().label("["+block.getName().substring(8)+"]").oldText(oldText).margins().contextMenu();
+        vbox().hbox().label("["+block.getName().substring(8)+"]").oldText(oldText).toolTip(oldText).margins().contextMenu();
 
         hBox.getChildren().add(label);
         vBox.getChildren().addAll(hBox, newDropViewExpr(), newDropViewExpr());

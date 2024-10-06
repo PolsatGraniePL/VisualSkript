@@ -22,7 +22,7 @@ public class Type extends ViewBlock implements Placeable {
         super(block);
 
         this.setStyle(this.getStyle() + "-fx-background-radius: 25px; -fx-border-radius: 25px;");
-        hbox().label("["+block.getName().substring(8)+"]").textField().oldText(oldText).contextMenu().margins();
+        hbox().label("["+block.getName().substring(8)+"]").textField().oldText(oldText).toolTip(oldText).contextMenu().margins();
 
         hBox.getChildren().addAll(label, textField);
         this.getChildren().add(hBox);

@@ -39,6 +39,7 @@ public abstract class ViewBlock extends Pane implements Menu {
     protected VBox vBox;
     protected Pane emptyPane;
     protected VBox dropVBox;
+    protected Tooltip tooltip;
 
     /**For DropViewExpr*/
     protected ViewBlock(){
@@ -232,6 +233,12 @@ public abstract class ViewBlock extends Pane implements Menu {
 
     public ViewBlock oldText(String oldText) {
         this.oldText = oldText;
+        return this;
+    }
+
+    public ViewBlock toolTip(String text) {
+        tooltip = new Tooltip(text);
+        Tooltip.install(this, tooltip);
         return this;
     }
 
