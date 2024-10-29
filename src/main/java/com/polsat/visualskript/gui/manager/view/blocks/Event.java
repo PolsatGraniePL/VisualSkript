@@ -13,6 +13,8 @@ import javafx.scene.control.TabPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+import java.util.List;
+
 import static com.polsat.visualskript.system.script.ScriptParser.build;
 
 public class Event extends ViewBlock implements Placeable {
@@ -25,6 +27,16 @@ public class Event extends ViewBlock implements Placeable {
 
         hBox.getChildren().add(label);
         this.getChildren().add(hBox);
+    }
+
+    public Event(List<Node> controlList, Block block) {
+        super(controlList, block);
+
+        this.setStyle(this.getStyle()+"-fx-background-radius: 10px 10px 0 0; -fx-border-radius: 10px 10px 0 0; -fx-border-color: black;");
+        hbox().contextMenu().dropGlowing();
+
+        this.getChildren().add(hBox);
+        setuper();
     }
 
     @Override

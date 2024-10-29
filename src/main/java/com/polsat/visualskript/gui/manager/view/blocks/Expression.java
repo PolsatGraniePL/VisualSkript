@@ -9,6 +9,8 @@ import javafx.scene.Node;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+import java.util.List;
+
 public class Expression extends ViewBlock implements Placeable {
 
     public Expression(Block block, String oldText){
@@ -19,6 +21,16 @@ public class Expression extends ViewBlock implements Placeable {
 
         hBox.getChildren().add(label);
         this.getChildren().add(hBox);
+    }
+
+    public Expression(List<Node> controlList, Block block, String oldText) {
+        super(controlList, block);
+
+        this.setStyle(this.getStyle()+"-fx-background-radius: 25px; -fx-border-radius: 25px;");
+        hbox().label().contextMenu().oldText(oldText).margins();
+
+        this.getChildren().add(hBox);
+        setuper();
     }
 
     @Override

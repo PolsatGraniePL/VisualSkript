@@ -9,6 +9,8 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 
+import java.util.List;
+
 import static com.polsat.visualskript.system.script.ScriptParser.build;
 
 public class Comment extends ViewBlock implements Placeable {
@@ -25,6 +27,21 @@ public class Comment extends ViewBlock implements Placeable {
 
         hBox.getChildren().addAll(label, textField);
         this.getChildren().add(hBox);
+    }
+
+    public Comment(String text, Block block) {
+        super(block);
+
+        hbox().label("["+block.getName().substring(10)+"]").dropGlowing().textField(text).contextMenu();
+        textField.setOnAction((event -> {
+            DropSystem.addNode(this);
+            new Comment(block).place(this.getParent());
+            DropSystem.removeNode(this);
+        }));
+
+        hBox.getChildren().addAll(label, textField);
+        this.getChildren().add(hBox);
+        setuper();
     }
 
     @Override

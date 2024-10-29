@@ -7,6 +7,7 @@ import com.polsat.visualskript.gui.manager.drop.DropSystem;
 import com.polsat.visualskript.gui.manager.view.blocks.Structure;
 import com.polsat.visualskript.gui.manager.view.popovers.SelectBoxPopOver;
 import com.polsat.visualskript.system.pattern.PatternExtractor;
+import com.polsat.visualskript.util.ErrorHandler;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -52,6 +53,33 @@ public abstract class ViewBlock extends Pane implements Menu {
         this.setStyle("-fx-background-color: #"+ block.getType().getHexColor()+"; -fx-border-color: #000000; ");
     }
 
+//<editor-fold desc="Blocks loader">
+
+    List<Node> controlList;
+
+    /**For load blocks*/
+    protected ViewBlock(List<Node> controlList, Block block){
+        this.setStyle("-fx-background-color: #"+ block.getType().getHexColor()+"; -fx-border-color: #000000; ");
+        this.controlList = controlList;
+        this.block = block;
+    }
+
+    protected void setuper(){
+        if (!Objects.isNull(controlList)) {
+            for (Node control : controlList) {
+                if (control instanceof Label) {
+                    System.out.println(this.getClass());
+                    hBox.getChildren().add(control);
+                } else if (control instanceof ViewBlock) {
+                    hBox.getChildren().add(control);
+                } else {
+                    ErrorHandler.alert("Unknown control type: " + control.getClass().getSimpleName());
+                }
+            }
+        }
+    }
+
+//</editor-fold>
 
     @Override
     public void buildMenu() {
@@ -249,7 +277,13 @@ public abstract class ViewBlock extends Pane implements Menu {
     }
 
     public ViewBlock textField() {
-        textField = new TextField();
+        textField("");
+        new Timeline(new KeyFrame(Duration.seconds(0.01), event -> textField.requestFocus())).playFromStart();
+        return this;
+    }
+
+    public ViewBlock textField(String string) {
+        textField = new TextField(string);
         textField.setStyle("-fx-background-radius: 25px; -fx-background-color: #c6c6c6; -fx-border-radius: 25px; -fx-focus-color: transparent; -fx-border-color: #000000");
         textField.setFont(new Font("System", 20));
         textField.setTranslateX(-5);
@@ -263,7 +297,6 @@ public abstract class ViewBlock extends Pane implements Menu {
             build();
         }));
         HBox.setMargin(textField, new Insets(5, 5, 5, 5));
-        new Timeline(new KeyFrame(Duration.seconds(0.01), event -> textField.requestFocus())).playFromStart();
         return this;
     }
 

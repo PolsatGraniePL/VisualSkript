@@ -14,6 +14,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
+import java.util.List;
+
 import static com.polsat.visualskript.system.script.ScriptParser.build;
 
 public class TypeList extends ViewBlock implements Placeable {
@@ -28,6 +30,19 @@ public class TypeList extends ViewBlock implements Placeable {
         hBox.getChildren().add(label);
         vBox.getChildren().addAll(hBox, newDropViewExpr(), newDropViewExpr());
         this.getChildren().add(vBox);
+    }
+
+    public TypeList(List<Node> controlList, Block block, String oldText) {
+        super(controlList, block);
+
+        this.setStyle(this.getStyle() + "-fx-background-radius: 25px; -fx-border-radius: 25px;");
+
+        vbox().hbox().label("["+block.getName().substring(8)+"]").oldText(oldText).toolTip(oldText).margins().contextMenu();
+
+        hBox.getChildren().add(label);
+        vBox.getChildren().addAll(hBox, newDropViewExpr(), newDropViewExpr());
+        this.getChildren().add(vBox);
+        setuper();
     }
 
     private DropViewExpr newDropViewExpr() {

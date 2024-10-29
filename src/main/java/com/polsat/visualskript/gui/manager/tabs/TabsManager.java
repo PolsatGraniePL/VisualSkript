@@ -2,7 +2,6 @@ package com.polsat.visualskript.gui.manager.tabs;
 
 import com.polsat.visualskript.gui.block.Block;
 import com.polsat.visualskript.gui.manager.block.SelectiveBlock;
-import com.polsat.visualskript.gui.manager.view.blocks.*;
 import javafx.geometry.Insets;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;

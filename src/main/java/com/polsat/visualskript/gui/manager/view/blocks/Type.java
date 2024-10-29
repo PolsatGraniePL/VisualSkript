@@ -14,6 +14,8 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
+import java.util.List;
+
 import static com.polsat.visualskript.system.script.ScriptParser.build;
 
 public class Type extends ViewBlock implements Placeable {
@@ -26,6 +28,17 @@ public class Type extends ViewBlock implements Placeable {
 
         hBox.getChildren().addAll(label, textField);
         this.getChildren().add(hBox);
+    }
+
+    public Type(String text, Block block, String oldText) {
+        super(block);
+
+        this.setStyle(this.getStyle() + "-fx-background-radius: 25px; -fx-border-radius: 25px;");
+        hbox().label("["+block.getName().substring(8)+"]").textField(text).oldText(oldText).toolTip(oldText).contextMenu().margins();
+
+        hBox.getChildren().addAll(label, textField);
+        this.getChildren().add(hBox);
+        setuper();
     }
 
     @Override

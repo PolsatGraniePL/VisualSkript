@@ -10,6 +10,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 
+import java.util.List;
 import java.util.Objects;
 
 public class Function extends ViewBlock implements Placeable {
@@ -23,6 +24,18 @@ public class Function extends ViewBlock implements Placeable {
             margins();
         } else { dropGlowing(); }
         setupArguments();
+    }
+
+    public Function(List<Node> controlList, Block block) {
+        super(controlList, block);
+        hbox().contextMenu().oldText(oldText);
+        this.getChildren().add(hBox);
+        if (!getInVBox()) {
+            this.setStyle(this.getStyle() + "-fx-background-radius: 25px; -fx-border-radius: 25px;");
+            margins();
+        } else { dropGlowing(); }
+        setupArguments();
+        setuper();
     }
 
     public boolean getInVBox() {

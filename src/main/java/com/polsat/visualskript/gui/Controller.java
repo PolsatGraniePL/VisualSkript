@@ -43,7 +43,7 @@ public class Controller {
     @FXML private CheckBox checkBoxFunctions;
 
     private final List<CheckBox> checkBoxes = new ArrayList<>();
-    private final List<Block> blocksList = new ArrayList<>();
+    private static final List<Block> blocksList = new ArrayList<>();
 
     public void initialize() {
         System.out.println("initialize");
@@ -82,6 +82,10 @@ public class Controller {
         blockContainer.getChildren().clear();
         List<Block> visibleBlocksList = BlockManager.sortBlocksList(blocksList, textField.getText().toLowerCase(), checkBoxes);
         BlockManager.putBlocksInContainer(visibleBlocksList);
+    }
+
+    public static List<Block> getBlocksList() {
+        return blocksList;
     }
 
     public void setFileViewer(TextArea fileViewer) {

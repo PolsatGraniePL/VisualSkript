@@ -6,6 +6,7 @@ import com.polsat.visualskript.gui.manager.view.ViewBlock;
 import com.polsat.visualskript.gui.manager.view.Placeable;
 import javafx.scene.Node;
 
+import java.util.List;
 import java.util.Objects;
 
 public class Conditions extends ViewBlock implements Placeable {
@@ -20,6 +21,17 @@ public class Conditions extends ViewBlock implements Placeable {
             this.setStyle(this.getStyle() + "-fx-background-radius: 25px; -fx-border-radius: 25px;");
             margins();
         } else { dropGlowing(); }
+    }
+
+    public Conditions(List<Node> controlList, Block block, String oldText) {
+        super(controlList, block);
+        hbox().label().contextMenu().oldText(oldText);
+        this.getChildren().add(hBox);
+        if (!getInVBox()) {
+            this.setStyle(this.getStyle() + "-fx-background-radius: 25px; -fx-border-radius: 25px;");
+            margins();
+        } else { dropGlowing(); }
+        setuper();
     }
 
     public boolean getInVBox() {

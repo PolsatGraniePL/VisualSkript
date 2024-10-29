@@ -54,4 +54,8 @@ public class MainTabManager {
         }
         buildTabGlobal.getSelectionModel().selectLast();
     }
+
+    public static TabPane getBuildTabGlobal() {
+        return buildTabGlobal;
+    }
 }

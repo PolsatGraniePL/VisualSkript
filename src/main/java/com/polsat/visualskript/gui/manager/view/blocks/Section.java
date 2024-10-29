@@ -8,6 +8,8 @@ import javafx.scene.Node;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.VBox;
 
+import java.util.List;
+
 import static com.polsat.visualskript.system.script.ScriptParser.build;
 
 public class Section extends ViewBlock implements Placeable {
@@ -21,6 +23,18 @@ public class Section extends ViewBlock implements Placeable {
         vBox.getChildren().addAll(hBox, dropVBox);
         hBox.getChildren().add(label);
         this.getChildren().add(vBox);
+    }
+
+    public Section(List<Node> controlList, Block block) {
+        super(controlList, block);
+
+        vbox().label().hbox().emptyPane().contextMenu().dropGlowing().dropVBox();
+
+        dropVBox.getChildren().add(emptyPane);
+        vBox.getChildren().addAll(hBox, dropVBox);
+        hBox.getChildren().add(label);
+        this.getChildren().add(vBox);
+        setuper();
     }
 
     @Override
